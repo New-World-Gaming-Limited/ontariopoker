@@ -374,3 +374,64 @@ document.querySelectorAll('.compare-table-wrap').forEach(function(wrap) {
     }
   }, { passive: true });
 });
+
+// --- BACK TO TOP BUTTON ---
+(function() {
+  var btn = document.createElement('button');
+  btn.className = 'back-to-top';
+  btn.setAttribute('aria-label', 'Back to top');
+  btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>';
+  document.body.appendChild(btn);
+  var visible = false;
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 600 && !visible) {
+      btn.classList.add('visible');
+      visible = true;
+    } else if (window.scrollY <= 600 && visible) {
+      btn.classList.remove('visible');
+      visible = false;
+    }
+  }, { passive: true });
+  btn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+// --- READING PROGRESS BAR ---
+(function() {
+  // Only show on long-form content pages (reviews, guides)
+  if (!document.querySelector('.prose') && !document.querySelector('.review-content')) return;
+  var bar = document.createElement('div');
+  bar.className = 'reading-progress';
+  document.body.appendChild(bar);
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = progress + '%';
+  }, { passive: true });
+})();
+
+// --- SMOOTH SCROLL FOR ANCHOR LINKS ---
+document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+  link.addEventListener('click', function(e) {
+    var target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// --- CARD HOVER LIFT EFFECT ---
+document.querySelectorAll('.card[href], a.card').forEach(function(card) {
+  card.style.transition = 'transform 0.2s ease, box-shadow 0.2s ease';
+  card.addEventListener('mouseenter', function() {
+    this.style.transform = 'translateY(-2px)';
+    this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
+  });
+  card.addEventListener('mouseleave', function() {
+    this.style.transform = '';
+    this.style.boxShadow = '';
+  });
+});

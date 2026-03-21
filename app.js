@@ -435,3 +435,83 @@ document.querySelectorAll('.card[href], a.card').forEach(function(card) {
     this.style.boxShadow = '';
   });
 });
+
+// --- REVIEW QUIZ FUNCTIONALITY ---
+var quizScores = {};
+
+function selectQuizOption(btn) {
+  var quizId = btn.getAttribute('data-quiz');
+  var qIndex = parseInt(btn.getAttribute('data-q'));
+  var score = parseInt(btn.getAttribute('data-score'));
+
+  if (!quizScores[quizId]) quizScores[quizId] = {};
+  quizScores[quizId][qIndex] = score;
+
+  // Highlight selected
+  var siblings = btn.parentElement.querySelectorAll('.review-quiz-option');
+  siblings.forEach(function(s) { s.classList.remove('selected'); });
+  btn.classList.add('selected');
+
+  // Count total questions
+  var widget = document.getElementById(quizId);
+  var allSteps = widget.querySelectorAll('.review-quiz-question');
+  var totalQ = allSteps.length;
+
+  // After short delay, go to next question or show result
+  setTimeout(function() {
+    if (qIndex < totalQ - 1) {
+      // Show next question
+      allSteps[qIndex].style.display = 'none';
+      allSteps[qIndex + 1].style.display = 'block';
+    } else {
+      // Calculate and show result
+      showQuizResult(quizId, totalQ);
+    }
+  }, 300);
+}
+
+function showQuizResult(quizId, totalQ) {
+  var widget = document.getElementById(quizId);
+  var scores = quizScores[quizId] || {};
+  var total = 0;
+  var maxPossible = totalQ * 3;
+  for (var k in scores) total += scores[k];
+  var pct = Math.round((total / maxPossible) * 100);
+
+  // Get results text
+  var resultsData = {};
+  try { resultsData = JSON.parse(widget.getAttribute('data-results')); } catch(e) {}
+
+  var verdict = '';
+  if (pct >= 70) verdict = resultsData.high || 'Strong match!';
+  else if (pct >= 40) verdict = resultsData.medium || 'Decent match.';
+  else verdict = resultsData.low || 'Consider other options.';
+
+  // Hide questions, show result
+  widget.querySelectorAll('.review-quiz-question').forEach(function(q) { q.style.display = 'none'; });
+  var resultDiv = widget.querySelector('.review-quiz-result');
+  resultDiv.style.display = 'block';
+
+  var circle = widget.querySelector('.review-quiz-score-circle');
+  if (circle) circle.textContent = pct + '%';
+  
+  // Color the circle based on score
+  if (pct >= 70) circle.style.borderColor = 'var(--color-success)';
+  else if (pct >= 40) circle.style.borderColor = '#f59e0b';
+  else circle.style.borderColor = 'var(--color-danger)';
+
+  var verdictEl = widget.querySelector('.review-quiz-verdict');
+  if (verdictEl) verdictEl.textContent = verdict;
+}
+
+function resetQuiz(quizId) {
+  quizScores[quizId] = {};
+  var widget = document.getElementById(quizId);
+  widget.querySelectorAll('.review-quiz-question').forEach(function(q, i) {
+    q.style.display = i === 0 ? 'block' : 'none';
+  });
+  widget.querySelectorAll('.review-quiz-option').forEach(function(o) {
+    o.classList.remove('selected');
+  });
+  widget.querySelector('.review-quiz-result').style.display = 'none';
+}

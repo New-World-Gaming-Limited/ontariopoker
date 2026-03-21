@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,600,700&display=swap" as="style">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,600,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<title>Poker Bankroll Calculator for Ontario Players | OntarioPoker</title>
+<meta name="description" content="Free bankroll management calculator for Ontario online poker. Find the right stakes for your bankroll with buy-in recommendations for cash, MTT, SNG, and Spin formats.">
+<link rel="canonical" href="https://ontariopoker.com/poker-bankroll-calculator">
+<style>/* Critical CSS - inlined for fast FCP/LCP */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:none;text-size-adjust:none;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth;scroll-padding-top:80px}
+body{min-height:100dvh;line-height:1.7;font-family:var(--font-body,sans-serif);font-size:var(--text-base);color:var(--color-text);background-color:var(--color-bg)}
+img,picture,svg{display:block;max-width:100%;height:auto}
+button{cursor:pointer;background:none;border:none}
+h1,h2,h3,h4,h5,h6{text-wrap:balance;line-height:1.25}
+a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),background 200ms cubic-bezier(.16,1,.3,1),border-color 200ms cubic-bezier(.16,1,.3,1)}
+:root{--text-xs:clamp(0.75rem,0.7rem + 0.25vw,0.875rem);--text-sm:clamp(0.875rem,0.8rem + 0.35vw,1rem);--text-base:clamp(1rem,0.95rem + 0.25vw,1.125rem);--text-lg:clamp(1.125rem,1rem + 0.75vw,1.5rem);--text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);--text-2xl:clamp(2rem,1.2rem + 2.5vw,3.25rem);--space-1:0.25rem;--space-2:0.5rem;--space-3:0.75rem;--space-4:1rem;--space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;--space-12:3rem;--space-16:4rem;--space-20:5rem;--space-24:6rem;--radius-sm:0.375rem;--radius-md:0.5rem;--radius-lg:0.75rem;--radius-xl:1rem;--radius-full:9999px;--transition-interactive:200ms cubic-bezier(0.16,1,0.3,1);--content-narrow:680px;--content-default:960px;--content-wide:1200px;--font-display:'General Sans','Inter',sans-serif;--font-body:'Inter','Helvetica Neue',sans-serif}
+:root,[data-theme="light"]{--color-bg:#F9FAFC;--color-surface:#FFFFFF;--color-surface-alt:#F0F2F5;--color-border:#E2E5EB;--color-border-light:#ECEEF2;--color-text:#111827;--color-text-muted:#4B5563;--color-text-faint:#9CA3AF;--color-primary:#1A6B3C;--color-primary-hover:#145A32;--color-primary-surface:rgba(26,107,60,0.06);--color-success:#16a34a;--color-danger:#dc2626;--section-alt-bg:#F0F2F5}
+[data-theme="dark"]{--color-bg:#0d1117;--color-surface:#161b22;--color-surface-alt:#1c2333;--color-border:#30363d;--color-border-light:#21262d;--color-text:#e6edf3;--color-text-muted:#8b949e;--color-text-faint:#484f58;--color-primary:#4ADE80;--color-primary-hover:#22C55E;--color-primary-surface:rgba(74,222,128,0.08);--color-success:#3fb950;--color-danger:#f85149;--section-alt-bg:#161b22}
+.disclosure-bar{background:var(--color-surface-alt);text-align:center;font-size:var(--text-xs);color:var(--color-text-muted);padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--color-border-light)}
+.disclosure-bar a{color:var(--color-primary);text-decoration:underline}
+.site-header{position:sticky;top:0;z-index:100;background:var(--color-surface);border-bottom:1px solid var(--color-border-light);padding:0 var(--space-4)}
+.site-header .container{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);max-width:var(--content-wide);margin:0 auto;height:64px}
+.site-logo{display:flex;align-items:center;text-decoration:none}
+.nav-desktop{display:flex;align-items:center;gap:var(--space-1)}
+.nav-actions{display:flex;align-items:center;gap:var(--space-2)}
+.header-cta{background:var(--color-primary);color:#fff;padding:var(--space-2) var(--space-4);border-radius:var(--radius-full);font-weight:700;font-size:var(--text-sm);text-decoration:none;white-space:nowrap}
+.container{max-width:var(--content-wide);margin:0 auto;padding:0 var(--space-4)}
+.page-hero{background:var(--color-surface-alt);padding:var(--space-8) 0 var(--space-10);border-bottom:1px solid var(--color-border-light)}
+.page-hero h1{font-family:var(--font-display);font-size:var(--text-2xl);font-weight:800;letter-spacing:-0.02em}
+.breadcrumb{font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-3)}
+.breadcrumb a{color:var(--color-primary);text-decoration:none}
+.section{padding:var(--space-12) 0}
+.section--alt{background:var(--section-alt-bg)}
+@media(max-width:899px){.nav-desktop{display:none}.mobile-menu-btn{display:flex}}
+@media(min-width:900px){.mobile-menu-btn{display:none}}/* ── Hero Card Grid & Cards ──────────────────────────────────────── */
+
+.hero-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.hero-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--card-accent, var(--color-primary));
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 200ms ease, transform 200ms ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.hero-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.hero-card-rank {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-2);
+  border: 2px solid var(--card-accent, var(--color-primary));
+  color: var(--color-text);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.hero-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  padding-right: var(--space-10);
+}
+
+.hero-card-header h3 {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.hero-card-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  white-space: nowrap;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.hero-card-bonus {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+}
+
+.hero-card-code {
+  margin-bottom: var(--space-3);
+}
+
+.hero-card-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-4) 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  flex-grow: 1;
+}
+
+.hero-card-features li {
+  padding: var(--space-1) 0;
+  padding-left: var(--space-4);
+  position: relative;
+}
+
+.hero-card-features li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  color: var(--color-success, var(--card-accent, #1A6B3C));
+  font-weight: 700;
+  font-size: var(--text-xs);
+}
+
+.hero-card .btn {
+  margin-bottom: var(--space-2);
+}
+
+.hero-card-review-link {
+  display: block;
+  text-align: center;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.hero-card-review-link:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+/* Responsive: stack to single column on narrow screens */
+@media (max-width: 640px) {
+  .hero-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+<link href="./style.min.css" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="./style.min.css" rel="stylesheet"></noscript>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ontariopoker.com/"}, {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://ontariopoker.com/room-finder"}, {"@type": "ListItem", "position": 3, "name": "Bankroll Calculator"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How many buy-ins do I need for online poker?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on the format and your risk tolerance. For No Limit Hold'em cash games, 30 buy-ins at your stake is a common moderate guideline. Tournament players need more, typically 100 buy-ins, because variance is higher. Conservative players may want 50 buy-ins for cash and 200 for tournaments."}}, {"@type": "Question", "name": "What stakes should I play with a $500 bankroll?", "acceptedAnswer": {"@type": "Answer", "text": "With $500, a conservative cash game player (50 buy-ins) should play NL10 ($10 max buy-in). A moderate player (30 buy-ins) could play NL16 or NL25. For tournaments, $500 supports buy-ins in the $5 to $10 range at moderate risk tolerance."}}, {"@type": "Question", "name": "When should I move up in stakes?", "acceptedAnswer": {"@type": "Answer", "text": "A common approach is to move up when your bankroll reaches the recommended number of buy-ins for the next stake level. If you are playing NL10 with a 30 buy-in rule and your bankroll grows to $750, you have 30 buy-ins for NL25 and can consider moving up."}}, {"@type": "Question", "name": "When should I move down in stakes?", "acceptedAnswer": {"@type": "Answer", "text": "Move down when your bankroll drops below the recommended number of buy-ins for your current stake. Using the 30 buy-in rule at NL25, if your bankroll drops below $500, step back to NL10 until you rebuild. Discipline here prevents going broke."}}]}</script>
+<meta property="og:title" content="Poker Bankroll Calculator for Ontario Players | OntarioPoker">
+<meta property="og:description" content="Free bankroll management calculator for Ontario online poker. Find the right stakes for your bankroll with buy-in recommendations for cash, MTT, SNG, and Spin formats.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ontariopoker.com/poker-bankroll-calculator">
+<meta property="og:site_name" content="OntarioPoker">
+<meta property="og:image" content="https://ontariopoker.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="icon" type="image/png" href="./favicon.png" sizes="32x32">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+
+</head>
+<body>
+<div class="disclosure-bar">
+  This site contains affiliate links and promotional content. 19+ only. Play responsibly. <a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+</div>
+<header class="site-header">
+  <div class="container">
+    <a href="./index.html" class="site-logo">
+      <img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:32px;width:auto;">
+    </a>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Poker Rooms <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ggpoker/index.html">GGPoker</a>
+          <a href="./888poker/index.html">888poker</a>
+          <a href="./betmgm-poker/index.html">BetMGM Poker</a>
+          <a href="./pokerstars/index.html">PokerStars Ontario</a>
+          <a href="./partypoker/index.html">PartyPoker Ontario</a>
+          <a href="./bwin/index.html">Bwin Ontario</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Reviews <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ggpoker/review.html">GGPoker Review</a>
+          <a href="./888poker/review.html">888poker Review</a>
+          <a href="./betmgm-poker/review.html">BetMGM Poker Review</a>
+          <a href="./pokerstars/review.html">PokerStars Ontario Review</a>
+          <a href="./partypoker/review.html">PartyPoker Ontario Review</a>
+          <a href="./bwin/review.html">Bwin Ontario Review</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./compare.html">Compare All</a>
+          <a href="./head-to-head.html">Head-to-Head</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Tools <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./room-finder.html">Room Finder Quiz</a>
+          <a href="./head-to-head.html">Head-to-Head Compare</a>
+          <a href="./rake-calculator.html">Rake Calculator</a>
+          <a href="./poker-odds-calculator.html">Odds Calculator</a>
+          <a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./compare.html">Full Comparison</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Promotions <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ggpoker/promo-code.html">GGPoker Promo</a>
+          <a href="./888poker/promo-code.html">888poker Promo</a>
+          <a href="./betmgm-poker/promo-code.html">BetMGM Poker Promo</a>
+          <a href="./pokerstars/promo-code.html">PokerStars Ontario Promo</a>
+          <a href="./partypoker/promo-code.html">PartyPoker Ontario Promo</a>
+          <a href="./bwin/promo-code.html">Bwin Ontario Promo</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./ontario-poker-promo-codes.html">All Promo Codes</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Learn <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./strategy.html">Strategy Guides</a>
+          <a href="./poker-glossary.html">Poker Glossary</a>
+          <a href="./how-to-play-poker-ontario.html">Beginner Guide</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./news.html">News</a>
+          <a href="./ontario-poker-shared-liquidity.html">Shared Liquidity Tracker</a>
+        </div>
+      </div>
+      <a href="./is-online-poker-legal-in-ontario.html" class="nav-link">Legal Guide</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="search-btn" aria-label="Search site"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+      <a href="./best-poker-sites-ontario.html" class="header-cta">Best Poker Sites</a>
+      <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-nav" aria-label="Mobile navigation">
+  <div class="mobile-nav-section">
+    <span class="mobile-nav-heading">Poker Rooms</span>
+    <a href="./ggpoker/index.html">GGPoker</a>
+    <a href="./888poker/index.html">888poker</a>
+    <a href="./betmgm-poker/index.html">BetMGM Poker</a>
+    <a href="./pokerstars/index.html">PokerStars Ontario</a>
+    <a href="./partypoker/index.html">PartyPoker Ontario</a>
+    <a href="./bwin/index.html">Bwin Ontario</a>
+  </div>
+  <div class="mobile-nav-section">
+    <span class="mobile-nav-heading">Reviews</span>
+    <a href="./ggpoker/review.html">GGPoker Review</a>
+    <a href="./888poker/review.html">888poker Review</a>
+    <a href="./betmgm-poker/review.html">BetMGM Poker Review</a>
+    <a href="./pokerstars/review.html">PokerStars Ontario Review</a>
+    <a href="./partypoker/review.html">PartyPoker Ontario Review</a>
+    <a href="./bwin/review.html">Bwin Ontario Review</a>
+    <a href="./compare.html">Compare All</a>
+  </div>
+  <div class="mobile-nav-section">
+    <span class="mobile-nav-heading">Promotions</span>
+    <a href="./ggpoker/promo-code.html">GGPoker Promo</a>
+    <a href="./888poker/promo-code.html">888poker Promo</a>
+    <a href="./betmgm-poker/promo-code.html">BetMGM Poker Promo</a>
+    <a href="./pokerstars/promo-code.html">PokerStars Ontario Promo</a>
+    <a href="./partypoker/promo-code.html">PartyPoker Ontario Promo</a>
+    <a href="./bwin/promo-code.html">Bwin Ontario Promo</a>
+    <a href="./ontario-poker-promo-codes.html">All Promo Codes</a>
+  </div>
+  <div class="mobile-nav-section">
+    <span class="mobile-nav-heading">Tools</span>
+    <a href="./room-finder.html">Room Finder Quiz</a>
+    <a href="./head-to-head.html">Head-to-Head Compare</a>
+    <a href="./rake-calculator.html">Rake Calculator</a>
+    <a href="./poker-odds-calculator.html">Odds Calculator</a>
+    <a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+    <a href="./compare.html">Full Comparison</a>
+  </div>
+  <div class="mobile-nav-section">
+    <span class="mobile-nav-heading">Learn</span>
+    <a href="./strategy.html">Strategy Guides</a>
+    <a href="./poker-glossary.html">Poker Glossary</a>
+    <a href="./how-to-play-poker-ontario.html">Beginner Guide</a>
+    <a href="./news.html">News</a>
+    <a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+  </div>
+  <div class="mobile-nav-section">
+    <span class="mobile-nav-heading">Guides</span>
+    <a href="./is-online-poker-legal-in-ontario.html">Legal Guide</a>
+    <a href="./ontario-poker-apps.html">Poker Apps</a>
+    <a href="./ontario-poker-tournaments.html">Tournaments</a>
+    <a href="./ontario-poker-freerolls.html">Freerolls</a>
+    <a href="./responsible-gambling.html">Responsible Gambling</a>
+  </div>
+  <a href="./best-poker-sites-ontario.html" class="nav-cta-mobile">Best Poker Sites &rarr;</a>
+</nav>
+<main>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="./index.html">Home</a> <span>/</span> <a href="./room-finder.html">Tools</a> <span>/</span> <span>Bankroll Calculator</span></div>
+    <h1>Poker Bankroll Calculator</h1>
+    <p class="page-hero-subtitle">Find the right stakes for your bankroll using standard risk management guidelines.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="content-layout content-layout--sidebar">
+      <div class="content-main prose">
+
+        <div class="card card--flat" style="padding:var(--space-5);margin-bottom:var(--space-6);">
+          <div style="margin-bottom:var(--space-4);">
+            <label for="brAmount" style="font-size:var(--text-sm);font-weight:600;display:block;margin-bottom:var(--space-2);">Your Bankroll (C$)</label>
+            <input type="range" id="brSlider" min="20" max="10000" value="500" step="10" style="width:100%;margin-bottom:var(--space-2);">
+            <input type="number" id="brAmount" value="500" min="20" max="100000" style="width:120px;padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:var(--text-sm);background:var(--color-surface);color:var(--color-text);">
+          </div>
+
+          <div style="margin-bottom:var(--space-4);">
+            <label for="brGameType" style="font-size:var(--text-sm);font-weight:600;display:block;margin-bottom:var(--space-2);">Game Format</label>
+            <select id="brGameType" style="width:100%;padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:var(--text-sm);background:var(--color-surface);color:var(--color-text);">
+              <option value="cash6">NL Hold'em Cash (6-max)</option>
+              <option value="cash9">NL Hold'em Cash (9-max)</option>
+              <option value="plo">Pot Limit Omaha Cash</option>
+              <option value="mtt">Multi-Table Tournaments</option>
+              <option value="sng">Sit &amp; Go</option>
+              <option value="spin">Spin &amp; Go / Jackpot</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom:var(--space-4);">
+            <label for="brRisk" style="font-size:var(--text-sm);font-weight:600;display:block;margin-bottom:var(--space-2);">Risk Tolerance</label>
+            <select id="brRisk" style="width:100%;padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:var(--text-sm);background:var(--color-surface);color:var(--color-text);">
+              <option value="conservative">Conservative (lowest risk)</option>
+              <option value="moderate" selected>Moderate (balanced)</option>
+              <option value="aggressive">Aggressive (higher risk)</option>
+            </select>
+          </div>
+
+          <button id="brCalcBtn" class="btn btn--primary" style="width:100%;">Calculate</button>
+
+          <div id="brResult" style="margin-top:var(--space-4);"></div>
+        </div>
+
+        <h2>Buy-in Guidelines by Format</h2>
+        <div class="card card--flat" style="margin:var(--space-4) 0;">
+          <div class="table-responsive">
+            <table class="promos-table">
+              <thead><tr><th>Format</th><th>Conservative</th><th>Moderate</th><th>Aggressive</th></tr></thead>
+              <tbody>
+                <tr><td>NLH Cash 6-max</td><td>50 buy-ins</td><td>30 buy-ins</td><td>20 buy-ins</td></tr>
+                <tr><td>NLH Cash 9-max</td><td>40 buy-ins</td><td>25 buy-ins</td><td>15 buy-ins</td></tr>
+                <tr><td>PLO Cash</td><td>100 buy-ins</td><td>60 buy-ins</td><td>40 buy-ins</td></tr>
+                <tr><td>MTT</td><td>200 buy-ins</td><td>100 buy-ins</td><td>50 buy-ins</td></tr>
+                <tr><td>SNG</td><td>100 buy-ins</td><td>50 buy-ins</td><td>30 buy-ins</td></tr>
+                <tr><td>Spin / Jackpot</td><td>200 buy-ins</td><td>100 buy-ins</td><td>50 buy-ins</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h2>Why Bankroll Management Matters</h2>
+        <p>Poker has built-in variance. Even winning players go through losing streaks that can last weeks or months. Bankroll management is the discipline of playing at stakes your total funds can support through these downswings without going broke. It is not about how good you are; it is about how much variance your bankroll can absorb.</p>
+
+        <p>The guidelines above reflect standard practice among professional and semi-professional players. Conservative numbers (50 buy-ins for cash, 200 for MTTs) give you a very low chance of going broke even during extended bad runs. Aggressive numbers (20 for cash, 50 for MTTs) accept more risk in exchange for the ability to play higher stakes sooner.</p>
+
+        <h2>Ontario-Specific Stakes</h2>
+        <p>The six regulated Ontario poker rooms offer stakes ranging from NL2 (blinds of $0.01/$0.02) up to NL500 (blinds of $2.50/$5.00) depending on the room and time of day. Traffic is strongest at NL5 through NL50, with higher stakes tables running intermittently. The calculator above uses these Ontario-available stakes to give you a concrete recommendation.</p>
+
+        <p>Because Ontario operates ring-fenced player pools, game selection is more limited than on global sites. This means you may need to be more conservative with bankroll management since you cannot always find the softest tables at your preferred stake. If shared liquidity becomes available in the future, game selection would improve and you could potentially play slightly more aggressively with your bankroll.</p>
+
+        <h2>Move-Up and Move-Down Rules</h2>
+        <p>The calculator shows you when to move up and when to move down. Following these thresholds strictly prevents two common mistakes: playing too high after a hot streak (and giving back the gains) and refusing to drop down during a cold streak (and burning through your bankroll). Set these thresholds before you play and stick to them regardless of how you feel about your recent results.</p>
+
+        <div style="display:grid;gap:var(--space-3);grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));margin:var(--space-4) 0;">
+<a href="./ggpoker/review.html" class="card" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid #BE0F34;">
+  <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">GGPoker</h3>
+  <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">9.4/10 &middot; Feature-rich software, tournament festivals, Ontar</p>
+</a><a href="./888poker/review.html" class="card" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid #1A1A1A;">
+  <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">888poker</h3>
+  <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">9.0/10 &middot; Beginners, low-deposit players, freeroll seekers, </p>
+</a><a href="./betmgm-poker/review.html" class="card" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid #C6A962;">
+  <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">BetMGM Poker</h3>
+  <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">8.8/10 &middot; Rewards-focused players, bonus clearance calculato</p>
+</a>
+</div>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list"><div class="faq-item">
+  <button class="faq-question">How many buy-ins do I need for online poker?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M6 9l6 6 6-6"/></svg></button>
+  <div class="faq-answer"><p>It depends on the format and your risk tolerance. For No Limit Hold'em cash games, 30 buy-ins at your stake is a common moderate guideline. Tournament players need more, typically 100 buy-ins, because variance is higher. Conservative players may want 50 buy-ins for cash and 200 for tournaments.</p></div>
+</div>
+<div class="faq-item">
+  <button class="faq-question">What stakes should I play with a $500 bankroll?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M6 9l6 6 6-6"/></svg></button>
+  <div class="faq-answer"><p>With $500, a conservative cash game player (50 buy-ins) should play NL10 ($10 max buy-in). A moderate player (30 buy-ins) could play NL16 or NL25. For tournaments, $500 supports buy-ins in the $5 to $10 range at moderate risk tolerance.</p></div>
+</div>
+<div class="faq-item">
+  <button class="faq-question">When should I move up in stakes?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M6 9l6 6 6-6"/></svg></button>
+  <div class="faq-answer"><p>A common approach is to move up when your bankroll reaches the recommended number of buy-ins for the next stake level. If you are playing NL10 with a 30 buy-in rule and your bankroll grows to $750, you have 30 buy-ins for NL25 and can consider moving up.</p></div>
+</div>
+<div class="faq-item">
+  <button class="faq-question">When should I move down in stakes?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M6 9l6 6 6-6"/></svg></button>
+  <div class="faq-answer"><p>Move down when your bankroll drops below the recommended number of buy-ins for your current stake. Using the 30 buy-in rule at NL25, if your bankroll drops below $500, step back to NL10 until you rebuild. Discipline here prevents going broke.</p></div>
+</div>
+</div>
+
+      </div>
+      <div class="content-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-promo">
+            <h3>Related Tools</h3>
+            <div class="sidebar-promo-item"><div class="sidebar-promo-rank">&rarr;</div><div class="sidebar-promo-details"><a href="./poker-odds-calculator.html" style="color:var(--color-text);text-decoration:none;font-weight:600;font-size:var(--text-sm);">Odds Calculator</a></div></div>
+            <div class="sidebar-promo-item"><div class="sidebar-promo-rank">&rarr;</div><div class="sidebar-promo-details"><a href="./rake-calculator.html" style="color:var(--color-text);text-decoration:none;font-weight:600;font-size:var(--text-sm);">Rake Calculator</a></div></div>
+            <div class="sidebar-promo-item"><div class="sidebar-promo-rank">&rarr;</div><div class="sidebar-promo-details"><a href="./strategy/bankroll-management-guide.html" style="color:var(--color-text);text-decoration:none;font-weight:600;font-size:var(--text-sm);">Bankroll Guide</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+(function(){
+  var STAKES = [
+    {label:'NL2',bb:0.02,buyin:2},
+    {label:'NL5',bb:0.05,buyin:5},
+    {label:'NL10',bb:0.10,buyin:10},
+    {label:'NL25',bb:0.25,buyin:25},
+    {label:'NL50',bb:0.50,buyin:50},
+    {label:'NL100',bb:1.00,buyin:100},
+    {label:'NL200',bb:2.00,buyin:200},
+    {label:'NL500',bb:5.00,buyin:500}
+  ];
+
+  var BUYINS = {
+    'cash6':    {conservative:50,moderate:30,aggressive:20},
+    'cash9':    {conservative:40,moderate:25,aggressive:15},
+    'plo':      {conservative:100,moderate:60,aggressive:40},
+    'mtt':      {conservative:200,moderate:100,aggressive:50},
+    'sng':      {conservative:100,moderate:50,aggressive:30},
+    'spin':     {conservative:200,moderate:100,aggressive:50}
+  };
+
+  var FORMAT_LABELS = {
+    'cash6':'NL Hold\'em Cash (6-max)',
+    'cash9':'NL Hold\'em Cash (9-max)',
+    'plo':'Pot Limit Omaha Cash',
+    'mtt':'Multi-Table Tournaments',
+    'sng':'Sit & Go',
+    'spin':'Spin & Go / Jackpot'
+  };
+
+  function calculate(){
+    var bankroll = parseFloat(document.getElementById('brAmount').value) || 0;
+    var gameType = document.getElementById('brGameType').value;
+    var risk = document.getElementById('brRisk').value;
+    var needed = BUYINS[gameType][risk];
+    var resultDiv = document.getElementById('brResult');
+
+    if(bankroll < 20){
+      resultDiv.innerHTML = '<p style="color:var(--color-text-muted);">Enter a bankroll amount of at least C$20.</p>';
+      return;
+    }
+
+    var maxBuyin = Math.floor(bankroll / needed);
+    var isCash = gameType.indexOf('cash')===0 || gameType==='plo';
+
+    if(isCash){
+      // find best stake
+      var bestStake = null;
+      for(var i=STAKES.length-1;i>=0;i--){
+        if(STAKES[i].buyin <= maxBuyin * (STAKES[0].buyin)){
+          // recalc: maxBuyin in terms of actual stake buy-ins
+        }
+      }
+      // simpler: for each stake, can we afford `needed` buy-ins?
+      bestStake = null;
+      for(var i=STAKES.length-1;i>=0;i--){
+        if(bankroll >= STAKES[i].buyin * needed){
+          bestStake = STAKES[i];
+          break;
+        }
+      }
+
+      if(!bestStake){
+        resultDiv.innerHTML = '<div class="card card--flat" style="padding:var(--space-4);"><p>Your bankroll is below the minimum for NL2 at this risk level. Consider depositing more or choosing a more aggressive risk profile.</p></div>';
+        return;
+      }
+
+      var nextStake = null;
+      var idx = STAKES.indexOf(bestStake);
+      if(idx < STAKES.length-1) nextStake = STAKES[idx+1];
+      var prevStake = idx > 0 ? STAKES[idx-1] : null;
+
+      var moveUp = nextStake ? ('C$' + (nextStake.buyin * needed)) : 'N/A (highest stake)';
+      var moveDown = prevStake ? ('C$' + (prevStake.buyin * needed)) : 'N/A (lowest stake)';
+      var currentBuyins = Math.floor(bankroll / bestStake.buyin);
+
+      resultDiv.innerHTML =
+        '<div class="card card--flat" style="padding:var(--space-5);">' +
+        '<h3 style="margin-bottom:var(--space-3);">Your Recommended Stake: ' + bestStake.label + '</h3>' +
+        '<table class="promos-table"><tbody>' +
+        '<tr><td>Bankroll</td><td>C$' + bankroll.toFixed(0) + '</td></tr>' +
+        '<tr><td>Format</td><td>' + FORMAT_LABELS[gameType] + '</td></tr>' +
+        '<tr><td>Risk Level</td><td>' + risk.charAt(0).toUpperCase() + risk.slice(1) + ' (' + needed + ' buy-ins)</td></tr>' +
+        '<tr><td>Recommended Stake</td><td><strong>' + bestStake.label + '</strong> (C$' + bestStake.buyin + ' max buy-in)</td></tr>' +
+        '<tr><td>Buy-ins at This Stake</td><td>' + currentBuyins + '</td></tr>' +
+        '<tr><td>Move Up When Bankroll Reaches</td><td>' + moveUp + '</td></tr>' +
+        '<tr><td>Move Down If Bankroll Drops Below</td><td>' + moveDown + '</td></tr>' +
+        '</tbody></table></div>';
+    } else {
+      // tournament formats
+      var recBuyin = Math.floor(bankroll / needed);
+      resultDiv.innerHTML =
+        '<div class="card card--flat" style="padding:var(--space-5);">' +
+        '<h3 style="margin-bottom:var(--space-3);">Your Recommended Buy-in: C$' + recBuyin + '</h3>' +
+        '<table class="promos-table"><tbody>' +
+        '<tr><td>Bankroll</td><td>C$' + bankroll.toFixed(0) + '</td></tr>' +
+        '<tr><td>Format</td><td>' + FORMAT_LABELS[gameType] + '</td></tr>' +
+        '<tr><td>Risk Level</td><td>' + risk.charAt(0).toUpperCase() + risk.slice(1) + ' (' + needed + ' buy-ins)</td></tr>' +
+        '<tr><td>Max Tournament Buy-in</td><td><strong>C$' + recBuyin + '</strong></td></tr>' +
+        '<tr><td>Number of Buy-ins</td><td>' + needed + '</td></tr>' +
+        '</tbody></table>' +
+        '<p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-top:var(--space-3);">Tournament variance is high. Stick to buy-ins at or below this level for the majority of your play. The occasional shot at a larger event is fine as long as it does not represent more than 5% of your bankroll.</p>' +
+        '</div>';
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', function(){
+    var slider = document.getElementById('brSlider');
+    var input = document.getElementById('brAmount');
+    if(slider && input){
+      slider.oninput = function(){input.value=this.value;};
+      input.oninput = function(){slider.value=this.value;};
+    }
+    document.getElementById('brCalcBtn').onclick = calculate;
+  });
+})();
+</script>
+
+</main>
+<footer class="site-footer">
+<div class="container">
+<div class="footer-rg">
+<svg fill="none" stroke="currentColor" stroke-width="2" style="width:32px;height:32px;flex-shrink:0;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<p>Poker is supposed to be fun. If it stops feeling that way, step away. Help is available at ConnexOntario: 1-866-531-2600.</p>
+<a class="btn btn--sm" href="./responsible-gambling.html" style="background:rgba(255,255,255,0.15);color:inherit;white-space:nowrap;">Responsible Gambling</a>
+</div>
+<div class="footer-brand">
+<a class="site-logo" href="./index.html" style="margin-bottom:var(--space-2);">
+<img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:26px;width:auto;">
+</a>
+<p>Your regulated Ontario poker resource online. Reviews, promotions, and guides for all six licensed poker rooms. Published by NWG PTY Limited.</p>
+<p style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-faint);">ontariopoker.com &middot; 38 Wale St, Cape Town 8000 &middot; <a href="mailto:help@ontariopoker.com" style="color:inherit;">help@ontariopoker.com</a></p>
+</div>
+<div class="footer-columns">
+<div class="footer-col">
+<h4 class="footer-col-toggle">Poker Rooms<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ggpoker/index.html">GGPoker</a><a href="./888poker/index.html">888poker</a><a href="./betmgm-poker/index.html">BetMGM Poker</a><a href="./pokerstars/index.html">PokerStars Ontario</a><a href="./partypoker/index.html">PartyPoker Ontario</a><a href="./bwin/index.html">Bwin Ontario</a>
+<a href="./compare.html">Compare All Rooms</a>
+<a href="./best-poker-sites-ontario.html">Best Poker Sites</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Tools<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./room-finder.html">Room Finder Quiz</a>
+<a href="./head-to-head.html">Head-to-Head Compare</a>
+<a href="./rake-calculator.html">Rake Calculator</a>
+<a href="./poker-odds-calculator.html">Odds Calculator</a>
+<a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+<a href="./compare.html">Full Comparison</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Guides<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ontario-poker-promo-codes.html">Promo Codes</a>
+<a href="./ontario-poker-tournaments.html">Tournaments</a>
+<a href="./ontario-poker-freerolls.html">Freerolls</a>
+<a href="./ontario-poker-apps.html">Poker Apps</a>
+<a href="./ontario-poker-withdrawal-times.html">Withdrawal Times</a>
+<a href="./ontario-poker-payment-methods.html">Payment Methods</a>
+<a href="./ontario-poker-rakeback-rewards.html">Rakeback &amp; Rewards</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Learn<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./strategy.html">Strategy Guides</a>
+<a href="./poker-glossary.html">Poker Glossary</a>
+<a href="./how-to-play-poker-ontario.html">Beginner Guide</a>
+<a href="./news.html">News</a>
+<a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Transparency<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./editorial-policy.html">Editorial Policy</a>
+<a href="./fact-checking.html">Fact Checking</a>
+<a href="./corrections-policy.html">Corrections Policy</a>
+<a href="./corrections-log.html">Corrections Log</a>
+<a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+<a href="./complaints-policy.html">Complaints Policy</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Responsible Gambling<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./responsible-gambling.html">Responsible Gambling</a>
+<a href="./self-exclusion-resources.html">Self-Exclusion Resources</a>
+<a href="./how-to-complain-about-an-ontario-poker-site.html">How to Complain</a>
+<a href="./contact.html">Contact &amp; Support</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Legal<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./about.html">About Us</a>
+<a href="./management-team.html">Our Authors</a>
+<a href="./privacy.html">Privacy Policy</a>
+<a href="./cookie-policy.html">Cookie Policy</a>
+<a href="./terms.html">Terms &amp; Conditions</a>
+<a href="./accessibility.html">Accessibility</a>
+</div>
+</div>
+</div>
+<div class="ftc-footer">
+<p><strong>Affiliate Disclosure:</strong> OntarioPoker.com is owned and operated by NWG PTY Limited. This site contains affiliate links. If you click through and register using our links, we may receive compensation at no additional cost to you. All editorial ratings are our own. See our <a href="./affiliate-disclosure.html" style="color:inherit;text-decoration:underline;">Affiliate Disclosure</a>.</p>
+<p><strong>Disclaimer:</strong> Online poker in Ontario is regulated by the Alcohol and Gaming Commission of Ontario (AGCO) and operated through iGaming Ontario. You must be 19+ and physically located in Ontario to play. If you or someone you know has a gambling problem, call ConnexOntario at 1-866-531-2600.</p>
+</div>
+<div class="footer-bottom">
+<span>&copy; 2026 NWG PTY Limited &middot; ontariopoker.com. All rights reserved.</span>
+</div>
+</div>
+</footer>
+<div id="searchOverlay" class="search-overlay">
+  <div class="search-box">
+    <div class="search-input-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" class="search-input" placeholder="Search reviews, guides, promotions..." autocomplete="off">
+      <button class="search-close" aria-label="Close search"><span aria-hidden="true">&#x2715;</span></button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+<script src="./app.min.js" defer></script>
+</body>
+</html>

@@ -601,6 +601,54 @@
   background: var(--color-primary-light);
 }
 
+/* --- GLOBAL TABLE DEFAULTS --- */
+/* Ensures ALL tables (including methodology, changelog, etc.) look good */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+table thead {
+  background: var(--color-surface-alt, #f0f2f5);
+}
+table th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-weight: 600;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 2px solid var(--color-border);
+}
+table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border-light);
+  color: var(--color-text);
+  text-align: left;
+  vertical-align: top;
+}
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+table tbody tr:nth-child(even) {
+  background: var(--color-surface-alt, rgba(0,0,0,0.02));
+}
+[data-theme="dark"] table tbody tr:nth-child(even) {
+  background: rgba(255,255,255,0.03);
+}
+
+/* Responsive table wrapper for wide tables */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+.table-responsive table {
+  min-width: 500px;
+}
+
 
 /* --- FAQ ACCORDION --- */
 .faq-item {
@@ -1455,10 +1503,11 @@ a .code-badge:hover {
   color: var(--color-text-muted);
 }
 .compare-table thead th:nth-child(1) { width: 14%; }
-.compare-table thead th:nth-child(2) { width: 16%; }
-.compare-table thead th:nth-child(3) { width: 18%; }
-.compare-table thead th:nth-child(4) { width: 24%; }
+.compare-table thead th:nth-child(2) { width: 10%; }
+.compare-table thead th:nth-child(3) { width: 20%; }
+.compare-table thead th:nth-child(4) { width: 14%; }
 .compare-table thead th:nth-child(5) { width: 28%; }
+.compare-table thead th:nth-child(6) { width: 14%; }
 .compare-table tbody td {
   padding: var(--space-2) var(--space-3);
   border-bottom: 1px solid var(--color-border-light);

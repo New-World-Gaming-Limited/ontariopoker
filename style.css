@@ -444,12 +444,12 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 20px var(--color-primary-glow);
 }
-.btn--outline {
+.btn--outline-light {
   background: rgba(255,255,255,0.1);
   color: #ffffff;
   border: 1.5px solid rgba(255,255,255,0.25);
 }
-.btn--outline:hover {
+.btn--outline-light:hover {
   background: rgba(255,255,255,0.18);
 }
 .btn--outline-dark {

@@ -277,14 +277,15 @@
 .mobile-nav .nav-cta-mobile {
   display: block;
   text-align: center;
-  margin-top: var(--space-4);
+  margin: var(--space-2) var(--space-2) var(--space-4);
   padding: var(--space-3) var(--space-6);
   background: var(--color-primary);
   color: var(--color-text-inverse);
   border-radius: var(--radius-full);
   font-weight: 700;
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   border: none;
+  text-decoration: none;
 }
 
 /* Header CTA pill */

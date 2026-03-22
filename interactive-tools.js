@@ -16,9 +16,9 @@
      BRAND DATA
      ========================================================= */
   const BRANDS = [
-    { id: "ggpoker", name: "GGPoker", rating: 9.4, ratingSoftware: 9.6, ratingTournaments: 9.5, ratingCash: 9.0, ratingPayments: 9.2, ratingBonus: 9.2, ratingSupport: 8.8, bestFor: "Feature-rich software, tournament festivals", cashFormats: ["NLH","PLO","Short Deck","Rush & Cash"], hasFastFold: true, fastFoldName: "Rush & Cash", jackpot: "Spin & Gold", software: ["Smart HUD","PokerCraft","Card Squeeze","Smart Betting","All-In Insurance"], mobile: "iOS & Android app", deposits: ["Interac","Visa","Mastercard","MuchBetter"], withdrawals: ["Interac","MuchBetter","Bank Transfer"], support: "24/7 Live Chat, Email", minDeposit: "C$10", hasPayPal: false, hasApplePay: false, hasCrypto: false, promoCode: "", promoStatus: "none_captured", accentColor: "#BE0F34", legalEntity: "NSUS Limited", pros: ["Richest tournament ecosystem","Free Smart HUD & PokerCraft","Ontario-exclusive Maple Rewards","WSOP Circuit events","Spin & Gold quick sessions"], cons: ["Bonus unlock requires volume","Withdrawal cancels unlocked bonus","90-day clear window pressure"] },
+    { id: "ggpoker", name: "GGPoker", rating: 9.4, ratingSoftware: 9.6, ratingTournaments: 9.5, ratingCash: 9.0, ratingPayments: 9.2, ratingBonus: 9.2, ratingSupport: 8.8, bestFor: "Feature-rich software, tournament festivals", cashFormats: ["NLH","PLO","Short Deck","Rush & Cash"], hasFastFold: true, fastFoldName: "Rush & Cash", jackpot: "Spin & Gold", software: ["Smart HUD","PokerCraft","Card Squeeze","Smart Betting","All-In Insurance"], mobile: "iOS & Android app", deposits: ["Interac","Visa","Mastercard","MuchBetter"], withdrawals: ["Interac","MuchBetter","Bank Transfer"], support: "24/7 Live Chat, Email", minDeposit: "C$10", hasPayPal: false, hasApplePay: false, hasCrypto: false, promoCode: "", promoStatus: "none_captured", accentColor: "#BE0F34", legalEntity: "NSUS Limited", pros: ["Richest tournament ecosystem","Free Smart HUD & PokerCraft","Ontario-exclusive Maple Rewards","WSOP Circuit events","Spin & Gold quick sessions"], cons: ["Bonus unlock requires volume","Withdrawal cancels unlocked bonus","limited clearing period pressure"] },
     { id: "888poker", name: "888poker", rating: 9.0, ratingSoftware: 8.6, ratingTournaments: 8.5, ratingCash: 8.8, ratingPayments: 9.0, ratingBonus: 9.0, ratingSupport: 8.5, bestFor: "Beginners, freeroll seekers", cashFormats: ["NLH","PLO","SNAP"], hasFastFold: true, fastFoldName: "SNAP", jackpot: "BLAST", software: ["Webcam tables","SNAP fast-fold","Made to Play"], mobile: "iOS & Android app", deposits: ["Interac","Visa","Mastercard","Apple Pay"], withdrawals: ["Interac","Bank Transfer"], support: "24/7 Live Chat, Email", minDeposit: "C$10", hasPayPal: false, hasApplePay: true, hasCrypto: false, promoCode: "Welcome100", promoStatus: "verified_public", accentColor: "#1A1A6C", legalEntity: "VHL Ontario Limited", pros: ["Only verified public code (Welcome100)","Extensive weekly freerolls","No-deposit tickets for new players","BLAST quick sessions","Beginner-friendly interface"], cons: ["Smaller tournament series","Software feels dated vs GGPoker","Bonus display inconsistencies"] },
-    { id: "betmgm-poker", name: "BetMGM Poker", rating: 8.8, ratingSoftware: 8.5, ratingTournaments: 8.2, ratingCash: 8.5, ratingPayments: 9.0, ratingBonus: 9.0, ratingSupport: 8.8, bestFor: "Rewards-focused, structured terms readers", cashFormats: ["NLH","PLO","FastForward"], hasFastFold: true, fastFoldName: "FastForward", jackpot: "Spins", software: ["FastForward","Spins","Regular updates"], mobile: "iOS & Android app", deposits: ["Interac","Visa","Mastercard","PayPal"], withdrawals: ["Interac","PayPal","Bank Transfer"], support: "24/7 Live Chat, Email, Phone", minDeposit: "C$10", hasPayPal: true, hasApplePay: false, hasCrypto: false, promoCode: "", promoStatus: "none_captured", accentColor: "#BFA14E", legalEntity: "BetMGM Canada Inc.", pros: ["Most transparent offer terms","Grind Rewards with BRP ladder","Longest 120-day clear window","Clear deposit tier structure","MGM brand recognition"], cons: ["7-day activation window","14-day ticket expiry","Smaller tournament ecosystem"] },
+    { id: "betmgm-poker", name: "BetMGM Poker", rating: 8.8, ratingSoftware: 8.5, ratingTournaments: 8.2, ratingCash: 8.5, ratingPayments: 9.0, ratingBonus: 9.0, ratingSupport: 8.8, bestFor: "Rewards-focused, structured terms readers", cashFormats: ["NLH","PLO","FastForward"], hasFastFold: true, fastFoldName: "FastForward", jackpot: "Spins", software: ["FastForward","Spins","Regular updates"], mobile: "iOS & Android app", deposits: ["Interac","Visa","Mastercard","PayPal"], withdrawals: ["Interac","PayPal","Bank Transfer"], support: "24/7 Live Chat, Email, Phone", minDeposit: "C$10", hasPayPal: true, hasApplePay: false, hasCrypto: false, promoCode: "", promoStatus: "none_captured", accentColor: "#BFA14E", legalEntity: "BetMGM Canada Inc.", pros: ["Most transparent offer terms","Grind Rewards with BRP ladder","Longest limited clearing period","Clear deposit tier structure","MGM brand recognition"], cons: ["7-day activation window","14-day ticket expiry","Smaller tournament ecosystem"] },
     { id: "pokerstars", name: "PokerStars", rating: 8.7, ratingSoftware: 9.2, ratingTournaments: 9.5, ratingCash: 8.8, ratingPayments: 8.5, ratingBonus: 8.0, ratingSupport: 8.5, bestFor: "Tournament players, live event qualifiers", cashFormats: ["NLH","PLO","Zoom"], hasFastFold: true, fastFoldName: "Zoom", jackpot: "Spin & Go", software: ["Zoom fast-fold","Spin & Go browser play","Downloadable client"], mobile: "iOS & Android app", deposits: ["Interac","Visa","Mastercard"], withdrawals: ["Interac","Bank Transfer"], support: "Email, Help Centre", minDeposit: "C$10", hasPayPal: false, hasApplePay: false, hasCrypto: false, promoCode: "", promoStatus: "not_verified", accentColor: "#C00001", legalEntity: "TSG Interactive Canada", pros: ["Unmatched tournament pedigree","Power Path live event qualifiers","Strongest brand in poker","Browser play without download","Decades of software iteration"], cons: ["Ontario details hard to capture","Promo code not verified","Rewards less transparent"] },
     { id: "partypoker", name: "PartyPoker", rating: 7.8, ratingSoftware: 8.0, ratingTournaments: 7.5, ratingCash: 8.0, ratingPayments: 8.0, ratingBonus: 7.0, ratingSupport: 7.5, bestFor: "Cashback seekers, fast-fold players", cashFormats: ["NLH","PLO","Fast Forward"], hasFastFold: true, fastFoldName: "Fast Forward", jackpot: "SPINS", software: ["Fast Forward","SPINS","Modern interface"], mobile: "iOS & Android app", deposits: ["Interac","Visa","Mastercard"], withdrawals: ["Interac","Bank Transfer"], support: "Live Chat, Email", minDeposit: "C$10", hasPayPal: false, hasApplePay: false, hasCrypto: false, promoCode: "", promoStatus: "not_verified", accentColor: "#FF6600", legalEntity: "ElectraWorks Maple", pros: ["Cashback model for grinders","Solid fast-fold variant","SPINS jackpot format","Fully iGO regulated"], cons: ["Thinner public source set","Bonus details unverified","Smaller player pool","Less Ontario content"] },
     { id: "bwin", name: "Bwin", rating: 7.2, ratingSoftware: 7.5, ratingTournaments: 7.0, ratingCash: 7.5, ratingPayments: 7.5, ratingBonus: 6.5, ratingSupport: 7.0, bestFor: "Regulated secondary option", cashFormats: ["NLH","PLO"], hasFastFold: false, fastFoldName: "", jackpot: "Available", software: ["Standard client"], mobile: "Mobile browser", deposits: ["Interac","Visa","Mastercard"], withdrawals: ["Interac","Bank Transfer"], support: "Live Chat, Email", minDeposit: "C$10", hasPayPal: false, hasApplePay: false, hasCrypto: false, promoCode: "", promoStatus: "not_verified", accentColor: "#FFD200", legalEntity: "ElectraWorks Maple", pros: ["Fully iGO regulated","Entain Group backing","Additional regulated choice"], cons: ["Very sparse poker info","No verified poker bonus","Limited Ontario content","Smaller poker presence"] }
@@ -77,15 +77,11 @@
   }
 
   function reviewUrl(id) {
-    return "./" + id + "/review.html";
-  }
-
-  function promoUrl(id) {
-    return "./" + id + "/promo-code.html";
+    return "/" + id + "-review/";
   }
 
   function visitUrl(id) {
-    return "./" + id + "/index.html";
+    return "/" + id + "-visit/";
   }
 
   /* =========================================================
@@ -236,40 +232,6 @@
 .op-h2h__verdict { background: var(--color-surface, #f8f8f8); border-radius: 0.75rem; padding: 1.25rem; border: 1px solid var(--color-border, #e5e5e5); }
 .op-h2h__verdict h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
 .op-h2h__verdict p { font-size: 0.875rem; color: var(--color-text, #1a1a1a); line-height: 1.6; }
-
-/* H2H Links */
-.op-h2h__links { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
-.op-h2h__link-card { background: var(--color-surface, #fff); border: 1px solid var(--color-border, #e5e5e5); border-left: 4px solid; border-radius: 0.75rem; padding: 1rem 1.25rem; }
-.op-h2h__link-name { font-size: 1.0625rem; font-weight: 700; margin-bottom: 0.25rem; }
-.op-h2h__link-rating { font-size: 0.8125rem; color: var(--color-text-muted, #666); margin-bottom: 0.75rem; }
-.op-h2h__link-btns { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.op-h2h__link-btns .op-btn { font-size: 0.75rem; padding: 0.4rem 0.75rem; }
-
-/* H2H Editorial */
-.op-h2h__editorial { margin: 1.5rem 0; padding: 1.5rem; background: var(--color-surface, #fff); border: 1px solid var(--color-border, #e5e5e5); border-radius: 0.75rem; }
-.op-h2h__editorial h3 { font-size: 1.125rem; font-weight: 700; margin-bottom: 1rem; color: var(--color-text, #1a1a1a); }
-.op-h2h__editorial p { font-size: 0.875rem; line-height: 1.7; color: var(--color-text, #1a1a1a); margin-bottom: 0.75rem; }
-.op-h2h__editorial p:last-child { margin-bottom: 0; }
-.op-h2h__editorial a { color: var(--color-primary, #1b6d3d); text-decoration: underline; }
-
-/* H2H Related Comparisons */
-.op-h2h__related { margin: 1.5rem 0; }
-.op-h2h__related h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; }
-.op-h2h__related-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.op-h2h__related-btn { padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.8125rem; font-weight: 600; border: 1.5px solid var(--color-border, #d4d4d4); background: var(--color-surface, #fff); color: var(--color-text, #1a1a1a); cursor: pointer; transition: all 0.2s ease; }
-.op-h2h__related-btn:hover { border-color: var(--color-primary, #1b6d3d); color: var(--color-primary, #1b6d3d); background: rgba(27,109,61,0.04); }
-
-/* H2H Cross-links */
-.op-h2h__crosslinks { margin: 1.5rem 0; padding: 1.25rem; background: var(--color-surface-alt, #f0f2f5); border-radius: 0.75rem; }
-.op-h2h__crosslinks h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; }
-.op-h2h__crosslink-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.op-h2h__crosslink-grid a { padding: 0.4rem 0.85rem; border-radius: 0.5rem; font-size: 0.8125rem; font-weight: 600; background: var(--color-surface, #fff); border: 1px solid var(--color-border, #e5e5e5); color: var(--color-text, #1a1a1a); transition: all 0.2s ease; }
-.op-h2h__crosslink-grid a:hover { border-color: var(--color-primary, #1b6d3d); color: var(--color-primary, #1b6d3d); text-decoration: none; }
-
-@media (max-width: 640px) {
-  .op-h2h__links { grid-template-columns: 1fr; }
-  .op-h2h__link-btns { flex-direction: column; }
-}
 
 /* ===== RAKE CALCULATOR ===== */
 .op-rake { max-width: 720px; margin: 0 auto; }
@@ -864,148 +826,6 @@
         el("p", { innerHTML: verdict })
       ]);
       h2hDiv.appendChild(verdictDiv);
-
-      // --- Links & Actions ---
-      var linksDiv = el("div", { className: "op-h2h__links" });
-      [left, right].forEach(function (b) {
-        var card = el("div", { className: "op-h2h__link-card", style: { borderLeftColor: b.accentColor } }, [
-          el("div", { className: "op-h2h__link-name", textContent: b.name }),
-          el("div", { className: "op-h2h__link-rating", innerHTML: '<span style="color:' + b.accentColor + ';font-weight:800;">' + b.rating.toFixed(1) + '/10</span> &middot; Best for ' + b.bestFor.toLowerCase() }),
-          el("div", { className: "op-h2h__link-btns" }, [
-            el("a", { className: "op-btn op-btn--primary", href: reviewUrl(b.id), textContent: "Full Review" }),
-            el("a", { className: "op-btn op-btn--outline", href: promoUrl(b.id), textContent: "Promo Status" }),
-            el("a", { className: "op-btn op-btn--outline", href: visitUrl(b.id), rel: "sponsored noopener noreferrer", target: "_blank", textContent: "Visit " + b.name + " →" })
-          ])
-        ]);
-        linksDiv.appendChild(card);
-      });
-      h2hDiv.appendChild(linksDiv);
-
-      // --- Editorial Section ---
-      var editorial = generateEditorial(left, right);
-      var editorialDiv = el("div", { className: "op-h2h__editorial" });
-      editorialDiv.innerHTML = editorial;
-      h2hDiv.appendChild(editorialDiv);
-
-      // --- Related Comparisons ---
-      var relatedDiv = el("div", { className: "op-h2h__related" });
-      relatedDiv.appendChild(el("h3", { textContent: "Other Popular Comparisons" }));
-      var relatedGrid = el("div", { className: "op-h2h__related-grid" });
-      var popularPairs = [
-        ["ggpoker", "pokerstars"], ["ggpoker", "888poker"], ["888poker", "pokerstars"],
-        ["betmgm-poker", "ggpoker"], ["partypoker", "888poker"], ["betmgm-poker", "pokerstars"]
-      ];
-      popularPairs.forEach(function (pair) {
-        if ((pair[0] === leftId && pair[1] === rightId) || (pair[1] === leftId && pair[0] === rightId)) return;
-        var a = getBrand(pair[0]);
-        var b = getBrand(pair[1]);
-        if (!a || !b) return;
-        var btn = el("button", {
-          className: "op-h2h__related-btn",
-          textContent: a.name + " vs " + b.name,
-          onClick: function () { leftId = pair[0]; rightId = pair[1]; render(); window.scrollTo({ top: 0, behavior: "smooth" }); }
-        });
-        relatedGrid.appendChild(btn);
-      });
-      relatedDiv.appendChild(relatedGrid);
-      h2hDiv.appendChild(relatedDiv);
-
-      // --- Cross-links ---
-      var crossDiv = el("div", { className: "op-h2h__crosslinks" });
-      crossDiv.innerHTML = '<h3>Explore More</h3>' +
-        '<div class="op-h2h__crosslink-grid">' +
-        '<a href="./compare.html">Compare All 6 Rooms</a>' +
-        '<a href="./room-finder.html">Room Finder Quiz</a>' +
-        '<a href="./rake-calculator.html">Rake Calculator</a>' +
-        '<a href="./best-poker-sites-ontario.html">Best Poker Sites Ontario</a>' +
-        '<a href="./ontario-poker-promo-codes.html">All Promo Codes</a>' +
-        '<a href="./strategy.html">Strategy Guides</a>' +
-        '</div>';
-      h2hDiv.appendChild(crossDiv);
-    }
-
-    function generateEditorial(a, b) {
-      var winner = a.rating > b.rating ? a : (b.rating > a.rating ? b : null);
-      var loser = winner === a ? b : a;
-      var cats = ["ratingSoftware","ratingTournaments","ratingCash","ratingPayments","ratingBonus","ratingSupport"];
-      var catNames = ["Software","Tournaments","Cash Games","Payments","Bonus","Support"];
-
-      // Find biggest advantages for each side
-      var aDiffs = [], bDiffs = [];
-      cats.forEach(function (c, i) {
-        var diff = a[c] - b[c];
-        if (diff > 0) aDiffs.push({ name: catNames[i], diff: diff, val: a[c] });
-        else if (diff < 0) bDiffs.push({ name: catNames[i], diff: -diff, val: b[c] });
-      });
-      aDiffs.sort(function (x, y) { return y.diff - x.diff; });
-      bDiffs.sort(function (x, y) { return y.diff - x.diff; });
-
-      var html = '<h3>' + a.name + ' vs ' + b.name + ': The Full Picture</h3>';
-
-      // Software paragraph
-      var swDiff = a.ratingSoftware - b.ratingSoftware;
-      if (Math.abs(swDiff) >= 0.3) {
-        var swWinner = swDiff > 0 ? a : b;
-        var swLoser = swDiff > 0 ? b : a;
-        html += '<p><strong>Software:</strong> ' + swWinner.name + ' has the stronger platform';
-        if (swWinner.software.length > 1) html += ', highlighted by ' + swWinner.software.slice(0, 2).join(' and ');
-        html += '. ' + swLoser.name + ' offers a solid client but ';
-        html += swDiff > 0 ? 'trails in polish and features.' : 'trails in polish and features.';
-        html += '</p>';
-      }
-
-      // Tournaments paragraph
-      var trnDiff = a.ratingTournaments - b.ratingTournaments;
-      if (Math.abs(trnDiff) >= 0.3) {
-        var tWin = trnDiff > 0 ? a : b;
-        var tLose = trnDiff > 0 ? b : a;
-        html += '<p><strong>Tournaments:</strong> ' + tWin.name + ' leads in tournaments (' + tWin.ratingTournaments.toFixed(1) + ' vs ' + tLose.ratingTournaments.toFixed(1) + '). ';
-        if (tWin.jackpot) html += 'Its ' + tWin.jackpot + ' format adds quick-fire options. ';
-        html += tLose.name + ' still runs a respectable schedule but with fewer marquee events.</p>';
-      }
-
-      // Cash games
-      var cashDiff = a.ratingCash - b.ratingCash;
-      if (Math.abs(cashDiff) >= 0.3) {
-        var cWin = cashDiff > 0 ? a : b;
-        html += '<p><strong>Cash Games:</strong> ' + cWin.name + ' offers the better cash game setup with formats including ' + cWin.cashFormats.slice(0, 3).join(', ') + '.';
-        if (cWin.hasFastFold) html += ' Its ' + cWin.fastFoldName + ' fast-fold variant keeps action moving.';
-        html += '</p>';
-      }
-
-      // Bonus
-      var bonDiff = a.ratingBonus - b.ratingBonus;
-      if (Math.abs(bonDiff) >= 0.5) {
-        var bWin = bonDiff > 0 ? a : b;
-        var bLose = bonDiff > 0 ? b : a;
-        html += '<p><strong>Bonus & Promotions:</strong> ' + bWin.name + ' scores higher on bonus value (' + bWin.ratingBonus.toFixed(1) + ' vs ' + bLose.ratingBonus.toFixed(1) + '). ';
-        if (bWin.promoStatus === 'verified_public') html += 'Its public promo code (' + bWin.promoCode + ') is the only verified code in the Ontario market. ';
-        html += 'Check our <a href="' + promoUrl(bWin.id) + '">' + bWin.name + ' promo status page</a> for current details.</p>';
-      }
-
-      // Payments
-      var payDiff = a.ratingPayments - b.ratingPayments;
-      if (Math.abs(payDiff) >= 0.3) {
-        var pWin = payDiff > 0 ? a : b;
-        html += '<p><strong>Payments:</strong> ' + pWin.name + ' edges ahead with deposit options including ' + pWin.deposits.join(', ') + '.';
-        if (pWin.hasPayPal) html += ' PayPal support is a notable advantage.';
-        if (pWin.hasApplePay) html += ' Apple Pay support adds mobile convenience.';
-        html += '</p>';
-      }
-
-      // Bottom line
-      if (winner) {
-        html += '<p><strong>Bottom Line:</strong> ' + winner.name + ' is the stronger choice overall at ' + winner.rating.toFixed(1) + '/10';
-        if (aDiffs.length > 0 && winner === a) html += ', winning on ' + aDiffs.map(function(d){return d.name;}).join(', ');
-        else if (bDiffs.length > 0 && winner === b) html += ', winning on ' + bDiffs.map(function(d){return d.name;}).join(', ');
-        html += '. ';
-        html += loser.name + ' is still worth considering if you value ' + loser.bestFor.toLowerCase() + '. ';
-        html += 'Read our <a href="' + reviewUrl(winner.id) + '">' + winner.name + ' review</a> and <a href="' + reviewUrl(loser.id) + '">' + loser.name + ' review</a> for the full breakdown.</p>';
-      } else {
-        html += '<p><strong>Bottom Line:</strong> These two rooms are closely matched. ' + a.name + ' is strongest for ' + a.bestFor.toLowerCase() + ', while ' + b.name + ' excels at ' + b.bestFor.toLowerCase() + '. Read our <a href="' + reviewUrl(a.id) + '">' + a.name + ' review</a> and <a href="' + reviewUrl(b.id) + '">' + b.name + ' review</a> for full details.</p>';
-      }
-
-      return html;
     }
 
     function generateVerdict(a, b) {

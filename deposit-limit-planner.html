@@ -16,6 +16,34 @@
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
+<style>/* Critical CSS - inlined for fast FCP/LCP */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:none;text-size-adjust:none;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth;scroll-padding-top:80px}
+body{min-height:100dvh;line-height:1.7;font-family:var(--font-body,sans-serif);font-size:var(--text-base);color:var(--color-text);background-color:var(--color-bg)}
+img,picture,svg{display:block;max-width:100%;height:auto}
+button{cursor:pointer;background:none;border:none}
+h1,h2,h3,h4,h5,h6{text-wrap:balance;line-height:1.25}
+a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),background 200ms cubic-bezier(.16,1,.3,1),border-color 200ms cubic-bezier(.16,1,.3,1)}
+:root{--text-xs:clamp(0.75rem,0.7rem + 0.25vw,0.875rem);--text-sm:clamp(0.875rem,0.8rem + 0.35vw,1rem);--text-base:clamp(1rem,0.95rem + 0.25vw,1.125rem);--text-lg:clamp(1.125rem,1rem + 0.75vw,1.5rem);--text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);--text-2xl:clamp(2rem,1.2rem + 2.5vw,3.25rem);--space-1:0.25rem;--space-2:0.5rem;--space-3:0.75rem;--space-4:1rem;--space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;--space-12:3rem;--space-16:4rem;--space-20:5rem;--space-24:6rem;--radius-sm:0.375rem;--radius-md:0.5rem;--radius-lg:0.75rem;--radius-xl:1rem;--radius-full:9999px;--transition-interactive:200ms cubic-bezier(0.16,1,0.3,1);--content-narrow:680px;--content-default:960px;--content-wide:1200px;--font-display:'General Sans','Inter',sans-serif;--font-body:'Inter','Helvetica Neue',sans-serif}
+:root,[data-theme="light"]{--color-bg:#F9FAFC;--color-surface:#FFFFFF;--color-surface-alt:#F0F2F5;--color-border:#E2E5EB;--color-border-light:#ECEEF2;--color-text:#111827;--color-text-muted:#4B5563;--color-text-faint:#9CA3AF;--color-primary:#1A6B3C;--color-primary-hover:#145A32;--color-primary-surface:rgba(26,107,60,0.06);--color-success:#16a34a;--color-danger:#dc2626;--section-alt-bg:#F0F2F5}
+[data-theme="dark"]{--color-bg:#0d1117;--color-surface:#161b22;--color-surface-alt:#1c2333;--color-border:#30363d;--color-border-light:#21262d;--color-text:#e6edf3;--color-text-muted:#8b949e;--color-text-faint:#484f58;--color-primary:#4ADE80;--color-primary-hover:#22C55E;--color-primary-surface:rgba(74,222,128,0.08);--color-success:#3fb950;--color-danger:#f85149;--section-alt-bg:#161b22}
+.disclosure-bar{background:var(--color-surface-alt);text-align:center;font-size:var(--text-xs);color:var(--color-text-muted);padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--color-border-light)}
+.disclosure-bar a{color:var(--color-primary);text-decoration:underline}
+.site-header{position:sticky;top:0;z-index:100;background:var(--color-surface);border-bottom:1px solid var(--color-border-light);padding:0 var(--space-4)}
+.site-header .container{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);max-width:var(--content-wide);margin:0 auto;height:64px}
+.site-logo{display:flex;align-items:center;text-decoration:none}
+.nav-desktop{display:flex;align-items:center;gap:var(--space-1)}
+.nav-actions{display:flex;align-items:center;gap:var(--space-2)}
+.header-cta{background:var(--color-primary);color:#fff;padding:var(--space-2) var(--space-4);border-radius:var(--radius-full);font-weight:700;font-size:var(--text-sm);text-decoration:none;white-space:nowrap}
+.container{max-width:var(--content-wide);margin:0 auto;padding:0 var(--space-4)}
+.page-hero{background:var(--color-surface-alt);padding:var(--space-8) 0 var(--space-10);border-bottom:1px solid var(--color-border-light)}
+.page-hero h1{font-family:var(--font-display);font-size:var(--text-2xl);font-weight:800;letter-spacing:-0.02em}
+.breadcrumb{font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-3)}
+.breadcrumb a{color:var(--color-primary);text-decoration:none}
+.section{padding:var(--space-12) 0}
+.section--alt{background:var(--section-alt-bg)}
+@media(max-width:899px){.nav-desktop{display:none}.mobile-menu-btn{display:flex}}
+@media(min-width:900px){.mobile-menu-btn{display:none}}</style>
 <link rel="stylesheet" href="./style.min.css">
 <link rel="stylesheet" href="./base.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ontariopoker.com/"}, {"@type": "ListItem", "position": 2, "name": "Deposit Limit Planner"}]}</script>

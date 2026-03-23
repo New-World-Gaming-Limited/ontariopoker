@@ -3186,8 +3186,20 @@ a .code-badge:hover {
   color: var(--color-text);
 }
 .ss-compare-winner {
-  color: var(--color-primary);
+  color: var(--color-text);
   font-weight: 700;
+  position: relative;
+}
+.ss-compare-winner::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: var(--color-success);
+  border-radius: 2px;
 }
 .ss-compare-table tbody tr:last-child td {
   border-bottom: none;

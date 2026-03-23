@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ontario Poker Room Status Dashboard 2026 | Peak Hours &amp; Game Availability | OntarioPoker</title>
+<meta name="description" content="Live-updating dashboard showing peak hours, game availability, stake levels, and traffic patterns across all 6 regulated Ontario poker rooms. Find the best time to play.">
+<link rel="canonical" href="https://ontariopoker.com/room-status-dashboard">
+<meta property="og:title" content="Ontario Poker Room Status Dashboard 2026 | Peak Hours &amp; Game Availability">
+<meta property="og:description" content="Live-updating dashboard showing peak hours, game availability, stake levels, and traffic patterns across all 6 regulated Ontario poker rooms.">
+<meta property="og:url" content="https://ontariopoker.com/room-status-dashboard">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OntarioPoker">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="icon" type="image/png" href="./favicon.png" sizes="96x96">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
+<link rel="stylesheet" href="./style.min.css">
+<link rel="stylesheet" href="./base.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ontariopoker.com/"},{"@type":"ListItem","position":2,"name":"Room Status Dashboard"}]}</script>
+<script type="application/ld+json">{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"When is the best time to play online poker in Ontario?","acceptedAnswer":{"@type":"Answer","text":"The best time for cash games is between 7 PM and 11 PM ET on weekdays, with peak traffic on Sundays from 2 PM to midnight ET. Tournament players should look for Sunday major events starting around 1 PM ET. Micro and low stakes tables run around the clock, but mid-stakes games fill fastest during evening hours."}},
+    {"@type":"Question","name":"Which Ontario poker room has the most traffic?","acceptedAnswer":{"@type":"Answer","text":"GGPoker Ontario and PokerStars Ontario consistently have the highest traffic among Ontario-regulated rooms. GGPoker offers the largest tournament schedule including Sunday Majors, while PokerStars has strong cash game traffic especially during evening hours. Both rooms offer games from micro to mid stakes."}},
+    {"@type":"Question","name":"Are there enough players at Ontario poker rooms?","acceptedAnswer":{"@type":"Answer","text":"Ontario's regulated poker market supports active tables across all six rooms during peak hours. Micro and low-stakes No-Limit Hold'em cash games run consistently throughout the day. Higher stakes and PLO games have more limited availability and are best played during evening peak hours. Tournament schedules run daily across all rooms."}},
+    {"@type":"Question","name":"Do all Ontario poker rooms offer PLO?","acceptedAnswer":{"@type":"Answer","text":"GGPoker and PokerStars offer PLO cash games from micro to low stakes. 888poker, BetMGM, PartyPoker, and Bwin offer limited PLO options, primarily at micro stakes during peak hours. PLO tournament availability is also limited in the Ontario market."}},
+    {"@type":"Question","name":"What stakes are available at Ontario poker rooms?","acceptedAnswer":{"@type":"Answer","text":"NLH cash games range from $0.01/$0.02 (micro) up to $2/$5 or $5/$10 at the larger rooms like GGPoker and PokerStars. Most rooms reliably spread micro ($0.01/$0.02 to $0.05/$0.10) and low ($0.10/$0.25 to $0.25/$0.50) stakes. Mid stakes ($0.50/$1 to $2/$5) are available at GGPoker and PokerStars during peak hours."}}
+  ]
+}</script>
+<style>
+/* ========== Room Status Dashboard Styles ========== */
+
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.status-badge--peak {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+.status-badge--active {
+  background: rgba(34, 197, 94, 0.12);
+  color: #16a34a;
+}
+.status-badge--quiet {
+  background: rgba(156, 163, 175, 0.15);
+  color: var(--color-text-muted);
+}
+[data-theme="dark"] .status-badge--peak {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+[data-theme="dark"] .status-badge--active {
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.status-dot--peak {
+  background: #ef4444;
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+.status-dot--active { background: #16a34a; }
+.status-dot--quiet { background: #9ca3af; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.3); }
+}
+
+/* Dashboard Clock */
+.dashboard-clock {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-6);
+}
+.dashboard-clock svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+.dashboard-clock strong {
+  font-weight: 600;
+}
+
+/* Room Cards Grid */
+.room-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--space-4);
+}
+@media (max-width: 720px) {
+  .room-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Room Status Card */
+.room-status-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.room-status-card:hover {
+  border-color: var(--color-border-light, var(--color-border));
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+[data-theme="dark"] .room-status-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.room-status-card--featured {
+  border-color: #BE0F34;
+  border-width: 2px;
+}
+.room-status-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+.room-status-card__name-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.room-status-card__logo {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.room-status-card__name {
+  font-weight: 700;
+  font-size: var(--text-base);
+}
+.room-status-card__rating {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: var(--color-surface-alt, rgba(0,0,0,0.04));
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+[data-theme="dark"] .room-status-card__rating {
+  background: rgba(255,255,255,0.08);
+}
+
+.room-status-card__meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+}
+.room-status-card__meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.room-status-card__meta-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+}
+.room-status-card__meta-value {
+  font-weight: 600;
+  font-size: var(--text-sm);
+}
+
+.room-status-card__games {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.game-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--color-surface-alt, rgba(0,0,0,0.04));
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+[data-theme="dark"] .game-tag {
+  background: rgba(255,255,255,0.06);
+}
+.game-tag svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+.game-tag--available svg { color: #16a34a; }
+.game-tag--unavailable {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+
+.room-status-card__stakes {
+  display: flex;
+  gap: 6px;
+}
+.stake-pill {
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-alt, rgba(0,0,0,0.04));
+}
+[data-theme="dark"] .stake-pill {
+  background: rgba(255,255,255,0.06);
+}
+.stake-pill--available {
+  border-color: #16a34a;
+  color: #16a34a;
+  background: rgba(34, 197, 94, 0.08);
+}
+[data-theme="dark"] .stake-pill--available {
+  color: #4ade80;
+  background: rgba(34, 197, 94, 0.15);
+}
+.stake-pill--unavailable {
+  opacity: 0.35;
+}
+
+.room-status-card__cta {
+  margin-top: auto;
+  padding-top: var(--space-2);
+}
+.room-status-card__cta .btn {
+  width: 100%;
+  text-align: center;
+  font-size: var(--text-sm);
+}
+
+/* Heatmap */
+.heatmap-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--space-2);
+}
+.heatmap-table {
+  border-collapse: separate;
+  border-spacing: 3px;
+  width: 100%;
+  min-width: 700px;
+}
+.heatmap-table th {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: 4px 2px;
+  white-space: nowrap;
+}
+.heatmap-table th:first-child {
+  text-align: right;
+  padding-right: 8px;
+  min-width: 50px;
+}
+.heatmap-cell {
+  width: 100%;
+  aspect-ratio: 1;
+  min-width: 16px;
+  max-width: 32px;
+  border-radius: 3px;
+  transition: transform 0.15s;
+  position: relative;
+}
+.heatmap-cell:hover {
+  transform: scale(1.3);
+  z-index: 2;
+}
+.heatmap-cell[data-level="0"] { background: var(--color-surface-alt, rgba(0,0,0,0.04)); }
+.heatmap-cell[data-level="1"] { background: rgba(34, 197, 94, 0.2); }
+.heatmap-cell[data-level="2"] { background: rgba(34, 197, 94, 0.4); }
+.heatmap-cell[data-level="3"] { background: rgba(34, 197, 94, 0.6); }
+.heatmap-cell[data-level="4"] { background: rgba(239, 68, 68, 0.5); }
+.heatmap-cell[data-level="5"] { background: rgba(239, 68, 68, 0.75); }
+[data-theme="dark"] .heatmap-cell[data-level="0"] { background: rgba(255,255,255,0.05); }
+[data-theme="dark"] .heatmap-cell[data-level="1"] { background: rgba(74, 222, 128, 0.15); }
+[data-theme="dark"] .heatmap-cell[data-level="2"] { background: rgba(74, 222, 128, 0.3); }
+[data-theme="dark"] .heatmap-cell[data-level="3"] { background: rgba(74, 222, 128, 0.5); }
+[data-theme="dark"] .heatmap-cell[data-level="4"] { background: rgba(248, 113, 113, 0.4); }
+[data-theme="dark"] .heatmap-cell[data-level="5"] { background: rgba(248, 113, 113, 0.65); }
+
+.heatmap-cell--current {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+  z-index: 1;
+}
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+.heatmap-legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* Best Times Guide */
+.best-times-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+.best-time-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+.best-time-card__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-3);
+}
+.best-time-card__title {
+  font-weight: 700;
+  font-size: var(--text-base);
+  margin-bottom: var(--space-2);
+}
+.best-time-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.best-time-card__list li {
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--text-sm);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+.best-time-card__list li:last-child {
+  border-bottom: none;
+}
+.best-time-card__list li strong {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Availability Matrix Table */
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+.matrix-table th,
+.matrix-table td {
+  padding: var(--space-2) var(--space-3);
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+.matrix-table th {
+  background: var(--color-surface-alt, rgba(0,0,0,0.03));
+  font-weight: 600;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+[data-theme="dark"] .matrix-table th {
+  background: rgba(255,255,255,0.05);
+}
+.matrix-table td:first-child,
+.matrix-table th:first-child {
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-text);
+  position: sticky;
+  left: 0;
+  background: var(--color-surface);
+  z-index: 1;
+}
+.matrix-table th:first-child {
+  z-index: 3;
+  background: var(--color-surface-alt, rgba(0,0,0,0.03));
+}
+[data-theme="dark"] .matrix-table th:first-child {
+  background: rgba(255,255,255,0.05);
+}
+.matrix-table tbody tr:hover td {
+  background: var(--color-surface-alt, rgba(0,0,0,0.02));
+}
+[data-theme="dark"] .matrix-table tbody tr:hover td {
+  background: rgba(255,255,255,0.03);
+}
+.matrix-table tbody tr:hover td:first-child {
+  background: var(--color-surface);
+}
+
+.check-mark {
+  color: #16a34a;
+  font-weight: 700;
+}
+.x-mark {
+  color: var(--color-text-faint);
+}
+.limited-mark {
+  color: #d97706;
+  font-weight: 600;
+  font-size: var(--text-xs);
+}
+[data-theme="dark"] .check-mark { color: #4ade80; }
+[data-theme="dark"] .limited-mark { color: #fbbf24; }
+
+/* Tab filters */
+.tab-filters {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+.tab-filter-btn {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.tab-filter-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.tab-filter-btn--active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+.tab-filter-btn--active:hover {
+  color: #fff;
+}
+
+/* Section headings */
+.dash-section-header {
+  margin-bottom: var(--space-5);
+}
+.dash-section-header h2 {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  margin-bottom: var(--space-1);
+}
+.dash-section-header p {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* FAQ */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.faq-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.faq-question {
+  width: 100%;
+  text-align: left;
+  padding: var(--space-4);
+  font-weight: 600;
+  font-size: var(--text-base);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  color: var(--color-text);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.faq-question svg {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+  width: 20px;
+  height: 20px;
+}
+.faq-item.open .faq-question svg {
+  transform: rotate(180deg);
+}
+.faq-answer {
+  padding: 0 var(--space-4) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  display: none;
+}
+.faq-item.open .faq-answer {
+  display: block;
+}
+
+/* Internal links section */
+.related-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-3);
+}
+.related-link-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.related-link-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.related-link-card svg {
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+
+/* Tooltip for heatmap */
+.heatmap-tooltip {
+  position: fixed;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text);
+  pointer-events: none;
+  z-index: 100;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.heatmap-tooltip--visible {
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+<div class="disclosure-bar">
+  This site contains affiliate links and promotional content. 19+ only. Play responsibly. <a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+</div>
+<header class="site-header">
+  <div class="container">
+    <a href="./index.html" class="site-logo">
+      <img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:32px;width:auto;">
+    </a>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Rooms <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ggpoker/review.html">GGPoker</a>
+          <a href="./888poker/review.html">888poker</a>
+          <a href="./betmgm-poker/review.html">BetMGM Poker</a>
+          <a href="./pokerstars/review.html">PokerStars</a>
+          <a href="./partypoker/review.html">PartyPoker</a>
+          <a href="./bwin/review.html">Bwin</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./compare.html">Compare All</a>
+          <a href="./head-to-head.html">Head-to-Head</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Promotions <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ontario-poker-promo-codes.html">All Promo Codes</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./ggpoker/promo-code.html">GGPoker Promo</a>
+          <a href="./888poker/promo-code.html">888poker Promo</a>
+          <a href="./betmgm-poker/promo-code.html">BetMGM Poker Promo</a>
+          <a href="./pokerstars/promo-code.html">PokerStars Promo</a>
+          <a href="./partypoker/promo-code.html">PartyPoker Promo</a>
+          <a href="./bwin/promo-code.html">Bwin Promo</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Tools <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./room-finder.html">Room Finder Quiz</a>
+          <a href="./which-room-quiz.html">Which Room Quiz</a>
+          <a href="./rake-calculator.html">Rake Calculator</a>
+          <a href="./poker-odds-calculator.html">Odds Calculator</a>
+          <a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+          <a href="./tournament-roi-calculator.html">Tournament ROI Calculator</a>
+          <a href="./poker-tax-calculator.html">Poker Tax Calculator</a>
+          <a href="./session-tracker.html">Session Tracker</a>
+          <a href="./shared-liquidity-estimator.html">Shared Liquidity Estimator</a>
+          <a href="./room-status-dashboard.html">Room Status Dashboard</a>
+          <a href="./ontario-poker-glossary.html">Ontario Glossary</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Learn <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./strategy.html">Strategy Guides</a>
+          <a href="./poker-glossary.html">Poker Glossary</a>
+          <a href="./how-to-play-poker-ontario.html">How to Play Poker</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./is-online-poker-legal-in-ontario.html">Legal Guide</a>
+          <a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+          <a href="./ontario-poker-tournament-schedule.html">Tournament Schedule</a>
+          <a href="./ontario-poker-traffic-index.html">Traffic Index</a>
+          <a href="./news.html">News</a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-actions">
+      <button class="search-btn" aria-label="Search site"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+      <a href="./best-poker-sites-ontario.html" class="header-cta">Best Poker Sites</a>
+      <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- Hero -->
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="./index.html">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">Room Status Dashboard</span></nav>
+    <h1>Ontario Poker Room Status Dashboard</h1>
+    <p class="page-hero-subtitle">Track peak hours, game availability, and traffic patterns across all six regulated Ontario poker rooms. Updated with typical traffic data for March 2026.</p>
+  </div>
+</section>
+
+<!-- Section 1: Room Status Cards -->
+<section class="section" id="room-status">
+  <div class="container">
+
+    <div class="dashboard-clock" id="dashClock">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span>Current time: <strong id="clockET">--:-- ET</strong> &middot; <span id="clockStatus">Checking status...</span></span>
+    </div>
+
+    <div class="dash-section-header">
+      <h2>Room Status Overview</h2>
+      <p>Real-time status based on current Eastern Time. Each room's traffic varies by time of day and day of the week.</p>
+    </div>
+
+    <div class="room-cards-grid" id="roomCardsGrid">
+      <!-- Rendered by JS -->
+    </div>
+
+  </div>
+</section>
+
+<!-- Section 2: Traffic Heatmap -->
+<section class="section section--alt" id="traffic-heatmap">
+  <div class="container">
+    <div class="dash-section-header">
+      <h2>Weekly Traffic Heatmap</h2>
+      <p>Typical Ontario poker traffic patterns across the week. Darker colors indicate higher player counts. Your current time slot is highlighted.</p>
+    </div>
+
+    <div class="card card--flat" style="padding: var(--space-4);">
+      <div class="heatmap-wrapper">
+        <table class="heatmap-table" id="heatmapTable">
+          <!-- Rendered by JS -->
+        </table>
+      </div>
+      <div class="heatmap-legend">
+        <span>Less</span>
+        <div class="heatmap-legend-swatch" style="background:var(--color-surface-alt, rgba(0,0,0,0.04));"></div>
+        <div class="heatmap-legend-swatch" style="background:rgba(34,197,94,0.2);"></div>
+        <div class="heatmap-legend-swatch" style="background:rgba(34,197,94,0.4);"></div>
+        <div class="heatmap-legend-swatch" style="background:rgba(34,197,94,0.6);"></div>
+        <div class="heatmap-legend-swatch" style="background:rgba(239,68,68,0.5);"></div>
+        <div class="heatmap-legend-swatch" style="background:rgba(239,68,68,0.75);"></div>
+        <span>More</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: Best Times to Play -->
+<section class="section" id="best-times">
+  <div class="container">
+    <div class="dash-section-header">
+      <h2>Best Times to Play</h2>
+      <p>Optimal times for different game types based on traffic data across all Ontario rooms.</p>
+    </div>
+
+    <div class="best-times-grid">
+
+      <div class="best-time-card">
+        <div class="best-time-card__icon" style="background:rgba(34,197,94,0.1);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        </div>
+        <h3 class="best-time-card__title">Cash Games</h3>
+        <ul class="best-time-card__list">
+          <li><span>Micro Stakes</span> <strong>All Day</strong></li>
+          <li><span>Low Stakes</span> <strong>4 PM - 1 AM ET</strong></li>
+          <li><span>Mid Stakes</span> <strong>7 PM - 12 AM ET</strong></li>
+          <li><span>Best Day</span> <strong>Sunday</strong></li>
+        </ul>
+      </div>
+
+      <div class="best-time-card">
+        <div class="best-time-card__icon" style="background:rgba(239,68,68,0.1);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 7 7 7 7"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 17 7 17 7"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+        </div>
+        <h3 class="best-time-card__title">Tournaments</h3>
+        <ul class="best-time-card__list">
+          <li><span>Daily Tourneys</span> <strong>6 PM - 10 PM ET</strong></li>
+          <li><span>Sunday Majors</span> <strong>1 PM - 6 PM ET</strong></li>
+          <li><span>Best Guarantees</span> <strong>Sunday Evening</strong></li>
+          <li><span>Most Options</span> <strong>GGPoker</strong></li>
+        </ul>
+      </div>
+
+      <div class="best-time-card">
+        <div class="best-time-card__icon" style="background:rgba(59,130,246,0.1);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3 class="best-time-card__title">Sit &amp; Go / Jackpot</h3>
+        <ul class="best-time-card__list">
+          <li><span>Fastest Fill</span> <strong>7 PM - 11 PM ET</strong></li>
+          <li><span>BLAST (888)</span> <strong>Evening Peak</strong></li>
+          <li><span>Spin &amp; Go (PS)</span> <strong>6 PM - 12 AM ET</strong></li>
+          <li><span>Best Day</span> <strong>Fri - Sun</strong></li>
+        </ul>
+      </div>
+
+      <div class="best-time-card">
+        <div class="best-time-card__icon" style="background:rgba(168,85,247,0.1);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3 class="best-time-card__title">Weekday vs Weekend</h3>
+        <ul class="best-time-card__list">
+          <li><span>Weekdays</span> <strong>Peak at 8-11 PM</strong></li>
+          <li><span>Saturday</span> <strong>Peak at 3-12 AM</strong></li>
+          <li><span>Sunday</span> <strong>Peak at 2 PM - 12 AM</strong></li>
+          <li><span>Softest Games</span> <strong>Fri &amp; Sat Night</strong></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: Stake Availability Matrix -->
+<section class="section section--alt" id="stake-availability">
+  <div class="container">
+    <div class="dash-section-header">
+      <h2>Stake Availability Matrix</h2>
+      <p>Which stakes are available at each Ontario poker room for NLH and PLO cash games.</p>
+    </div>
+
+    <div class="tab-filters" id="stakeTabFilters">
+      <button class="tab-filter-btn tab-filter-btn--active" data-tab="nlh">NLH Cash</button>
+      <button class="tab-filter-btn" data-tab="plo">PLO Cash</button>
+      <button class="tab-filter-btn" data-tab="mtt">Tournaments</button>
+    </div>
+
+    <!-- NLH Stakes Table -->
+    <div class="card card--flat table-responsive" id="tabNlh" style="padding:0;">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Room</th>
+            <th>$0.01/0.02</th>
+            <th>$0.02/0.05</th>
+            <th>$0.05/0.10</th>
+            <th>$0.10/0.25</th>
+            <th>$0.25/0.50</th>
+            <th>$0.50/1</th>
+            <th>$1/2</th>
+            <th>$2/5</th>
+            <th>$5/10</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:#BE0F34;">GGPoker</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+          </tr>
+          <tr>
+            <td style="color:#E41F23;">PokerStars</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+          </tr>
+          <tr>
+            <td style="color:#1A1A6C;">888poker</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+          </tr>
+          <tr>
+            <td style="color:#C6A962;">BetMGM</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+          </tr>
+          <tr>
+            <td style="color:#FF6B00;">PartyPoker</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+          </tr>
+          <tr>
+            <td style="color:#FFCC00;">Bwin</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PLO Stakes Table -->
+    <div class="card card--flat table-responsive" id="tabPlo" style="padding:0;display:none;">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Room</th>
+            <th>$0.01/0.02</th>
+            <th>$0.02/0.05</th>
+            <th>$0.05/0.10</th>
+            <th>$0.10/0.25</th>
+            <th>$0.25/0.50</th>
+            <th>$0.50/1</th>
+            <th>$1/2+</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:#BE0F34;">GGPoker</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+          </tr>
+          <tr>
+            <td style="color:#E41F23;">PokerStars</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+          </tr>
+          <tr>
+            <td style="color:#1A1A6C;">888poker</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+          </tr>
+          <tr>
+            <td style="color:#C6A962;">BetMGM</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+          </tr>
+          <tr>
+            <td style="color:#FF6B00;">PartyPoker</td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+          </tr>
+          <tr>
+            <td style="color:#FFCC00;">Bwin</td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tournament Buy-ins Table -->
+    <div class="card card--flat table-responsive" id="tabMtt" style="padding:0;display:none;">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Room</th>
+            <th>$1-$5</th>
+            <th>$5-$20</th>
+            <th>$20-$50</th>
+            <th>$50-$100</th>
+            <th>$100+</th>
+            <th>Schedule Size</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:#BE0F34;">GGPoker</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><strong style="color:#16a34a;">Largest</strong></td>
+          </tr>
+          <tr>
+            <td style="color:#E41F23;">PokerStars</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><strong>Strong</strong></td>
+          </tr>
+          <tr>
+            <td style="color:#1A1A6C;">888poker</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td>Moderate</td>
+          </tr>
+          <tr>
+            <td style="color:#C6A962;">BetMGM</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td>Growing</td>
+          </tr>
+          <tr>
+            <td style="color:#FF6B00;">PartyPoker</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td>Limited</td>
+          </tr>
+          <tr>
+            <td style="color:#FFCC00;">Bwin</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td>Limited</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- Section 5: Game Type Availability -->
+<section class="section" id="game-availability">
+  <div class="container">
+    <div class="dash-section-header">
+      <h2>Game Type Availability</h2>
+      <p>A breakdown of which game formats are offered at each Ontario poker room.</p>
+    </div>
+
+    <div class="card card--flat table-responsive" style="padding:0;">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Room</th>
+            <th>NLH Cash</th>
+            <th>PLO Cash</th>
+            <th>NLH MTT</th>
+            <th>PLO MTT</th>
+            <th>Sit &amp; Go</th>
+            <th>Jackpot SnG</th>
+            <th>Fast Fold</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:#BE0F34;">GGPoker</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td style="color:#E41F23;">PokerStars</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td style="color:#1A1A6C;">888poker</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td style="color:#C6A962;">BetMGM</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+          </tr>
+          <tr>
+            <td style="color:#FF6B00;">PartyPoker</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td style="color:#FFCC00;">Bwin</td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="limited-mark">Limited</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="x-mark">&mdash;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+            <td><span class="check-mark">&#10003;</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:var(--space-3);font-size:var(--text-xs);color:var(--color-text-muted);">Jackpot SnG includes BLAST (888poker), Spin &amp; Go (PokerStars), SPINS (PartyPoker/Bwin), and equivalent formats. Fast Fold includes Rush &amp; Cash (GGPoker), Zoom (PokerStars), SNAP (888poker), and fastforward (PartyPoker/Bwin).</p>
+  </div>
+</section>
+
+<!-- How to Use -->
+<section class="section section--alt">
+  <div class="container container--narrow">
+    <div class="prose">
+      <h2>How to Use This Dashboard</h2>
+      <p>This dashboard shows typical traffic patterns for Ontario's regulated poker rooms. The data reflects general trends rather than real-time table counts, since the Ontario market operates as a ring-fenced ecosystem with its own player pool.</p>
+      <p>The <strong>status indicators</strong> on each room card update automatically based on the current Eastern Time. "Peak Hours" means the room is at its busiest, "Active" means solid table availability, and "Quiet" means fewer tables running.</p>
+      <p>Use the <strong>traffic heatmap</strong> to plan your sessions around the busiest times. Higher traffic means more table selection and faster tournament fills, but also tougher competition at higher stakes.</p>
+      <p>The <strong>stake availability matrix</strong> shows which stakes run consistently at each room. "Limited" means tables may only fill during peak hours. Check the <a href="./ontario-poker-traffic-index.html">Traffic Index</a> for more detailed player count estimates.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container container--narrow">
+    <div class="dash-section-header">
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">When is the best time to play online poker in Ontario?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-answer">The best time for cash games is between 7 PM and 11 PM ET on weekdays, with peak traffic on Sundays from 2 PM to midnight ET. Tournament players should look for Sunday major events starting around 1 PM ET. Micro and low stakes tables run around the clock, but mid-stakes games fill fastest during evening hours.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">Which Ontario poker room has the most traffic?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-answer">GGPoker Ontario and PokerStars Ontario consistently have the highest traffic among Ontario-regulated rooms. GGPoker offers the largest tournament schedule including Sunday Majors, while PokerStars has strong cash game traffic especially during evening hours. Both rooms offer games from micro to mid stakes.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">Are there enough players at Ontario poker rooms?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-answer">Ontario's regulated poker market supports active tables across all six rooms during peak hours. Micro and low-stakes No-Limit Hold'em cash games run consistently throughout the day. Higher stakes and PLO games have more limited availability and are best played during evening peak hours. Tournament schedules run daily across all rooms.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">Do all Ontario poker rooms offer PLO?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-answer">GGPoker and PokerStars offer PLO cash games from micro to low stakes. 888poker, BetMGM, PartyPoker, and Bwin offer limited PLO options, primarily at micro stakes during peak hours. PLO tournament availability is also limited in the Ontario market.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">What stakes are available at Ontario poker rooms?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-answer">NLH cash games range from $0.01/$0.02 (micro) up to $2/$5 or $5/$10 at the larger rooms like GGPoker and PokerStars. Most rooms reliably spread micro ($0.01/$0.02 to $0.05/$0.10) and low ($0.10/$0.25 to $0.25/$0.50) stakes. Mid stakes ($0.50/$1 to $2/$5) are available at GGPoker and PokerStars during peak hours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related Links -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="dash-section-header">
+      <h2>Related Resources</h2>
+    </div>
+    <div class="related-links-grid">
+      <a href="./compare.html" class="related-link-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M21 3l-7 7"/><path d="M3 3l7 7"/><path d="M16 21h5v-5"/><path d="M8 21H3v-5"/><path d="M21 21l-7-7"/><path d="M3 21l7-7"/></svg>
+        Compare All Rooms
+      </a>
+      <a href="./best-poker-sites-ontario.html" class="related-link-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Best Poker Sites Ontario
+      </a>
+      <a href="./ontario-poker-traffic-index.html" class="related-link-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        Ontario Traffic Index
+      </a>
+      <a href="./ontario-poker-tournament-schedule.html" class="related-link-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Tournament Schedule
+      </a>
+      <a href="./rake-calculator.html" class="related-link-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
+        Rake Calculator
+      </a>
+      <a href="./room-finder.html" class="related-link-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        Room Finder Quiz
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-rg">
+<svg fill="none" stroke="currentColor" stroke-width="2" style="width:32px;height:32px;flex-shrink:0;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<p>Poker is supposed to be fun. If it stops feeling that way, step away. Help is available at ConnexOntario: 1-866-531-2600.</p>
+<a class="btn btn--sm" href="./responsible-gambling.html" style="background:rgba(255,255,255,0.15);color:inherit;white-space:nowrap;">Responsible Gambling</a>
+</div>
+<div class="footer-brand">
+<a class="site-logo" href="./index.html" style="margin-bottom:var(--space-2);">
+<img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:26px;width:auto;">
+</a>
+<p>Your regulated Ontario poker resource online. Reviews, promotions, and guides for all six licensed poker rooms. Published by NWG PTY Limited.</p>
+<p style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-faint);">ontariopoker.com &middot; c/o WeWork, 240 Richmond St W, Toronto, ON M5V 1V6 &middot; <a href="mailto:help@ontariopoker.com" style="color:inherit;">help@ontariopoker.com</a></p>
+</div>
+<div class="footer-newsletter" style="margin-bottom:var(--space-6);padding:var(--space-5);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);">
+<h4 style="margin-bottom:var(--space-2);">Stay up to date</h4>
+<p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-3);">Ontario poker news, new room launches, and regulation updates. No spam, unsubscribe any time.</p>
+<form action="#" method="POST" style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+<input type="email" name="email" placeholder="you@example.com" required style="flex:1;min-width:180px;padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-sm);background:var(--color-surface);color:var(--color-text);">
+<button type="submit" class="btn btn--sm btn--primary">Subscribe</button>
+</form>
+<p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-2);">By subscribing you agree to our <a href="./privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a>. 19+ only.</p>
+</div>
+<div class="footer-columns">
+<div class="footer-col">
+<h4 class="footer-col-toggle">Poker Rooms<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ggpoker/index.html">GGPoker</a><a href="./888poker/index.html">888poker</a><a href="./betmgm-poker/index.html">BetMGM Poker</a><a href="./pokerstars/index.html">PokerStars Ontario</a><a href="./partypoker/index.html">PartyPoker Ontario</a><a href="./bwin/index.html">Bwin Ontario</a>
+<a href="./compare.html">Compare All Rooms</a>
+<a href="./best-poker-sites-ontario.html">Best Poker Sites</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Tools<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./room-finder.html">Room Finder Quiz</a>
+<a href="./which-room-quiz.html">Which Room Quiz</a>
+<a href="./head-to-head.html">Head-to-Head Compare</a>
+<a href="./rake-calculator.html">Rake Calculator</a>
+<a href="./poker-odds-calculator.html">Odds Calculator</a>
+<a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+<a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+<a href="./tournament-roi-calculator.html">Tournament ROI</a>
+<a href="./poker-tax-calculator.html">Tax Calculator</a>
+<a href="./session-tracker.html">Session Tracker</a>
+<a href="./room-status-dashboard.html">Room Status</a>
+<a href="./shared-liquidity-estimator.html">Liquidity Estimator</a>
+<a href="./ontario-poker-glossary.html">Ontario Glossary</a>
+<a href="./compare.html">Full Comparison</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Learn<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./strategy.html">Strategy Guides</a>
+<a href="./poker-glossary.html">Poker Glossary</a>
+<a href="./how-to-play-poker-ontario.html">How to Play Poker</a>
+<a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+<a href="./ontario-poker-tournament-schedule.html">Tournament Schedule</a>
+<a href="./news.html">News Hub</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Guides<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ontario-poker-promo-codes.html">Promo Codes</a>
+<a href="./ontario-poker-tournaments.html">Tournaments</a>
+<a href="./ontario-poker-beginners-guide.html">Beginners Guide</a>
+<a href="./ontario-poker-plo-omaha.html">PLO & Omaha</a>
+<a href="./ontario-poker-taxes.html">Poker Taxes Ontario</a>
+<a href="./wsop-online-ontario.html">WSOP Online Ontario</a>
+<a href="./ontario-poker-sit-and-go.html">Sit & Go Guide</a>
+<a href="./ontario-poker-bonuses.html">Bonuses & Offers</a>
+<a href="./ontario-poker-freerolls.html">Freerolls</a>
+<a href="./ontario-poker-apps.html">Poker Apps</a>
+<a href="./ontario-poker-withdrawal-times.html">Withdrawal Times</a>
+<a href="./ontario-poker-payment-methods.html">Payment Methods</a>
+<a href="./ontario-poker-rakeback-rewards.html">Rakeback &amp; Rewards</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Transparency<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./editorial-policy.html">Editorial Policy</a>
+<a href="./fact-checking.html">Fact Checking</a>
+<a href="./corrections-policy.html">Corrections Policy</a>
+<a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+<a href="./complaints-policy.html">Complaints Policy</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Responsible Gambling<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./responsible-gambling.html">Responsible Gambling</a>
+<a href="./self-exclusion-resources.html">Self-Exclusion Resources</a>
+<a href="./how-to-complain-about-an-ontario-poker-site.html">How to Complain</a>
+<a href="./contact.html">Contact &amp; Support</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Legal<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./about.html">About Us</a>
+<a href="./management-team.html">Our Authors</a>
+<a href="./privacy.html">Privacy Policy</a>
+<a href="./cookie-policy.html">Cookie Policy</a>
+<a href="./terms.html">Terms &amp; Conditions</a>
+<a href="./accessibility.html">Accessibility</a>
+</div>
+</div>
+</div>
+<div class="ftc-footer">
+<p><strong>Affiliate Disclosure:</strong> OntarioPoker.com is owned and operated by NWG PTY Limited. This site contains affiliate links. If you click through and register using our links, we may receive compensation at no additional cost to you. All editorial ratings are our own. See our <a href="./affiliate-disclosure.html" style="color:inherit;text-decoration:underline;">Affiliate Disclosure</a>.</p>
+<p><strong>Disclaimer:</strong> Online poker in Ontario is regulated by the Alcohol and Gaming Commission of Ontario (AGCO) and operated through iGaming Ontario. You must be 19+ and physically located in Ontario to play. If you or someone you know has a gambling problem, call ConnexOntario at 1-866-531-2600.</p>
+</div>
+<div class="footer-bottom">
+<span>&copy; 2026 NWG PTY Limited &middot; ontariopoker.com. All rights reserved.</span>
+</div>
+</div>
+</footer>
+<div id="searchOverlay" class="search-overlay">
+  <div class="search-box">
+    <div class="search-input-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" class="search-input" placeholder="Search reviews, guides, promotions..." autocomplete="off">
+      <button class="search-close" aria-label="Close search"><span aria-hidden="true">&#x2715;</span></button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+
+<script src="./app.min.js" defer></script>
+<script src="./app.js"></script>
+<script src="./interactive-tools.js"></script>
+
+<script>
+(function() {
+  'use strict';
+
+  // ========== ROOM DATA ==========
+  var rooms = [
+    {
+      name: 'GGPoker',
+      slug: 'ggpoker',
+      rating: '9.4/10.0',
+      color: '#BE0F34',
+      exitLink: 'https://click.ggpartners.com/?serial=886&creative_id=8509&anid=',
+      peakStart: 19, peakEnd: 23,
+      peakLabel: '7 PM - 11 PM ET',
+      bestDay: 'Sunday',
+      featured: true,
+      games: {nlh: true, plo: true, mtt: true, sng: true, jackpot: true, fastfold: true},
+      stakes: {micro: true, low: true, mid: true, high: false},
+      desc: 'Largest Ontario tournament schedule'
+    },
+    {
+      name: 'PokerStars',
+      slug: 'pokerstars',
+      rating: '8.7/10.0',
+      color: '#E41F23',
+      exitLink: '#',
+      peakStart: 18, peakEnd: 23,
+      peakLabel: '6 PM - 11 PM ET',
+      bestDay: 'Sunday',
+      featured: false,
+      games: {nlh: true, plo: true, mtt: true, sng: true, jackpot: true, fastfold: true},
+      stakes: {micro: true, low: true, mid: true, high: false},
+      desc: 'Strong cash games and Spin & Go'
+    },
+    {
+      name: '888poker',
+      slug: '888poker',
+      rating: '9.0/10.0',
+      color: '#1A1A6C',
+      exitLink: 'https://ic.aff-handler.com/C/48309?sr=2020537',
+      peakStart: 20, peakEnd: 24,
+      peakLabel: '8 PM - 12 AM ET',
+      bestDay: 'Sunday',
+      featured: false,
+      games: {nlh: true, plo: false, mtt: true, sng: false, jackpot: true, fastfold: true},
+      stakes: {micro: true, low: true, mid: false, high: false},
+      desc: 'BLAST lottery sit & go'
+    },
+    {
+      name: 'BetMGM Poker',
+      slug: 'betmgm-poker',
+      rating: '8.8/10.0',
+      color: '#C6A962',
+      exitLink: 'https://click.ggpartners.com/?serial=886&creative_id=69&anid=',
+      peakStart: 19, peakEnd: 23,
+      peakLabel: '7 PM - 11 PM ET',
+      bestDay: 'Saturday',
+      featured: false,
+      games: {nlh: true, plo: false, mtt: true, sng: true, jackpot: false, fastfold: false},
+      stakes: {micro: true, low: true, mid: false, high: false},
+      desc: 'Growing tournament schedule'
+    },
+    {
+      name: 'PartyPoker',
+      slug: 'partypoker',
+      rating: '7.8/10.0',
+      color: '#FF6B00',
+      exitLink: 'https://click.ggpartners.com/?serial=886&creative_id=69&anid=',
+      peakStart: 20, peakEnd: 23,
+      peakLabel: '8 PM - 11 PM ET',
+      bestDay: 'Sunday',
+      featured: false,
+      games: {nlh: true, plo: false, mtt: true, sng: false, jackpot: true, fastfold: true},
+      stakes: {micro: true, low: true, mid: false, high: false},
+      desc: 'SPINS lottery format'
+    },
+    {
+      name: 'Bwin',
+      slug: 'bwin',
+      rating: '7.2/10.0',
+      color: '#FFCC00',
+      exitLink: 'https://click.ggpartners.com/?serial=886&creative_id=69&anid=',
+      peakStart: 20, peakEnd: 23,
+      peakLabel: '8 PM - 11 PM ET',
+      bestDay: 'Sunday',
+      featured: false,
+      games: {nlh: true, plo: false, mtt: true, sng: false, jackpot: true, fastfold: true},
+      stakes: {micro: true, low: true, mid: false, high: false},
+      desc: 'Shares PartyPoker network'
+    }
+  ];
+
+  // ========== TIME HELPERS ==========
+  function getETHour() {
+    var now = new Date();
+    var etStr = now.toLocaleString('en-US', {timeZone: 'America/New_York', hour: 'numeric', hour12: false});
+    return parseInt(etStr, 10);
+  }
+
+  function getETDay() {
+    var now = new Date();
+    var dayStr = now.toLocaleString('en-US', {timeZone: 'America/New_York', weekday: 'long'});
+    return dayStr;
+  }
+
+  function getETTimeString() {
+    var now = new Date();
+    return now.toLocaleString('en-US', {timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit', hour12: true});
+  }
+
+  function getRoomStatus(room, hour) {
+    var peakEnd = room.peakEnd > 23 ? room.peakEnd - 24 : room.peakEnd;
+    var isPeak = false;
+    if (room.peakEnd > 23) {
+      isPeak = hour >= room.peakStart || hour < peakEnd;
+    } else {
+      isPeak = hour >= room.peakStart && hour < room.peakEnd;
+    }
+    if (isPeak) return 'peak';
+    // Active if within 2 hours of peak start or 1 hour after peak end
+    var activeStart = room.peakStart - 2;
+    if (activeStart < 0) activeStart += 24;
+    var activeEnd = (room.peakEnd > 23 ? room.peakEnd - 24 : room.peakEnd) + 1;
+    if (activeEnd > 23) activeEnd -= 24;
+    // Simple check
+    if (hour >= 10 && hour < room.peakStart) return 'active';
+    if (isPeak) return 'peak';
+    if (hour >= 6 && hour < 10) return 'quiet';
+    if (hour >= 0 && hour < 6) return 'quiet';
+    return 'active';
+  }
+
+  var statusLabels = {peak: 'Peak Hours', active: 'Active', quiet: 'Quiet'};
+
+  // ========== RENDER ROOM CARDS ==========
+  function renderRoomCards() {
+    var hour = getETHour();
+    var grid = document.getElementById('roomCardsGrid');
+    if (!grid) return;
+    var html = '';
+    var checkSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+    var gameLabels = {nlh: 'NLH', plo: 'PLO', mtt: 'MTT', sng: 'Sit & Go', jackpot: 'Jackpot', fastfold: 'Fast Fold'};
+    var stakeLabels = {micro: 'Micro', low: 'Low', mid: 'Mid', high: 'High'};
+
+    rooms.forEach(function(room) {
+      var status = getRoomStatus(room, hour);
+      var initials = room.name.charAt(0);
+      if (room.name === '888poker') initials = '8';
+      if (room.name === 'BetMGM Poker') initials = 'M';
+
+      html += '<div class="room-status-card' + (room.featured ? ' room-status-card--featured' : '') + '">';
+      html += '<div class="room-status-card__header">';
+      html += '<div class="room-status-card__name-wrap">';
+      html += '<div class="room-status-card__logo" style="background:' + room.color + ';">' + initials + '</div>';
+      html += '<div><div class="room-status-card__name">' + room.name + '</div>';
+      html += '<div style="font-size:var(--text-xs);color:var(--color-text-muted);">' + room.desc + '</div></div>';
+      html += '</div>';
+      html += '<div class="room-status-card__rating">' + room.rating + '</div>';
+      html += '</div>';
+
+      html += '<div class="status-badge status-badge--' + status + '"><span class="status-dot status-dot--' + status + '"></span>' + statusLabels[status] + '</div>';
+
+      // Meta
+      html += '<div class="room-status-card__meta">';
+      html += '<div class="room-status-card__meta-item"><span class="room-status-card__meta-label">Peak Hours</span><span class="room-status-card__meta-value">' + room.peakLabel + '</span></div>';
+      html += '<div class="room-status-card__meta-item"><span class="room-status-card__meta-label">Best Day</span><span class="room-status-card__meta-value">' + room.bestDay + '</span></div>';
+      html += '</div>';
+
+      // Games
+      html += '<div class="room-status-card__games">';
+      Object.keys(gameLabels).forEach(function(key) {
+        var avail = room.games[key];
+        html += '<span class="game-tag' + (avail ? ' game-tag--available' : ' game-tag--unavailable') + '">';
+        if (avail) html += checkSvg;
+        html += gameLabels[key] + '</span>';
+      });
+      html += '</div>';
+
+      // Stakes
+      html += '<div class="room-status-card__stakes">';
+      Object.keys(stakeLabels).forEach(function(key) {
+        var avail = room.stakes[key];
+        html += '<span class="stake-pill' + (avail ? ' stake-pill--available' : ' stake-pill--unavailable') + '">' + stakeLabels[key] + '</span>';
+      });
+      html += '</div>';
+
+      // CTA
+      html += '<div class="room-status-card__cta">';
+      html += '<a href="' + room.exitLink + '" class="btn btn--primary" target="_blank" rel="noopener noreferrer nofollow" style="background:' + room.color + ';border-color:' + room.color + ';">Visit ' + room.name + '</a>';
+      html += '</div>';
+
+      html += '</div>';
+    });
+
+    grid.innerHTML = html;
+  }
+
+  // ========== CLOCK ==========
+  function updateClock() {
+    var clockEl = document.getElementById('clockET');
+    var statusEl = document.getElementById('clockStatus');
+    if (!clockEl) return;
+    clockEl.textContent = getETTimeString() + ' ET';
+    var hour = getETHour();
+    var day = getETDay();
+    if (hour >= 19 && hour < 24 || hour === 0) {
+      statusEl.textContent = day + ' peak hours in progress';
+      statusEl.style.color = '#ef4444';
+    } else if (hour >= 10 && hour < 19) {
+      statusEl.textContent = day + ' active play';
+      statusEl.style.color = '#16a34a';
+    } else {
+      statusEl.textContent = day + ' off-peak';
+      statusEl.style.color = 'var(--color-text-muted)';
+    }
+  }
+
+  // ========== HEATMAP ==========
+  function renderHeatmap() {
+    var table = document.getElementById('heatmapTable');
+    if (!table) return;
+
+    var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    var daysFull = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    // Traffic levels 0-5 for each hour (0-23) x day
+    // Higher on evenings, weekends, Sunday peak
+    var traffic = {
+      Mon: [0,0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,3,3,4,4,3,2,1],
+      Tue: [0,0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,3,3,4,4,3,2,1],
+      Wed: [0,0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,3,3,4,4,3,2,1],
+      Thu: [0,0,0,0,0,0,0,0,1,1,1,1,1,2,2,2,3,3,4,4,5,4,3,1],
+      Fri: [1,0,0,0,0,0,0,0,1,1,1,1,1,2,2,2,3,3,4,4,5,5,4,2],
+      Sat: [1,1,0,0,0,0,0,0,1,1,2,2,2,3,3,3,4,4,4,5,5,5,4,2],
+      Sun: [1,1,0,0,0,0,0,0,1,1,2,2,3,3,4,4,4,5,5,5,5,4,3,2]
+    };
+
+    var currentHour = getETHour();
+    var currentDayStr = getETDay();
+    var currentDayIdx = daysFull.indexOf(currentDayStr);
+
+    var html = '<thead><tr><th></th>';
+    for (var h = 0; h < 24; h++) {
+      var label = h === 0 ? '12a' : h < 12 ? h + 'a' : h === 12 ? '12p' : (h - 12) + 'p';
+      // Only show every 2 hours on labels for readability
+      if (h % 2 === 0) {
+        html += '<th>' + label + '</th>';
+      } else {
+        html += '<th></th>';
+      }
+    }
+    html += '</tr></thead><tbody>';
+
+    days.forEach(function(day, dIdx) {
+      html += '<tr><th>' + day + '</th>';
+      for (var h = 0; h < 24; h++) {
+        var level = traffic[day][h];
+        var isCurrent = (dIdx === currentDayIdx && h === currentHour);
+        var trafficNames = ['Very Low', 'Low', 'Moderate', 'Active', 'Busy', 'Peak'];
+        html += '<td><div class="heatmap-cell' + (isCurrent ? ' heatmap-cell--current' : '') + '" data-level="' + level + '" data-day="' + day + '" data-hour="' + h + '" title="' + daysFull[dIdx] + ' ' + (h === 0 ? '12 AM' : h < 12 ? h + ' AM' : h === 12 ? '12 PM' : (h - 12) + ' PM') + ' - ' + trafficNames[level] + '"></div></td>';
+      }
+      html += '</tr>';
+    });
+
+    html += '</tbody>';
+    table.innerHTML = html;
+  }
+
+  // ========== STAKE TABS ==========
+  function initStakeTabs() {
+    var btns = document.querySelectorAll('#stakeTabFilters .tab-filter-btn');
+    var panels = {
+      nlh: document.getElementById('tabNlh'),
+      plo: document.getElementById('tabPlo'),
+      mtt: document.getElementById('tabMtt')
+    };
+
+    btns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        btns.forEach(function(b) { b.classList.remove('tab-filter-btn--active'); });
+        btn.classList.add('tab-filter-btn--active');
+        var tab = btn.getAttribute('data-tab');
+        Object.keys(panels).forEach(function(key) {
+          panels[key].style.display = key === tab ? '' : 'none';
+        });
+      });
+    });
+  }
+
+  // ========== FAQ TOGGLES ==========
+  function initFAQ() {
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = btn.closest('.faq-item');
+        var isOpen = item.classList.contains('open');
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+        if (!isOpen) item.classList.add('open');
+        btn.setAttribute('aria-expanded', !isOpen);
+      });
+    });
+  }
+
+  // ========== HEATMAP TOOLTIP ==========
+  function initHeatmapTooltip() {
+    var tooltip = document.createElement('div');
+    tooltip.className = 'heatmap-tooltip';
+    document.body.appendChild(tooltip);
+    var trafficNames = ['Very Low', 'Low', 'Moderate', 'Active', 'Busy', 'Peak'];
+    var daysFull = {Mon:'Monday',Tue:'Tuesday',Wed:'Wednesday',Thu:'Thursday',Fri:'Friday',Sat:'Saturday',Sun:'Sunday'};
+
+    document.querySelectorAll('.heatmap-cell').forEach(function(cell) {
+      cell.addEventListener('mouseenter', function(e) {
+        var day = cell.getAttribute('data-day');
+        var hour = parseInt(cell.getAttribute('data-hour'), 10);
+        var level = parseInt(cell.getAttribute('data-level'), 10);
+        var timeLabel = hour === 0 ? '12 AM' : hour < 12 ? hour + ' AM' : hour === 12 ? '12 PM' : (hour - 12) + ' PM';
+        tooltip.textContent = daysFull[day] + ' ' + timeLabel + ' ET - ' + trafficNames[level];
+        tooltip.classList.add('heatmap-tooltip--visible');
+      });
+      cell.addEventListener('mousemove', function(e) {
+        tooltip.style.left = (e.clientX + 12) + 'px';
+        tooltip.style.top = (e.clientY - 30) + 'px';
+      });
+      cell.addEventListener('mouseleave', function() {
+        tooltip.classList.remove('heatmap-tooltip--visible');
+      });
+    });
+  }
+
+  // ========== INIT ==========
+  function init() {
+    updateClock();
+    renderRoomCards();
+    renderHeatmap();
+    initStakeTabs();
+    initFAQ();
+    setTimeout(initHeatmapTooltip, 100);
+    // Update clock every minute
+    setInterval(function() {
+      updateClock();
+      renderRoomCards();
+    }, 60000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

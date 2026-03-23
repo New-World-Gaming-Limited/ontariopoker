@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Which Ontario Poker Room Quiz 2026 | Find Your Best Room | OntarioPoker</title>
+<meta name="description" content="Take our detailed 8-question quiz to find the best Ontario poker room for your playing style. Personalized recommendations based on stakes, game type, and preferences.">
+<link rel="canonical" href="https://ontariopoker.com/which-room-quiz">
+<meta property="og:title" content="Which Ontario Poker Room Quiz 2026 | Find Your Best Room">
+<meta property="og:description" content="Take our detailed 8-question quiz to find the best Ontario poker room for your playing style. Personalized recommendations based on stakes, game type, and preferences.">
+<meta property="og:url" content="https://ontariopoker.com/which-room-quiz">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OntarioPoker">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="icon" type="image/png" href="./favicon.png" sizes="96x96">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
+<link rel="stylesheet" href="./style.min.css">
+<link rel="stylesheet" href="./base.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ontariopoker.com/"},{"@type":"ListItem","position":2,"name":"Which Room Quiz"}]}</script>
+<script type="application/ld+json">{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"How does the Ontario poker room quiz work?","acceptedAnswer":{"@type":"Answer","text":"The quiz asks you 8 questions about your poker preferences including game type, stakes, tournament interest, priorities, play frequency, device preference, loyalty rewards importance, and payment methods. Based on your answers, we calculate a weighted score for each of the 6 regulated Ontario poker rooms and recommend the best match."}},
+    {"@type":"Question","name":"Is this quiz different from the Room Finder?","acceptedAnswer":{"@type":"Answer","text":"Yes. The Room Finder is a quick 5-question tool. This quiz goes deeper with 8 detailed questions, animated step-by-step progression, and more nuanced scoring to give you a more personalized recommendation."}},
+    {"@type":"Question","name":"Are all recommended poker rooms legal in Ontario?","acceptedAnswer":{"@type":"Answer","text":"Yes. All six poker rooms featured in this quiz are regulated by the Alcohol and Gaming Commission of Ontario (AGCO) and operate through iGaming Ontario. You must be 19+ and physically located in Ontario to play."}},
+    {"@type":"Question","name":"Can I retake the quiz with different answers?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. After you see your results, click the Retake Quiz button to start over with different answers. Your previous answers are not saved or tracked."}},
+    {"@type":"Question","name":"Why does GGPoker come up often as the top recommendation?","acceptedAnswer":{"@type":"Answer","text":"GGPoker consistently scores well because it offers the best tournament variety, highest player traffic, top-rated software, and excellent mobile experience among Ontario poker rooms. It is our #1 rated room at 9.4/10.0."}}
+  ]
+}</script>
+<style>
+/* Quiz-specific styles */
+.quiz-wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Progress bar */
+.quiz-progress {
+  margin-bottom: var(--space-6);
+}
+.quiz-progress-bar {
+  height: 6px;
+  background: var(--color-border-light);
+  border-radius: 99px;
+  overflow: hidden;
+  position: relative;
+}
+.quiz-progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 99px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0%;
+}
+.quiz-progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* Quiz screen container */
+.quiz-screen-container {
+  position: relative;
+  overflow: hidden;
+}
+.quiz-screen {
+  width: 100%;
+  animation: quizSlideIn 0.35s ease forwards;
+}
+@keyframes quizSlideIn {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes quizSlideInReverse {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.quiz-screen.from-left {
+  animation-name: quizSlideInReverse;
+}
+
+/* Question styling */
+.quiz-question-number {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-2);
+}
+.quiz-question-text {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-5);
+  line-height: 1.3;
+}
+
+/* Option cards */
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+@media (max-width: 560px) {
+  .quiz-options {
+    grid-template-columns: 1fr;
+  }
+}
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-text);
+  text-align: left;
+  width: 100%;
+  line-height: 1.4;
+}
+.quiz-option:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-surface);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.quiz-option:active {
+  transform: translateY(0);
+}
+.quiz-option .option-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 20px;
+}
+.quiz-option.selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-surface);
+}
+
+/* Back button */
+.quiz-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-2) 0;
+  margin-top: var(--space-4);
+  transition: color 0.2s;
+}
+.quiz-back-btn:hover {
+  color: var(--color-text);
+}
+
+/* Start screen */
+.quiz-start {
+  text-align: center;
+  padding: var(--space-6) 0;
+}
+.quiz-start-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--space-4);
+  background: var(--color-primary-surface);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quiz-start-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  margin: var(--space-5) 0;
+  text-align: center;
+}
+@media (max-width: 560px) {
+  .quiz-start-features {
+    grid-template-columns: 1fr;
+  }
+}
+.quiz-start-feature {
+  padding: var(--space-3);
+}
+.quiz-start-feature strong {
+  display: block;
+  font-size: var(--text-sm);
+  margin-top: var(--space-1);
+}
+.quiz-start-feature span {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* Results */
+.quiz-results {
+  animation: resultsFadeIn 0.6s ease forwards;
+}
+@keyframes resultsFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.result-crown {
+  text-align: center;
+  margin-bottom: var(--space-4);
+}
+.result-crown-text {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.result-card-main {
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  background: var(--color-surface);
+  text-align: center;
+  margin-bottom: var(--space-5);
+  position: relative;
+  overflow: hidden;
+}
+.result-card-main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--color-primary);
+}
+.result-room-name {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  margin: var(--space-3) 0 var(--space-1);
+}
+.result-room-rating {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+}
+.result-room-rating span {
+  font-weight: 400;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+.result-match-score {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-primary-surface);
+  color: var(--color-primary);
+  border-radius: 99px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-3);
+}
+.result-reason {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  max-width: 500px;
+  margin: 0 auto var(--space-5);
+  line-height: 1.6;
+}
+.result-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.result-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+}
+
+/* Runner-ups */
+.result-runners {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+@media (max-width: 560px) {
+  .result-runners {
+    grid-template-columns: 1fr;
+  }
+}
+.result-runner-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  text-align: center;
+}
+.result-runner-rank {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-2);
+}
+.result-runner-name {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-1);
+}
+.result-runner-rating {
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+.result-runner-cta {
+  font-size: var(--text-sm);
+}
+
+/* Result actions */
+.result-actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Score bar animation */
+.score-bar-wrap {
+  margin: var(--space-3) 0;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.score-bar-track {
+  height: 8px;
+  background: var(--color-border-light);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.score-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0;
+}
+
+/* How-to section */
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+.how-step {
+  text-align: center;
+  padding: var(--space-4);
+}
+.how-step-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--text-base);
+  margin: 0 auto var(--space-3);
+}
+.how-step h3 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+.how-step p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* FAQ */
+.faq-list {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.faq-item {
+  border-bottom: 1px solid var(--color-border-light);
+}
+.faq-question {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: var(--space-4) 0;
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+.faq-question svg {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+.faq-item.open .faq-question svg {
+  transform: rotate(180deg);
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+.faq-item.open .faq-answer {
+  max-height: 300px;
+  padding-bottom: var(--space-4);
+}
+.faq-answer p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* Links section */
+.related-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-3);
+}
+.related-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.related-link:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+.related-link svg {
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+</style>
+</head>
+<body>
+<div class="disclosure-bar">
+  This site contains affiliate links and promotional content. 19+ only. Play responsibly. <a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+</div>
+<header class="site-header">
+  <div class="container">
+    <a href="./index.html" class="site-logo">
+      <img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:32px;width:auto;">
+    </a>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Rooms <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ggpoker/review.html">GGPoker</a>
+          <a href="./888poker/review.html">888poker</a>
+          <a href="./betmgm-poker/review.html">BetMGM Poker</a>
+          <a href="./pokerstars/review.html">PokerStars</a>
+          <a href="./partypoker/review.html">PartyPoker</a>
+          <a href="./bwin/review.html">Bwin</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./compare.html">Compare All</a>
+          <a href="./head-to-head.html">Head-to-Head</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Promotions <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ontario-poker-promo-codes.html">All Promo Codes</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./ggpoker/promo-code.html">GGPoker Promo</a>
+          <a href="./888poker/promo-code.html">888poker Promo</a>
+          <a href="./betmgm-poker/promo-code.html">BetMGM Poker Promo</a>
+          <a href="./pokerstars/promo-code.html">PokerStars Promo</a>
+          <a href="./partypoker/promo-code.html">PartyPoker Promo</a>
+          <a href="./bwin/promo-code.html">Bwin Promo</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Tools <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./room-finder.html">Room Finder Quiz</a>
+          <a href="./which-room-quiz.html">Which Room Quiz</a>
+          <a href="./rake-calculator.html">Rake Calculator</a>
+          <a href="./poker-odds-calculator.html">Odds Calculator</a>
+          <a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+          <a href="./tournament-roi-calculator.html">Tournament ROI Calculator</a>
+          <a href="./poker-tax-calculator.html">Poker Tax Calculator</a>
+          <a href="./session-tracker.html">Session Tracker</a>
+          <a href="./shared-liquidity-estimator.html">Shared Liquidity Estimator</a>
+          <a href="./room-status-dashboard.html">Room Status Dashboard</a>
+          <a href="./ontario-poker-glossary.html">Ontario Glossary</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Learn <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./strategy.html">Strategy Guides</a>
+          <a href="./poker-glossary.html">Poker Glossary</a>
+          <a href="./how-to-play-poker-ontario.html">How to Play Poker</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./is-online-poker-legal-in-ontario.html">Legal Guide</a>
+          <a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+          <a href="./ontario-poker-tournament-schedule.html">Tournament Schedule</a>
+          <a href="./ontario-poker-traffic-index.html">Traffic Index</a>
+          <a href="./news.html">News</a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-actions">
+      <button class="search-btn" aria-label="Search site"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+      <a href="./best-poker-sites-ontario.html" class="header-cta">Best Poker Sites</a>
+      <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="./index.html">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">Which Room Quiz</span></nav>
+    <h1>Which Ontario Poker Room Is Right for You?</h1>
+    <p class="page-hero-subtitle">Answer 8 quick questions about how you play and we will match you with the best regulated Ontario poker room for your style.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="quiz-wrapper" id="quizApp">
+
+      <!-- Start screen -->
+      <div id="quizStart" class="quiz-start">
+        <div class="quiz-start-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M9 5H2v7l6.29 6.29c.94.94 2.48.94 3.42 0l4.58-4.58c.94-.94.94-2.48 0-3.42L9 5z"/><path d="M6 9h.01"/></svg>
+        </div>
+        <h2 style="font-size:var(--text-xl);font-weight:700;margin-bottom:var(--space-2);">Find Your Perfect Match</h2>
+        <p style="color:var(--color-text-muted);max-width:480px;margin:0 auto;">This quiz takes about 2 minutes. We will analyze your preferences across 8 categories and score all 6 regulated Ontario poker rooms to find your best fit.</p>
+
+        <div class="quiz-start-features">
+          <div class="quiz-start-feature">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <strong>2 Minutes</strong>
+            <span>8 quick questions</span>
+          </div>
+          <div class="quiz-start-feature">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <strong>6 Rooms</strong>
+            <span>All AGCO-regulated</span>
+          </div>
+          <div class="quiz-start-feature">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <strong>Personalized</strong>
+            <span>Tailored to your style</span>
+          </div>
+        </div>
+
+        <button class="btn btn--primary" id="quizStartBtn" style="font-size:var(--text-lg);padding:var(--space-3) var(--space-8);">Start the Quiz</button>
+      </div>
+
+      <!-- Quiz questions container -->
+      <div id="quizBody" style="display:none;">
+        <div class="quiz-progress">
+          <div class="quiz-progress-bar">
+            <div class="quiz-progress-fill" id="progressFill"></div>
+          </div>
+          <div class="quiz-progress-label">
+            <span id="progressText">Question 1 of 8</span>
+            <span id="progressPercent">0%</span>
+          </div>
+        </div>
+        <div class="quiz-screen-container" id="screenContainer"></div>
+      </div>
+
+      <!-- Results container -->
+      <div id="quizResults" style="display:none;"></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- How to use -->
+<section class="section section--alt">
+  <div class="container container--narrow">
+    <h2 style="text-align:center;margin-bottom:var(--space-2);">How This Quiz Works</h2>
+    <p style="text-align:center;color:var(--color-text-muted);margin-bottom:var(--space-5);">Three simple steps to your personalized poker room recommendation.</p>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">1</div>
+        <h3>Answer 8 Questions</h3>
+        <p>Tell us about your game type, stakes, priorities, and how you like to play.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">2</div>
+        <h3>We Score All 6 Rooms</h3>
+        <p>Each answer adds weighted points to the rooms that match your preferences.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">3</div>
+        <h3>Get Your Match</h3>
+        <p>See your top pick with a detailed explanation, plus two runner-up options.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container container--narrow">
+    <h2 style="text-align:center;margin-bottom:var(--space-5);">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question">How does the Ontario poker room quiz work? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-answer"><p>The quiz asks you 8 questions about your poker preferences including game type, stakes, tournament interest, priorities, play frequency, device preference, loyalty rewards importance, and payment methods. Based on your answers, we calculate a weighted score for each of the 6 regulated Ontario poker rooms and recommend the best match.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Is this quiz different from the Room Finder? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-answer"><p>Yes. The <a href="./room-finder.html">Room Finder</a> is a quick 5-question tool. This quiz goes deeper with 8 detailed questions, animated step-by-step progression, and more nuanced scoring to give you a more personalized recommendation.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Are all recommended poker rooms legal in Ontario? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-answer"><p>Yes. All six poker rooms featured in this quiz are regulated by the Alcohol and Gaming Commission of Ontario (AGCO) and operate through iGaming Ontario. You must be 19+ and physically located in Ontario to play.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Can I retake the quiz with different answers? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-answer"><p>Absolutely. After you see your results, click the Retake Quiz button to start over with different answers. Your previous answers are not saved or tracked.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Why does GGPoker come up often as the top recommendation? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-answer"><p>GGPoker consistently scores well because it offers the best tournament variety, highest player traffic, top-rated software, and excellent mobile experience among Ontario poker rooms. It is our #1 rated room at 9.4/10.0.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related links -->
+<section class="section section--alt">
+  <div class="container container--narrow">
+    <h2 style="text-align:center;margin-bottom:var(--space-5);">Explore More Tools</h2>
+    <div class="related-links">
+      <a href="./best-poker-sites-ontario.html" class="related-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Best Poker Sites Ontario
+      </a>
+      <a href="./compare.html" class="related-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Full Room Comparison
+      </a>
+      <a href="./room-finder.html" class="related-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        Quick Room Finder
+      </a>
+      <a href="./rake-calculator.html" class="related-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h4"/></svg>
+        Rake Calculator
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-rg">
+<svg fill="none" stroke="currentColor" stroke-width="2" style="width:32px;height:32px;flex-shrink:0;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<p>Poker is supposed to be fun. If it stops feeling that way, step away. Help is available at ConnexOntario: 1-866-531-2600.</p>
+<a class="btn btn--sm" href="./responsible-gambling.html" style="background:rgba(255,255,255,0.15);color:inherit;white-space:nowrap;">Responsible Gambling</a>
+</div>
+<div class="footer-brand">
+<a class="site-logo" href="./index.html" style="margin-bottom:var(--space-2);">
+<img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:26px;width:auto;">
+</a>
+<p>Your regulated Ontario poker resource online. Reviews, promotions, and guides for all six licensed poker rooms. Published by NWG PTY Limited.</p>
+<p style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-faint);">ontariopoker.com &middot; c/o WeWork, 240 Richmond St W, Toronto, ON M5V 1V6 &middot; <a href="mailto:help@ontariopoker.com" style="color:inherit;">help@ontariopoker.com</a></p>
+</div>
+<div class="footer-newsletter" style="margin-bottom:var(--space-6);padding:var(--space-5);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);">
+<h4 style="margin-bottom:var(--space-2);">Stay up to date</h4>
+<p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-3);">Ontario poker news, new room launches, and regulation updates. No spam, unsubscribe any time.</p>
+<form action="#" method="POST" style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+<input type="email" name="email" placeholder="you@example.com" required style="flex:1;min-width:180px;padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-sm);background:var(--color-surface);color:var(--color-text);">
+<button type="submit" class="btn btn--sm btn--primary">Subscribe</button>
+</form>
+<p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-2);">By subscribing you agree to our <a href="./privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a>. 19+ only.</p>
+</div>
+<div class="footer-columns">
+<div class="footer-col">
+<h4 class="footer-col-toggle">Poker Rooms<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ggpoker/index.html">GGPoker</a><a href="./888poker/index.html">888poker</a><a href="./betmgm-poker/index.html">BetMGM Poker</a><a href="./pokerstars/index.html">PokerStars Ontario</a><a href="./partypoker/index.html">PartyPoker Ontario</a><a href="./bwin/index.html">Bwin Ontario</a>
+<a href="./compare.html">Compare All Rooms</a>
+<a href="./best-poker-sites-ontario.html">Best Poker Sites</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Tools<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./room-finder.html">Room Finder Quiz</a>
+<a href="./which-room-quiz.html">Which Room Quiz</a>
+<a href="./head-to-head.html">Head-to-Head Compare</a>
+<a href="./rake-calculator.html">Rake Calculator</a>
+<a href="./poker-odds-calculator.html">Odds Calculator</a>
+<a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+<a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+<a href="./tournament-roi-calculator.html">Tournament ROI</a>
+<a href="./poker-tax-calculator.html">Tax Calculator</a>
+<a href="./session-tracker.html">Session Tracker</a>
+<a href="./room-status-dashboard.html">Room Status</a>
+<a href="./shared-liquidity-estimator.html">Liquidity Estimator</a>
+<a href="./ontario-poker-glossary.html">Ontario Glossary</a>
+<a href="./compare.html">Full Comparison</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Learn<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./strategy.html">Strategy Guides</a>
+<a href="./poker-glossary.html">Poker Glossary</a>
+<a href="./how-to-play-poker-ontario.html">How to Play Poker</a>
+<a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+<a href="./ontario-poker-tournament-schedule.html">Tournament Schedule</a>
+<a href="./news.html">News Hub</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Guides<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ontario-poker-promo-codes.html">Promo Codes</a>
+<a href="./ontario-poker-tournaments.html">Tournaments</a>
+<a href="./ontario-poker-beginners-guide.html">Beginners Guide</a>
+<a href="./ontario-poker-plo-omaha.html">PLO & Omaha</a>
+<a href="./ontario-poker-taxes.html">Poker Taxes Ontario</a>
+<a href="./wsop-online-ontario.html">WSOP Online Ontario</a>
+<a href="./ontario-poker-sit-and-go.html">Sit & Go Guide</a>
+<a href="./ontario-poker-bonuses.html">Bonuses & Offers</a>
+<a href="./ontario-poker-freerolls.html">Freerolls</a>
+<a href="./ontario-poker-apps.html">Poker Apps</a>
+<a href="./ontario-poker-withdrawal-times.html">Withdrawal Times</a>
+<a href="./ontario-poker-payment-methods.html">Payment Methods</a>
+<a href="./ontario-poker-rakeback-rewards.html">Rakeback &amp; Rewards</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Transparency<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./editorial-policy.html">Editorial Policy</a>
+<a href="./fact-checking.html">Fact Checking</a>
+<a href="./corrections-policy.html">Corrections Policy</a>
+<a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+<a href="./complaints-policy.html">Complaints Policy</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Responsible Gambling<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./responsible-gambling.html">Responsible Gambling</a>
+<a href="./self-exclusion-resources.html">Self-Exclusion Resources</a>
+<a href="./how-to-complain-about-an-ontario-poker-site.html">How to Complain</a>
+<a href="./contact.html">Contact &amp; Support</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Legal<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./about.html">About Us</a>
+<a href="./management-team.html">Our Authors</a>
+<a href="./privacy.html">Privacy Policy</a>
+<a href="./cookie-policy.html">Cookie Policy</a>
+<a href="./terms.html">Terms &amp; Conditions</a>
+<a href="./accessibility.html">Accessibility</a>
+</div>
+</div>
+</div>
+<div class="ftc-footer">
+<p><strong>Affiliate Disclosure:</strong> OntarioPoker.com is owned and operated by NWG PTY Limited. This site contains affiliate links. If you click through and register using our links, we may receive compensation at no additional cost to you. All editorial ratings are our own. See our <a href="./affiliate-disclosure.html" style="color:inherit;text-decoration:underline;">Affiliate Disclosure</a>.</p>
+<p><strong>Disclaimer:</strong> Online poker in Ontario is regulated by the Alcohol and Gaming Commission of Ontario (AGCO) and operated through iGaming Ontario. You must be 19+ and physically located in Ontario to play. If you or someone you know has a gambling problem, call ConnexOntario at 1-866-531-2600.</p>
+</div>
+<div class="footer-bottom">
+<span>&copy; 2026 NWG PTY Limited &middot; ontariopoker.com. All rights reserved.</span>
+</div>
+</div>
+</footer>
+<div id="searchOverlay" class="search-overlay">
+  <div class="search-box">
+    <div class="search-input-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" class="search-input" placeholder="Search reviews, guides, promotions..." autocomplete="off">
+      <button class="search-close" aria-label="Close search"><span aria-hidden="true">&#x2715;</span></button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+
+<script src="./app.min.js" defer></script>
+<script>
+(function() {
+  'use strict';
+
+  // Room data
+  var rooms = {
+    ggpoker: {
+      name: 'GGPoker Ontario',
+      rating: '9.4/10.0',
+      ratingNum: 9.4,
+      color: '#BE0F34',
+      link: 'https://click.ggpartners.com/?serial=886&creative_id=8509&anid=',
+      reviewLink: './ggpoker/review.html',
+      logo: 'GG',
+      strengths: ['Best tournament selection in Ontario', 'Highest player traffic and game variety', 'Top-rated mobile and desktop software', 'Fast withdrawals via Interac']
+    },
+    poker888: {
+      name: '888poker Ontario',
+      rating: '9.0/10.0',
+      ratingNum: 9.0,
+      color: '#1A1A6C',
+      link: 'https://ic.aff-handler.com/C/48309?sr=2020537',
+      reviewLink: './888poker/review.html',
+      logo: '888',
+      strengths: ['Great for recreational players', 'Solid rewards program', 'Good beginner-friendly features', 'Reliable payment processing']
+    },
+    betmgm: {
+      name: 'BetMGM Poker Ontario',
+      rating: '8.8/10.0',
+      ratingNum: 8.8,
+      color: '#C6A962',
+      link: 'https://click.ggpartners.com/?serial=886&creative_id=69&anid=',
+      reviewLink: './betmgm-poker/review.html',
+      logo: 'MGM',
+      strengths: ['Strong brand reputation', 'Good rewards and loyalty program', 'Solid cash game selection', 'Multiple deposit methods']
+    },
+    pokerstars: {
+      name: 'PokerStars Ontario',
+      rating: '8.7/10.0',
+      ratingNum: 8.7,
+      color: '#E41F23',
+      link: '#',
+      reviewLink: './pokerstars/review.html',
+      logo: 'PS',
+      strengths: ['Most recognized poker brand globally', 'Solid all-around platform', 'Good tournament variety', 'Proven software stability']
+    },
+    partypoker: {
+      name: 'PartyPoker Ontario',
+      rating: '7.8/10.0',
+      ratingNum: 7.8,
+      color: '#FF6B00',
+      link: 'https://click.ggpartners.com/?serial=886&creative_id=69&anid=',
+      reviewLink: './partypoker/review.html',
+      logo: 'PP',
+      strengths: ['Good for casual players', 'Decent tournament schedule', 'Straightforward software', 'Fair rakeback options']
+    },
+    bwin: {
+      name: 'Bwin Ontario',
+      rating: '7.2/10.0',
+      ratingNum: 7.2,
+      color: '#FFCC00',
+      link: 'https://click.ggpartners.com/?serial=886&creative_id=69&anid=',
+      reviewLink: './bwin/review.html',
+      logo: 'BW',
+      strengths: ['Budget-friendly option', 'European-style poker experience', 'Simple interface', 'Low-stakes games available']
+    }
+  };
+
+  // Quiz questions with scoring weights
+  // Scores: [ggpoker, 888poker, betmgm, pokerstars, partypoker, bwin]
+  var questions = [
+    {
+      number: 1,
+      text: 'What type of poker do you play most?',
+      options: [
+        { label: 'Cash Games', icon: '&#x1F4B0;', scores: [8, 6, 7, 7, 5, 5] },
+        { label: 'Tournaments', icon: '&#x1F3C6;', scores: [10, 5, 5, 7, 4, 3] },
+        { label: 'Mixed (both)', icon: '&#x1F3B2;', scores: [9, 6, 6, 7, 5, 4] },
+        { label: "I'm New to Poker", icon: '&#x1F331;', scores: [7, 8, 6, 6, 6, 5] }
+      ]
+    },
+    {
+      number: 2,
+      text: 'What stakes level describes you?',
+      options: [
+        { label: 'Micro (under C$0.25/0.50)', icon: '&#x1FA99;', scores: [7, 7, 5, 6, 5, 8] },
+        { label: 'Low (C$0.25/0.50 to C$1/2)', icon: '&#x1F4B5;', scores: [8, 7, 6, 7, 6, 6] },
+        { label: 'Mid (C$2/5 to C$5/10)', icon: '&#x1F4B3;', scores: [9, 6, 8, 7, 5, 3] },
+        { label: 'High (C$10/20+)', icon: '&#x1F48E;', scores: [10, 5, 7, 7, 4, 2] }
+      ]
+    },
+    {
+      number: 3,
+      text: 'How important is tournament variety?',
+      options: [
+        { label: 'Very (I grind MTTs daily)', icon: '&#x1F525;', scores: [10, 4, 4, 7, 4, 2] },
+        { label: 'Somewhat important', icon: '&#x1F44D;', scores: [8, 6, 6, 7, 5, 4] },
+        { label: 'Not very important', icon: '&#x1F937;', scores: [6, 7, 7, 6, 6, 6] },
+        { label: "I don't play tournaments", icon: '&#x274C;', scores: [5, 7, 7, 5, 6, 7] }
+      ]
+    },
+    {
+      number: 4,
+      text: "What's your #1 priority in a poker room?",
+      options: [
+        { label: 'Software quality', icon: '&#x2728;', scores: [10, 6, 6, 7, 5, 4] },
+        { label: 'Player traffic', icon: '&#x1F465;', scores: [10, 6, 5, 7, 4, 3] },
+        { label: 'Rewards program', icon: '&#x1F381;', scores: [7, 8, 8, 6, 6, 5] },
+        { label: 'Payment speed', icon: '&#x26A1;', scores: [8, 7, 6, 6, 5, 5] }
+      ]
+    },
+    {
+      number: 5,
+      text: 'How often do you play?',
+      options: [
+        { label: 'Daily', icon: '&#x1F4C5;', scores: [9, 6, 6, 7, 5, 4] },
+        { label: 'A few times a week', icon: '&#x1F4C6;', scores: [8, 7, 7, 7, 6, 5] },
+        { label: 'Weekends only', icon: '&#x1F3DD;', scores: [7, 7, 7, 6, 7, 6] },
+        { label: 'Occasionally', icon: '&#x1F3B0;', scores: [6, 8, 7, 6, 7, 7] }
+      ]
+    },
+    {
+      number: 6,
+      text: 'Do you prefer playing on desktop or mobile?',
+      options: [
+        { label: 'Desktop', icon: '&#x1F5A5;', scores: [8, 6, 7, 8, 6, 5] },
+        { label: 'Mobile', icon: '&#x1F4F1;', scores: [10, 7, 6, 6, 5, 4] },
+        { label: 'Both equally', icon: '&#x1F4BB;', scores: [9, 7, 6, 7, 5, 5] }
+      ]
+    },
+    {
+      number: 7,
+      text: 'How important are loyalty rewards and rakeback?',
+      options: [
+        { label: 'Very important', icon: '&#x1F4B8;', scores: [8, 8, 8, 6, 6, 5] },
+        { label: 'Nice to have', icon: '&#x1F44C;', scores: [8, 7, 7, 7, 6, 5] },
+        { label: "Don't care", icon: '&#x1F610;', scores: [8, 6, 5, 7, 5, 6] }
+      ]
+    },
+    {
+      number: 8,
+      text: 'What payment methods do you prefer?',
+      options: [
+        { label: 'Interac', icon: '&#x1F3E6;', scores: [9, 7, 6, 7, 6, 5] },
+        { label: 'Credit card', icon: '&#x1F4B3;', scores: [7, 7, 7, 7, 6, 5] },
+        { label: 'PayPal', icon: '&#x1F4E7;', scores: [6, 8, 6, 7, 5, 5] },
+        { label: 'Multiple options', icon: '&#x1F5C2;', scores: [8, 7, 7, 7, 6, 5] }
+      ]
+    }
+  ];
+
+  var currentQuestion = 0;
+  var answers = [];
+  var totalQuestions = questions.length;
+
+  var startEl = document.getElementById('quizStart');
+  var bodyEl = document.getElementById('quizBody');
+  var resultsEl = document.getElementById('quizResults');
+  var progressFill = document.getElementById('progressFill');
+  var progressText = document.getElementById('progressText');
+  var progressPercent = document.getElementById('progressPercent');
+  var screenContainer = document.getElementById('screenContainer');
+
+  // Start quiz
+  document.getElementById('quizStartBtn').addEventListener('click', function() {
+    startEl.style.display = 'none';
+    bodyEl.style.display = 'block';
+    currentQuestion = 0;
+    answers = [];
+    renderQuestion(0, false);
+  });
+
+  function updateProgress() {
+    var pct = Math.round((currentQuestion / totalQuestions) * 100);
+    progressFill.style.width = pct + '%';
+    progressText.textContent = 'Question ' + (currentQuestion + 1) + ' of ' + totalQuestions;
+    progressPercent.textContent = pct + '%';
+  }
+
+  function renderQuestion(index, fromBack) {
+    var q = questions[index];
+    updateProgress();
+
+    // Build question HTML
+    var html = '<div class="quiz-screen' + (fromBack ? ' from-left' : '') + '">';
+    html += '<div class="quiz-question-number">Question ' + q.number + ' of ' + totalQuestions + '</div>';
+    html += '<div class="quiz-question-text">' + q.text + '</div>';
+    html += '<div class="quiz-options">';
+    for (var i = 0; i < q.options.length; i++) {
+      var opt = q.options[i];
+      html += '<button class="quiz-option" data-q="' + index + '" data-opt="' + i + '">';
+      html += '<span class="option-icon">' + opt.icon + '</span>';
+      html += '<span>' + opt.label + '</span>';
+      html += '</button>';
+    }
+    html += '</div>';
+    if (index > 0) {
+      html += '<button class="quiz-back-btn" id="backBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back</button>';
+    }
+    html += '</div>';
+
+    // Replace content directly - no overlap
+    screenContainer.innerHTML = html;
+
+    // Bind option clicks
+    var optBtns = screenContainer.querySelectorAll('.quiz-option');
+    for (var j = 0; j < optBtns.length; j++) {
+      optBtns[j].addEventListener('click', handleOptionClick);
+    }
+
+    // Bind back button
+    var backBtn = screenContainer.querySelector('#backBtn');
+    if (backBtn) {
+      backBtn.addEventListener('click', function() {
+        currentQuestion--;
+        answers.pop();
+        renderQuestion(currentQuestion, true);
+      });
+    }
+  }
+
+  function handleOptionClick(e) {
+    var btn = e.currentTarget;
+    var qIdx = parseInt(btn.getAttribute('data-q'), 10);
+    var optIdx = parseInt(btn.getAttribute('data-opt'), 10);
+
+    // Visual feedback
+    btn.classList.add('selected');
+    btn.style.borderColor = 'var(--color-primary)';
+    btn.style.background = 'var(--color-primary-surface)';
+
+    // Store answer
+    answers[qIdx] = optIdx;
+
+    // Delay then advance
+    setTimeout(function() {
+      currentQuestion++;
+      if (currentQuestion >= totalQuestions) {
+        showResults();
+      } else {
+        renderQuestion(currentQuestion, false);
+      }
+    }, 350);
+  }
+
+  function calculateScores() {
+    var roomKeys = ['ggpoker', 'poker888', 'betmgm', 'pokerstars', 'partypoker', 'bwin'];
+    var scores = {};
+    for (var r = 0; r < roomKeys.length; r++) {
+      scores[roomKeys[r]] = 0;
+    }
+
+    for (var i = 0; i < answers.length; i++) {
+      var q = questions[i];
+      var optIdx = answers[i];
+      if (optIdx !== undefined && q.options[optIdx]) {
+        var s = q.options[optIdx].scores;
+        for (var j = 0; j < roomKeys.length; j++) {
+          scores[roomKeys[j]] += s[j];
+        }
+      }
+    }
+
+    // Sort rooms by score descending
+    var sorted = roomKeys.map(function(key) {
+      return { key: key, score: scores[key] };
+    }).sort(function(a, b) { return b.score - a.score; });
+
+    return sorted;
+  }
+
+  function getMatchReason(roomKey, sorted) {
+    var reasons = {
+      ggpoker: 'GGPoker scored highest for your profile thanks to its industry-leading tournament schedule, highest player traffic in Ontario, and top-rated software across desktop and mobile.',
+      poker888: '888poker is a great match for you. It offers a welcoming environment for recreational players, solid rewards, and reliable payment processing.',
+      betmgm: 'BetMGM Poker fits your style with its strong rewards program, diverse cash game selection, and trusted brand backed by MGM Resorts.',
+      pokerstars: 'PokerStars Ontario is a solid choice for your profile. The most recognized brand in poker offers proven software stability and a well-rounded platform.',
+      partypoker: 'PartyPoker Ontario matches your laid-back playing style with straightforward software, a decent tournament schedule, and fair rakeback options.',
+      bwin: 'Bwin Ontario works well for your preferences. It offers a budget-friendly, no-frills experience with low-stakes games and a simple interface.'
+    };
+    return reasons[roomKey] || '';
+  }
+
+  function showResults() {
+    bodyEl.style.display = 'none';
+    resultsEl.style.display = 'block';
+
+    var sorted = calculateScores();
+    var maxScore = sorted[0].score;
+    var top = rooms[sorted[0].key];
+    var second = rooms[sorted[1].key];
+    var third = rooms[sorted[2].key];
+
+    var matchPct = Math.min(98, Math.round((sorted[0].score / (totalQuestions * 10)) * 100));
+    if (matchPct < 75) matchPct = 75 + Math.floor(Math.random() * 10);
+
+    var html = '<div class="quiz-results">';
+
+    // Crown
+    html += '<div class="result-crown">';
+    html += '<svg width="48" height="48" viewBox="0 0 24 24" fill="var(--color-primary)" stroke="none" style="display:block;margin:0 auto;"><path d="M2.5 18.5l2-8 4.5 3.5L12 7l3 7 4.5-3.5 2 8h-19z"/><rect x="2" y="19" width="20" height="2" rx="1"/></svg>';
+    html += '<div class="result-crown-text">Your #1 Match</div>';
+    html += '</div>';
+
+    // Main result card
+    html += '<div class="result-card-main">';
+    html += '<div class="result-logo" style="background:' + top.color + ';">' + top.logo + '</div>';
+    html += '<div class="result-room-name">' + top.name + '</div>';
+    html += '<div class="result-room-rating">' + top.rating + ' <span>Our Rating</span></div>';
+    html += '<div class="result-match-score">' + matchPct + '% Match</div>';
+
+    // Score bar
+    html += '<div class="score-bar-wrap"><div class="score-bar-track"><div class="score-bar-fill" id="topScoreBar" style="background:' + top.color + ';"></div></div></div>';
+
+    html += '<p class="result-reason">' + getMatchReason(sorted[0].key, sorted) + '</p>';
+    html += '<a href="' + top.link + '" target="_blank" rel="noopener noreferrer nofollow" class="btn btn--primary result-cta">Visit ' + top.name.split(' ')[0] + ' <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>';
+    html += '<p style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-faint);"><a href="' + top.reviewLink + '" style="color:inherit;text-decoration:underline;">Read our full review</a></p>';
+    html += '</div>';
+
+    // Runner-ups
+    html += '<h3 style="text-align:center;margin-bottom:var(--space-3);font-size:var(--text-base);color:var(--color-text-muted);">Runner-Up Picks</h3>';
+    html += '<div class="result-runners">';
+
+    // 2nd place
+    var matchPct2 = Math.max(60, Math.round((sorted[1].score / maxScore) * matchPct));
+    html += '<div class="result-runner-card">';
+    html += '<div class="result-runner-rank">2nd Best Match</div>';
+    html += '<div class="result-logo" style="background:' + second.color + ';width:48px;height:48px;font-size:18px;margin:0 auto var(--space-2);">' + second.logo + '</div>';
+    html += '<div class="result-runner-name">' + second.name + '</div>';
+    html += '<div class="result-runner-rating">' + second.rating + '</div>';
+    html += '<div style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-3);">' + matchPct2 + '% Match</div>';
+    html += '<a href="' + second.link + '" target="_blank" rel="noopener noreferrer nofollow" class="btn btn--ghost btn--sm result-runner-cta">Visit Site</a>';
+    html += '</div>';
+
+    // 3rd place
+    var matchPct3 = Math.max(50, Math.round((sorted[2].score / maxScore) * matchPct));
+    html += '<div class="result-runner-card">';
+    html += '<div class="result-runner-rank">3rd Best Match</div>';
+    html += '<div class="result-logo" style="background:' + third.color + ';width:48px;height:48px;font-size:18px;margin:0 auto var(--space-2);">' + third.logo + '</div>';
+    html += '<div class="result-runner-name">' + third.name + '</div>';
+    html += '<div class="result-runner-rating">' + third.rating + '</div>';
+    html += '<div style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-3);">' + matchPct3 + '% Match</div>';
+    html += '<a href="' + third.link + '" target="_blank" rel="noopener noreferrer nofollow" class="btn btn--ghost btn--sm result-runner-cta">Visit Site</a>';
+    html += '</div>';
+
+    html += '</div>';
+
+    // Actions
+    html += '<div class="result-actions">';
+    html += '<button class="btn btn--ghost" id="retakeBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Retake Quiz</button>';
+    html += '<a href="./compare.html" class="btn btn--ghost">Compare All Rooms</a>';
+    html += '</div>';
+
+    html += '</div>';
+
+    resultsEl.innerHTML = html;
+
+    // Animate score bar
+    setTimeout(function() {
+      var bar = document.getElementById('topScoreBar');
+      if (bar) bar.style.width = matchPct + '%';
+    }, 200);
+
+    // Retake button
+    document.getElementById('retakeBtn').addEventListener('click', function() {
+      resultsEl.style.display = 'none';
+      resultsEl.innerHTML = '';
+      screenContainer.innerHTML = '';
+      startEl.style.display = 'block';
+      currentQuestion = 0;
+      answers = [];
+      progressFill.style.width = '0%';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Scroll to top of results
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // FAQ toggle
+  var faqItems = document.querySelectorAll('.faq-item');
+  for (var f = 0; f < faqItems.length; f++) {
+    (function(item) {
+      item.querySelector('.faq-question').addEventListener('click', function() {
+        var isOpen = item.classList.contains('open');
+        // Close all
+        for (var k = 0; k < faqItems.length; k++) {
+          faqItems[k].classList.remove('open');
+        }
+        if (!isOpen) item.classList.add('open');
+      });
+    })(faqItems[f]);
+  }
+
+})();
+</script>
+<script src="./app.js"></script>
+<script src="./interactive-tools.js"></script>
+</body>
+</html>

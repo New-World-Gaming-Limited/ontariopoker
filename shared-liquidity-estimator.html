@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ontario Shared Liquidity Impact Estimator 2026 | OntarioPoker</title>
+<meta name="description" content="Model how shared liquidity agreements would impact Ontario's online poker ecosystem. See estimated changes to player pools, tournament fields, cash game availability, and wait times.">
+<link rel="canonical" href="https://ontariopoker.com/shared-liquidity-estimator">
+<meta property="og:title" content="Ontario Shared Liquidity Impact Estimator 2026">
+<meta property="og:description" content="Model how shared liquidity agreements would impact Ontario's online poker ecosystem. See estimated changes to player pools, tournament fields, cash game availability, and wait times.">
+<meta property="og:url" content="https://ontariopoker.com/shared-liquidity-estimator">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OntarioPoker">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="icon" type="image/png" href="./favicon.png" sizes="96x96">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
+<link rel="stylesheet" href="./style.min.css">
+<link rel="stylesheet" href="./base.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ontariopoker.com/"},{"@type":"ListItem","position":2,"name":"Shared Liquidity Estimator"}]}</script>
+<script type="application/ld+json">{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"What is shared liquidity in online poker?","acceptedAnswer":{"@type":"Answer","text":"Shared liquidity means players from different regulated jurisdictions can sit at the same tables and enter the same tournaments. Instead of Ontario players only competing against other Ontario players, they would join a combined pool with players from other provinces or countries."}},
+    {"@type":"Question","name":"Is shared liquidity available in Ontario right now?","acceptedAnswer":{"@type":"Answer","text":"No. As of 2026, Ontario's online poker market is ring-fenced, meaning players can only play against others physically located in Ontario. Shared liquidity would require new regulatory agreements between AGCO, iGaming Ontario, and partner jurisdictions."}},
+    {"@type":"Question","name":"How would shared liquidity change tournament prize pools?","acceptedAnswer":{"@type":"Answer","text":"Larger player pools directly translate to bigger tournament fields, which means larger prize pools and more overlay-free events. A 5x increase in the player pool could roughly double or triple typical Sunday tournament guarantees."}},
+    {"@type":"Question","name":"Which Ontario poker rooms would benefit most from shared liquidity?","acceptedAnswer":{"@type":"Answer","text":"GGPoker and PokerStars would likely benefit most. GGPoker already operates a global network and has experience integrating shared pools. PokerStars has a proven track record with the European shared liquidity agreement between France, Spain, and Portugal."}},
+    {"@type":"Question","name":"What is the European shared liquidity model?","acceptedAnswer":{"@type":"Answer","text":"In 2018, France, Spain, and Portugal created an agreement allowing their regulated poker sites to share player pools. This significantly boosted tournament fields and cash game traffic across all three markets, providing a real-world precedent for how Ontario could benefit."}},
+    {"@type":"Question","name":"How long until Ontario gets shared liquidity?","acceptedAnswer":{"@type":"Answer","text":"There is no confirmed timeline. Shared liquidity requires interprovincial or international regulatory agreements. While discussions are ongoing, no formal deals have been announced as of March 2026. The European model took several years from initial talks to launch."}}
+  ]
+}</script>
+<style>
+/* ── Shared Liquidity Estimator Styles ── */
+.sle-tool {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* Scenario Selector */
+.sle-scenarios {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+.sle-scenario-card {
+  position: relative;
+  padding: var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.sle-scenario-card:hover {
+  border-color: var(--color-primary);
+}
+.sle-scenario-card.active {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-surface);
+}
+.sle-scenario-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.sle-scenario-label {
+  font-weight: 700;
+  font-size: var(--text-base);
+  margin-bottom: var(--space-1);
+  color: var(--color-text);
+}
+.sle-scenario-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+.sle-scenario-multiplier {
+  display: inline-block;
+  margin-top: var(--space-2);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  background: var(--color-primary-surface);
+  color: var(--color-primary);
+}
+
+/* Slider Section */
+.sle-slider-section {
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+.sle-slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.sle-slider-title {
+  font-weight: 600;
+  font-size: var(--text-base);
+  color: var(--color-text);
+}
+.sle-slider-value {
+  font-weight: 700;
+  font-size: var(--text-lg);
+  color: var(--color-primary);
+}
+.sle-range {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--color-border);
+  outline: none;
+  cursor: pointer;
+}
+.sle-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  border: 2px solid var(--color-bg);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.sle-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  border: 2px solid var(--color-bg);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.sle-range-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+}
+
+/* Results Dashboard */
+.sle-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+.sle-metric {
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+.sle-metric-icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-primary-surface);
+  color: var(--color-primary);
+}
+.sle-metric-value {
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 1.2;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+.sle-metric-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+.sle-metric-change {
+  display: inline-block;
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+.sle-metric-change.positive {
+  background: rgba(34,197,94,0.12);
+  color: var(--color-success);
+}
+.sle-metric-change.neutral {
+  background: var(--color-surface-alt);
+  color: var(--color-text-muted);
+}
+
+/* Comparison Bars */
+.sle-bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.sle-bar-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.sle-bar-label {
+  min-width: 140px;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text);
+  flex-shrink: 0;
+}
+.sle-bar-track {
+  flex: 1;
+  height: 28px;
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+}
+.sle-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-sm);
+  transition: width 0.5s ease;
+  display: flex;
+  align-items: center;
+  padding-left: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+}
+.sle-bar-fill.baseline {
+  background: var(--color-border);
+  color: var(--color-text);
+}
+.sle-bar-fill.projected {
+  background: var(--color-primary);
+}
+.sle-bar-legend {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+  font-size: var(--text-sm);
+}
+.sle-bar-legend span {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+.sle-legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  display: inline-block;
+}
+.sle-legend-dot.baseline {
+  background: var(--color-border);
+}
+.sle-legend-dot.projected {
+  background: var(--color-primary);
+}
+
+/* Room Analysis */
+.sle-room-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+.sle-room-card {
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+.sle-room-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+.sle-room-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.sle-room-name {
+  font-weight: 700;
+  font-size: var(--text-base);
+  color: var(--color-text);
+}
+.sle-room-rating {
+  margin-left: auto;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+.sle-room-detail {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-1) 0;
+  font-size: var(--text-sm);
+  border-bottom: 1px solid var(--color-border-light);
+}
+.sle-room-detail:last-child {
+  border-bottom: none;
+}
+.sle-room-detail-label {
+  color: var(--color-text-muted);
+}
+.sle-room-detail-value {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Timeline */
+.sle-timeline {
+  position: relative;
+  padding-left: var(--space-6);
+}
+.sle-timeline::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: var(--color-border);
+}
+.sle-timeline-item {
+  position: relative;
+  padding-bottom: var(--space-5);
+}
+.sle-timeline-item:last-child {
+  padding-bottom: 0;
+}
+.sle-timeline-dot {
+  position: absolute;
+  left: calc(-1 * var(--space-6) + 4px);
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid var(--color-primary);
+  background: var(--color-bg);
+}
+.sle-timeline-item.past .sle-timeline-dot {
+  background: var(--color-primary);
+}
+.sle-timeline-item.future .sle-timeline-dot {
+  border-color: var(--color-border);
+}
+.sle-timeline-year {
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+  margin-bottom: var(--space-1);
+}
+.sle-timeline-item.future .sle-timeline-year {
+  color: var(--color-text-muted);
+}
+.sle-timeline-text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* Notice Bar */
+.sle-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: rgba(234,179,8,0.08);
+  border: 1px solid rgba(234,179,8,0.25);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+.sle-notice svg {
+  flex-shrink: 0;
+  color: #d97706;
+  margin-top: 1px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .sle-scenarios {
+    grid-template-columns: 1fr;
+  }
+  .sle-dashboard {
+    grid-template-columns: 1fr 1fr;
+  }
+  .sle-metric-value {
+    font-size: 1rem;
+  }
+  .sle-bar-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+  }
+  .sle-bar-label {
+    min-width: auto;
+  }
+  .sle-room-grid {
+    grid-template-columns: 1fr;
+  }
+  .sle-slider-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+</style>
+</head>
+<body>
+<div class="disclosure-bar">
+  This site contains affiliate links and promotional content. 19+ only. Play responsibly. <a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+</div>
+<header class="site-header">
+  <div class="container">
+    <a href="./index.html" class="site-logo">
+      <img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:32px;width:auto;">
+    </a>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Rooms <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ggpoker/review.html">GGPoker</a>
+          <a href="./888poker/review.html">888poker</a>
+          <a href="./betmgm-poker/review.html">BetMGM Poker</a>
+          <a href="./pokerstars/review.html">PokerStars</a>
+          <a href="./partypoker/review.html">PartyPoker</a>
+          <a href="./bwin/review.html">Bwin</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./compare.html">Compare All</a>
+          <a href="./head-to-head.html">Head-to-Head</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Promotions <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ontario-poker-promo-codes.html">All Promo Codes</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./ggpoker/promo-code.html">GGPoker Promo</a>
+          <a href="./888poker/promo-code.html">888poker Promo</a>
+          <a href="./betmgm-poker/promo-code.html">BetMGM Poker Promo</a>
+          <a href="./pokerstars/promo-code.html">PokerStars Promo</a>
+          <a href="./partypoker/promo-code.html">PartyPoker Promo</a>
+          <a href="./bwin/promo-code.html">Bwin Promo</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Tools <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./room-finder.html">Room Finder Quiz</a>
+          <a href="./which-room-quiz.html">Which Room Quiz</a>
+          <a href="./rake-calculator.html">Rake Calculator</a>
+          <a href="./poker-odds-calculator.html">Odds Calculator</a>
+          <a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+          <a href="./tournament-roi-calculator.html">Tournament ROI Calculator</a>
+          <a href="./poker-tax-calculator.html">Poker Tax Calculator</a>
+          <a href="./session-tracker.html">Session Tracker</a>
+          <a href="./shared-liquidity-estimator.html">Shared Liquidity Estimator</a>
+          <a href="./room-status-dashboard.html">Room Status Dashboard</a>
+          <a href="./ontario-poker-glossary.html">Ontario Glossary</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Learn <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./strategy.html">Strategy Guides</a>
+          <a href="./poker-glossary.html">Poker Glossary</a>
+          <a href="./how-to-play-poker-ontario.html">How to Play Poker</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./is-online-poker-legal-in-ontario.html">Legal Guide</a>
+          <a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+          <a href="./ontario-poker-tournament-schedule.html">Tournament Schedule</a>
+          <a href="./ontario-poker-traffic-index.html">Traffic Index</a>
+          <a href="./news.html">News</a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-actions">
+      <button class="search-btn" aria-label="Search site"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+      <a href="./best-poker-sites-ontario.html" class="header-cta">Best Poker Sites</a>
+      <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="./index.html">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">Shared Liquidity Estimator</span></nav>
+    <h1>Ontario Shared Liquidity Impact Estimator</h1>
+    <p class="page-hero-subtitle">Model how shared liquidity agreements would transform Ontario's poker landscape. Explore player pool growth, tournament prize impact, cash game availability, and more. Updated March 2026.</p>
+  </div>
+</section>
+
+<!-- Notice: This is hypothetical modeling -->
+<section class="section">
+  <div class="container container--default">
+    <div class="sle-notice">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <div><strong>Hypothetical projections only.</strong> Shared liquidity is not currently available in Ontario. This tool models potential outcomes based on European precedents and estimated player pool data. Actual results would depend on regulatory agreements, operator participation, and market conditions.</div>
+    </div>
+  </div>
+</section>
+
+<!-- The Tool -->
+<section class="section">
+  <div class="container container--default">
+    <div class="sle-tool" id="sle-app">
+
+      <!-- Current State -->
+      <div class="card card--flat" style="padding:var(--space-5);">
+        <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-1);">Ontario's Current Player Pool</h2>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);">Ontario's regulated market is ring-fenced. Players can only compete against others in the province.</p>
+        <div class="sle-dashboard" style="margin-bottom:var(--space-4);">
+          <div class="sle-metric">
+            <div class="sle-metric-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div class="sle-metric-value">~20,000</div>
+            <div class="sle-metric-label">Weekly Active Players</div>
+          </div>
+          <div class="sle-metric">
+            <div class="sle-metric-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="sle-metric-value">~1,800</div>
+            <div class="sle-metric-label">Peak Concurrent Players</div>
+          </div>
+          <div class="sle-metric">
+            <div class="sle-metric-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+            <div class="sle-metric-value">~80</div>
+            <div class="sle-metric-label">Active Cash Tables (Peak)</div>
+          </div>
+          <div class="sle-metric">
+            <div class="sle-metric-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div>
+            <div class="sle-metric-value">~150</div>
+            <div class="sle-metric-label">Avg. Sunday MTT Field</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenario Selector -->
+      <div class="card card--flat" style="padding:var(--space-5);">
+        <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-1);">Choose a Liquidity Scenario</h2>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);">Select a hypothetical shared liquidity model to see projected impact.</p>
+        <div class="sle-scenarios" id="sle-scenarios">
+          <label class="sle-scenario-card active" data-scenario="ontario">
+            <input type="radio" name="scenario" value="ontario" checked>
+            <div class="sle-scenario-label">Ontario Only</div>
+            <div class="sle-scenario-desc">Current ring-fenced market. Players only matched with other Ontario residents.</div>
+            <span class="sle-scenario-multiplier">1x (Baseline)</span>
+          </label>
+          <label class="sle-scenario-card" data-scenario="canada">
+            <input type="radio" name="scenario" value="canada">
+            <div class="sle-scenario-label">Ontario + Canadian Provinces</div>
+            <div class="sle-scenario-desc">Interprovincial agreement adds Quebec, BC, Alberta, and others to the pool.</div>
+            <span class="sle-scenario-multiplier">2.5x Players</span>
+          </label>
+          <label class="sle-scenario-card" data-scenario="us">
+            <input type="radio" name="scenario" value="us">
+            <div class="sle-scenario-label">Ontario + US States</div>
+            <div class="sle-scenario-desc">Cross-border deal with Michigan, New Jersey, Pennsylvania, and other regulated states.</div>
+            <span class="sle-scenario-multiplier">7x Players</span>
+          </label>
+          <label class="sle-scenario-card" data-scenario="international">
+            <input type="radio" name="scenario" value="international">
+            <div class="sle-scenario-label">Full International Pool</div>
+            <div class="sle-scenario-desc">Global network including US states, European markets (like .FR/.ES/.PT), and others.</div>
+            <span class="sle-scenario-multiplier">35x Players</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Fine-tune Multiplier -->
+      <div class="sle-slider-section" id="sle-slider-section">
+        <div class="sle-slider-header">
+          <span class="sle-slider-title">Fine-tune: Player Pool Multiplier</span>
+          <span class="sle-slider-value" id="sle-multiplier-display">1x</span>
+        </div>
+        <input type="range" class="sle-range" id="sle-multiplier" min="1" max="50" step="0.5" value="1">
+        <div class="sle-range-labels">
+          <span>1x (Ontario only)</span>
+          <span>10x</span>
+          <span>25x</span>
+          <span>50x</span>
+        </div>
+      </div>
+
+      <!-- Projected Impact Dashboard -->
+      <div class="card card--flat" style="padding:var(--space-5);">
+        <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-4);">Projected Impact</h2>
+        <div class="sle-dashboard" id="sle-results">
+          <div class="sle-metric">
+            <div class="sle-metric-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div class="sle-metric-value" id="res-weekly">~20,000</div>
+            <div class="sle-metric-label">Weekly Active Players</div>
+            <div class="sle-metric-change neutral" id="res-weekly-change">Baseline</div>
+          </div>
+          <div class="sle-metric">
+            <div class="sle-metric-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="sle-metric-value" id="res-concurrent">~1,800</div>
+            <div class="sle-metric-label">Peak Concurrent Players</div>
+            <div class="sle-metric-change neutral" id="res-concurrent-change">Baseline</div>
+          </div>
+          <div class="sle-metric">
+            <div class="sle-metric-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+            <div class="sle-metric-value" id="res-tables">~80</div>
+            <div class="sle-metric-label">Active Cash Tables</div>
+            <div class="sle-metric-change neutral" id="res-tables-change">Baseline</div>
+          </div>
+          <div class="sle-metric">
+            <div class="sle-metric-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div>
+            <div class="sle-metric-value" id="res-field">~150</div>
+            <div class="sle-metric-label">Avg. Sunday MTT Field</div>
+            <div class="sle-metric-change neutral" id="res-field-change">Baseline</div>
+          </div>
+          <div class="sle-metric">
+            <div class="sle-metric-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <div class="sle-metric-value" id="res-guarantee">$15K</div>
+            <div class="sle-metric-label">Typical Sunday GTD</div>
+            <div class="sle-metric-change neutral" id="res-guarantee-change">Baseline</div>
+          </div>
+          <div class="sle-metric">
+            <div class="sle-metric-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <div class="sle-metric-value" id="res-wait">~8 min</div>
+            <div class="sle-metric-label">SnG Wait Time</div>
+            <div class="sle-metric-change neutral" id="res-wait-change">Baseline</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual Comparison Bars -->
+      <div class="card card--flat" style="padding:var(--space-5);">
+        <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-4);">Visual Comparison</h2>
+        <div class="sle-bar-legend">
+          <span><span class="sle-legend-dot baseline"></span> Current (Ontario Only)</span>
+          <span><span class="sle-legend-dot projected"></span> With Shared Liquidity</span>
+        </div>
+        <div class="sle-bars" id="sle-bars">
+          <!-- Bars rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Room-by-Room Analysis -->
+      <div class="card card--flat" style="padding:var(--space-5);">
+        <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-1);">Room-by-Room Shared Liquidity Readiness</h2>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);">How each Ontario room is positioned if shared liquidity becomes reality.</p>
+        <div class="sle-room-grid" id="sle-rooms">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Educational Content -->
+<section class="section section--alt">
+  <div class="container container--narrow">
+    <div class="prose">
+      <h2>What Is Shared Liquidity in Online Poker?</h2>
+      <p>Shared liquidity refers to the practice of combining player pools from different regulated jurisdictions into a single network. When poker rooms operate under shared liquidity, a player in Ontario could sit at the same cash game table or enter the same tournament as a player in Michigan, New Jersey, or even France.</p>
+      <p>Without shared liquidity, each regulated market is "ring-fenced." Ontario players can only play against other Ontario players. This limits field sizes, restricts the variety of available games, and reduces the overall prize money on offer.</p>
+
+      <h2>Why Is Ontario Currently Ring-Fenced?</h2>
+      <p>Ontario launched its regulated iGaming market in April 2022 under the oversight of the Alcohol and Gaming Commission of Ontario (AGCO) and iGaming Ontario. The regulatory framework was designed as a standalone provincial market. Each operator licensed in Ontario runs a player pool exclusively for Ontario-based players.</p>
+      <p>This approach prioritizes consumer protection and regulatory control, but it comes at a cost: smaller player pools than what these same operators offer in their global or multi-state networks elsewhere.</p>
+
+      <h2>The European Precedent: France, Spain, and Portugal</h2>
+      <p>Europe provides the strongest real-world example of shared liquidity in action. In 2018, France, Spain, and Portugal signed an agreement allowing regulated poker operators in all three countries to merge their player pools.</p>
+      <p>The results were significant. PokerStars, which operates in all three markets under the .FR, .ES, and .PT domains, saw tournament field sizes grow substantially. Sunday majors that previously attracted a few hundred players regularly broke 1,000+ entries. Cash game traffic increased across all stake levels, and high-stakes tables that had been nearly empty became active again.</p>
+      <p>This European model demonstrates that shared liquidity can coexist with strong regulatory oversight while delivering better outcomes for players.</p>
+
+      <h2>What Would Need to Change for Ontario?</h2>
+      <p>Bringing shared liquidity to Ontario would require several steps:</p>
+      <ul>
+        <li><strong>Interprovincial agreements</strong> between Ontario and other Canadian provinces that choose to regulate online poker</li>
+        <li><strong>International regulatory treaties</strong> between Canadian and foreign gambling regulators (similar to the EU model)</li>
+        <li><strong>Technical standards</strong> for cross-jurisdiction player verification, geolocation, and responsible gambling enforcement</li>
+        <li><strong>Operator readiness</strong> to merge separate player databases while maintaining compliance in each jurisdiction</li>
+      </ul>
+      <p>No formal agreements are in place as of March 2026. However, the topic has been discussed at industry conferences and in regulatory consultations.</p>
+
+      <h2>How to Use This Estimator</h2>
+      <p>This tool lets you model different shared liquidity scenarios and see how they would affect Ontario's poker ecosystem:</p>
+      <ol>
+        <li><strong>Choose a scenario</strong> from the four options: Ontario Only (current baseline), Ontario + Canadian provinces, Ontario + US states, or Full International Pool</li>
+        <li><strong>Fine-tune the multiplier</strong> using the slider to adjust the player pool size within any range</li>
+        <li><strong>Review projected metrics</strong> including weekly active players, peak concurrent players, cash table counts, tournament field sizes, Sunday guarantees, and Sit &amp; Go wait times</li>
+        <li><strong>Compare visually</strong> using the bar chart that shows current vs. projected values side by side</li>
+        <li><strong>Check room readiness</strong> to see which Ontario operators are best positioned for shared liquidity based on their existing network experience</li>
+      </ol>
+      <p>For a deeper look at shared liquidity and what it means for Ontario's poker future, read our <a href="./ontario-poker-shared-liquidity.html">complete shared liquidity guide</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Timeline Section -->
+<section class="section">
+  <div class="container container--narrow">
+    <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-5);">Shared Liquidity Timeline</h2>
+    <div class="sle-timeline">
+      <div class="sle-timeline-item past">
+        <div class="sle-timeline-dot"></div>
+        <div class="sle-timeline-year">2017</div>
+        <div class="sle-timeline-text">France, Spain, Italy, and Portugal sign shared liquidity agreement in principle for online poker.</div>
+      </div>
+      <div class="sle-timeline-item past">
+        <div class="sle-timeline-dot"></div>
+        <div class="sle-timeline-year">2018</div>
+        <div class="sle-timeline-text">PokerStars launches shared .FR/.ES/.PT player pools. Tournament fields and cash traffic increase across all three markets.</div>
+      </div>
+      <div class="sle-timeline-item past">
+        <div class="sle-timeline-dot"></div>
+        <div class="sle-timeline-year">2022</div>
+        <div class="sle-timeline-text">Ontario launches its regulated iGaming market (April 4). All poker rooms operate ring-fenced pools.</div>
+      </div>
+      <div class="sle-timeline-item past">
+        <div class="sle-timeline-dot"></div>
+        <div class="sle-timeline-year">2023-2024</div>
+        <div class="sle-timeline-text">US states (NJ, NV, DE, MI) expand their Multi-State Internet Gaming Agreement (MSIGA). Michigan joins in mid-2023.</div>
+      </div>
+      <div class="sle-timeline-item past">
+        <div class="sle-timeline-dot"></div>
+        <div class="sle-timeline-year">2025</div>
+        <div class="sle-timeline-text">Industry discussions about potential Ontario-US or interprovincial shared liquidity frameworks continue. No formal agreements announced.</div>
+      </div>
+      <div class="sle-timeline-item future">
+        <div class="sle-timeline-dot"></div>
+        <div class="sle-timeline-year">2026+</div>
+        <div class="sle-timeline-text">Earliest realistic window for interprovincial or cross-border agreements. Any deal would likely start with a single partner jurisdiction before expanding.</div>
+      </div>
+      <div class="sle-timeline-item future">
+        <div class="sle-timeline-dot"></div>
+        <div class="sle-timeline-year">2027-2028?</div>
+        <div class="sle-timeline-text">Possible target for operational shared liquidity if regulatory talks progress. Technical integration and compliance testing would follow any agreement.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="section section--alt">
+  <div class="container container--narrow">
+    <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-5);">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary class="faq-question">What is shared liquidity in online poker?</summary>
+        <div class="faq-answer"><p>Shared liquidity means players from different regulated jurisdictions can sit at the same tables and enter the same tournaments. Instead of Ontario players only competing against other Ontario players, they would join a combined pool with players from other provinces or countries.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-question">Is shared liquidity available in Ontario right now?</summary>
+        <div class="faq-answer"><p>No. As of 2026, Ontario's online poker market is ring-fenced, meaning players can only play against others physically located in Ontario. Shared liquidity would require new regulatory agreements between AGCO, iGaming Ontario, and partner jurisdictions.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-question">How would shared liquidity change tournament prize pools?</summary>
+        <div class="faq-answer"><p>Larger player pools directly translate to bigger tournament fields, which means larger prize pools and more overlay-free events. A 5x increase in the player pool could roughly double or triple typical Sunday tournament guarantees.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-question">Which Ontario poker rooms would benefit most from shared liquidity?</summary>
+        <div class="faq-answer"><p>GGPoker and PokerStars would likely benefit most. GGPoker already operates a global network and has experience integrating shared pools. PokerStars has a proven track record with the European shared liquidity agreement between France, Spain, and Portugal. Both rooms would be able to leverage existing infrastructure to offer larger player pools quickly. See our <a href="./best-poker-sites-ontario.html">best poker sites guide</a> for full room reviews.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-question">What is the European shared liquidity model?</summary>
+        <div class="faq-answer"><p>In 2018, France, Spain, and Portugal created an agreement allowing their regulated poker sites to share player pools. This significantly boosted tournament fields and cash game traffic across all three markets, providing a real-world precedent for how Ontario could benefit.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-question">How long until Ontario gets shared liquidity?</summary>
+        <div class="faq-answer"><p>There is no confirmed timeline. Shared liquidity requires interprovincial or international regulatory agreements. While discussions are ongoing, no formal deals have been announced as of March 2026. The European model took several years from initial talks to launch.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Related Links -->
+<section class="section">
+  <div class="container container--narrow">
+    <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-4);">Related Resources</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-3);">
+      <a href="./ontario-poker-shared-liquidity.html" class="card card--flat" style="padding:var(--space-4);text-decoration:none;color:var(--color-text);display:block;">
+        <strong style="display:block;margin-bottom:var(--space-1);">Ontario Shared Liquidity Guide</strong>
+        <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Full analysis of shared liquidity prospects, regulatory landscape, and what it means for Ontario players.</span>
+      </a>
+      <a href="./best-poker-sites-ontario.html" class="card card--flat" style="padding:var(--space-4);text-decoration:none;color:var(--color-text);display:block;">
+        <strong style="display:block;margin-bottom:var(--space-1);">Best Poker Sites in Ontario</strong>
+        <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Reviews and rankings of all six regulated Ontario poker rooms.</span>
+      </a>
+      <a href="./ontario-poker-traffic-index.html" class="card card--flat" style="padding:var(--space-4);text-decoration:none;color:var(--color-text);display:block;">
+        <strong style="display:block;margin-bottom:var(--space-1);">Ontario Poker Traffic Index</strong>
+        <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Track real-time player counts and traffic trends across Ontario rooms.</span>
+      </a>
+      <a href="./rake-calculator.html" class="card card--flat" style="padding:var(--space-4);text-decoration:none;color:var(--color-text);display:block;">
+        <strong style="display:block;margin-bottom:var(--space-1);">Rake Calculator</strong>
+        <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Compare rake costs across all six Ontario rooms by stakes and volume.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-rg">
+<svg fill="none" stroke="currentColor" stroke-width="2" style="width:32px;height:32px;flex-shrink:0;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<p>Poker is supposed to be fun. If it stops feeling that way, step away. Help is available at ConnexOntario: 1-866-531-2600.</p>
+<a class="btn btn--sm" href="./responsible-gambling.html" style="background:rgba(255,255,255,0.15);color:inherit;white-space:nowrap;">Responsible Gambling</a>
+</div>
+<div class="footer-brand">
+<a class="site-logo" href="./index.html" style="margin-bottom:var(--space-2);">
+<img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:26px;width:auto;">
+</a>
+<p>Your regulated Ontario poker resource online. Reviews, promotions, and guides for all six licensed poker rooms. Published by NWG PTY Limited.</p>
+<p style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-faint);">ontariopoker.com &middot; c/o WeWork, 240 Richmond St W, Toronto, ON M5V 1V6 &middot; <a href="mailto:help@ontariopoker.com" style="color:inherit;">help@ontariopoker.com</a></p>
+</div>
+<div class="footer-newsletter" style="margin-bottom:var(--space-6);padding:var(--space-5);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);">
+<h4 style="margin-bottom:var(--space-2);">Stay up to date</h4>
+<p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-3);">Ontario poker news, new room launches, and regulation updates. No spam, unsubscribe any time.</p>
+<form action="#" method="POST" style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+<input type="email" name="email" placeholder="you@example.com" required style="flex:1;min-width:180px;padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-sm);background:var(--color-surface);color:var(--color-text);">
+<button type="submit" class="btn btn--sm btn--primary">Subscribe</button>
+</form>
+<p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-2);">By subscribing you agree to our <a href="./privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a>. 19+ only.</p>
+</div>
+<div class="footer-columns">
+<div class="footer-col">
+<h4 class="footer-col-toggle">Poker Rooms<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ggpoker/index.html">GGPoker</a><a href="./888poker/index.html">888poker</a><a href="./betmgm-poker/index.html">BetMGM Poker</a><a href="./pokerstars/index.html">PokerStars Ontario</a><a href="./partypoker/index.html">PartyPoker Ontario</a><a href="./bwin/index.html">Bwin Ontario</a>
+<a href="./compare.html">Compare All Rooms</a>
+<a href="./best-poker-sites-ontario.html">Best Poker Sites</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Tools<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./room-finder.html">Room Finder Quiz</a>
+<a href="./which-room-quiz.html">Which Room Quiz</a>
+<a href="./head-to-head.html">Head-to-Head Compare</a>
+<a href="./rake-calculator.html">Rake Calculator</a>
+<a href="./poker-odds-calculator.html">Odds Calculator</a>
+<a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+<a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+<a href="./tournament-roi-calculator.html">Tournament ROI</a>
+<a href="./poker-tax-calculator.html">Tax Calculator</a>
+<a href="./session-tracker.html">Session Tracker</a>
+<a href="./room-status-dashboard.html">Room Status</a>
+<a href="./shared-liquidity-estimator.html">Liquidity Estimator</a>
+<a href="./ontario-poker-glossary.html">Ontario Glossary</a>
+<a href="./compare.html">Full Comparison</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Learn<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./strategy.html">Strategy Guides</a>
+<a href="./poker-glossary.html">Poker Glossary</a>
+<a href="./how-to-play-poker-ontario.html">How to Play Poker</a>
+<a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+<a href="./ontario-poker-tournament-schedule.html">Tournament Schedule</a>
+<a href="./news.html">News Hub</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Guides<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ontario-poker-promo-codes.html">Promo Codes</a>
+<a href="./ontario-poker-tournaments.html">Tournaments</a>
+<a href="./ontario-poker-beginners-guide.html">Beginners Guide</a>
+<a href="./ontario-poker-plo-omaha.html">PLO & Omaha</a>
+<a href="./ontario-poker-taxes.html">Poker Taxes Ontario</a>
+<a href="./wsop-online-ontario.html">WSOP Online Ontario</a>
+<a href="./ontario-poker-sit-and-go.html">Sit & Go Guide</a>
+<a href="./ontario-poker-bonuses.html">Bonuses & Offers</a>
+<a href="./ontario-poker-freerolls.html">Freerolls</a>
+<a href="./ontario-poker-apps.html">Poker Apps</a>
+<a href="./ontario-poker-withdrawal-times.html">Withdrawal Times</a>
+<a href="./ontario-poker-payment-methods.html">Payment Methods</a>
+<a href="./ontario-poker-rakeback-rewards.html">Rakeback &amp; Rewards</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Transparency<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./editorial-policy.html">Editorial Policy</a>
+<a href="./fact-checking.html">Fact Checking</a>
+<a href="./corrections-policy.html">Corrections Policy</a>
+<a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+<a href="./complaints-policy.html">Complaints Policy</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Responsible Gambling<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./responsible-gambling.html">Responsible Gambling</a>
+<a href="./self-exclusion-resources.html">Self-Exclusion Resources</a>
+<a href="./how-to-complain-about-an-ontario-poker-site.html">How to Complain</a>
+<a href="./contact.html">Contact &amp; Support</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Legal<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./about.html">About Us</a>
+<a href="./management-team.html">Our Authors</a>
+<a href="./privacy.html">Privacy Policy</a>
+<a href="./cookie-policy.html">Cookie Policy</a>
+<a href="./terms.html">Terms &amp; Conditions</a>
+<a href="./accessibility.html">Accessibility</a>
+</div>
+</div>
+</div>
+<div class="ftc-footer">
+<p><strong>Affiliate Disclosure:</strong> OntarioPoker.com is owned and operated by NWG PTY Limited. This site contains affiliate links. If you click through and register using our links, we may receive compensation at no additional cost to you. All editorial ratings are our own. See our <a href="./affiliate-disclosure.html" style="color:inherit;text-decoration:underline;">Affiliate Disclosure</a>.</p>
+<p><strong>Disclaimer:</strong> Online poker in Ontario is regulated by the Alcohol and Gaming Commission of Ontario (AGCO) and operated through iGaming Ontario. You must be 19+ and physically located in Ontario to play. If you or someone you know has a gambling problem, call ConnexOntario at 1-866-531-2600.</p>
+</div>
+<div class="footer-bottom">
+<span>&copy; 2026 NWG PTY Limited &middot; ontariopoker.com. All rights reserved.</span>
+</div>
+</div>
+</footer>
+<div id="searchOverlay" class="search-overlay">
+  <div class="search-box">
+    <div class="search-input-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" class="search-input" placeholder="Search reviews, guides, promotions..." autocomplete="off">
+      <button class="search-close" aria-label="Close search"><span aria-hidden="true">&#x2715;</span></button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+
+<script src="./app.min.js" defer></script>
+<script>
+(function() {
+  'use strict';
+
+  // ── Constants ──
+  var BASELINE = {
+    weekly: 20000,
+    concurrent: 1800,
+    tables: 80,
+    field: 150,
+    guarantee: 15000,
+    wait: 8 // minutes
+  };
+
+  var SCENARIOS = {
+    ontario:       { multiplier: 1,    label: 'Ontario Only' },
+    canada:        { multiplier: 2.5,  label: 'Ontario + Canada' },
+    us:            { multiplier: 7,    label: 'Ontario + US States' },
+    international: { multiplier: 35,   label: 'Full International' }
+  };
+
+  var ROOMS = [
+    {
+      name: 'GGPoker',
+      rating: '9.4/10.0',
+      color: '#BE0F34',
+      link: 'https://click.ggpartners.com/?serial=886&creative_id=8509&anid=',
+      readiness: 'Very High',
+      notes: 'Already runs a global network. Has the infrastructure and experience to merge Ontario players into its worldwide pool with minimal technical barriers.',
+      networkType: 'Global network operator',
+      sharedExp: 'Extensive (global pool)'
+    },
+    {
+      name: 'PokerStars Ontario',
+      rating: '8.7/10.0',
+      color: '#E41F23',
+      link: '#',
+      readiness: 'Very High',
+      notes: 'Operates shared .FR/.ES/.PT pools in Europe. Has a proven playbook for merging ring-fenced markets while maintaining regulatory compliance.',
+      networkType: 'Multi-market operator',
+      sharedExp: 'Proven (.FR/.ES/.PT)'
+    },
+    {
+      name: '888poker',
+      rating: '9.0/10.0',
+      color: '#1A1A6C',
+      link: 'https://ic.aff-handler.com/C/48309?sr=2020537',
+      readiness: 'High',
+      notes: 'Operates across multiple regulated markets globally. Has participated in US shared liquidity (NJ/NV/DE). Well-positioned technically.',
+      networkType: 'Multi-market operator',
+      sharedExp: 'Yes (US MSIGA)'
+    },
+    {
+      name: 'BetMGM Poker',
+      rating: '8.8/10.0',
+      color: '#C6A962',
+      link: 'https://click.ggpartners.com/?serial=886&creative_id=69&anid=',
+      readiness: 'High',
+      notes: 'Powered by GGPoker network technology. Would inherit GGPoker\'s shared liquidity capabilities. Active in multiple US states.',
+      networkType: 'GGPoker network partner',
+      sharedExp: 'Via GG network'
+    },
+    {
+      name: 'PartyPoker Ontario',
+      rating: '7.8/10.0',
+      color: '#FF6B00',
+      link: 'https://click.ggpartners.com/?serial=886&creative_id=69&anid=',
+      readiness: 'Moderate',
+      notes: 'Part of the Entain group with global operations. Has multi-market experience but Ontario pool is relatively small. Would benefit significantly.',
+      networkType: 'Entain network',
+      sharedExp: 'Limited in poker'
+    },
+    {
+      name: 'Bwin Ontario',
+      rating: '7.2/10.0',
+      color: '#FFCC00',
+      link: 'https://click.ggpartners.com/?serial=886&creative_id=69&anid=',
+      readiness: 'Moderate',
+      notes: 'Also part of Entain group, shares platform with PartyPoker. Smaller Ontario presence but would gain the most proportionally from a larger pool.',
+      networkType: 'Entain network',
+      sharedExp: 'Limited in poker'
+    }
+  ];
+
+  // ── DOM refs ──
+  var scenarioCards = document.querySelectorAll('.sle-scenario-card');
+  var slider = document.getElementById('sle-multiplier');
+  var multiplierDisplay = document.getElementById('sle-multiplier-display');
+
+  // ── State ──
+  var currentMultiplier = 1;
+
+  // ── Helpers ──
+  function formatNum(n) {
+    if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (n >= 1000) return Math.round(n).toLocaleString('en-CA');
+    return Math.round(n).toString();
+  }
+
+  function formatMoney(n) {
+    if (n >= 1000000) return '$' + (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
+    return '$' + Math.round(n);
+  }
+
+  function formatWait(mins) {
+    if (mins < 1) return '<1 min';
+    if (mins < 2) return '~1 min';
+    return '~' + Math.round(mins) + ' min';
+  }
+
+  function pctChange(newVal, oldVal) {
+    if (oldVal === 0) return '+0%';
+    var pct = ((newVal - oldVal) / oldVal) * 100;
+    if (pct === 0) return 'Baseline';
+    return (pct > 0 ? '+' : '') + Math.round(pct) + '%';
+  }
+
+  // ── Calculation engine ──
+  function calculate(mult) {
+    // Player growth is roughly linear with multiplier
+    var weekly = BASELINE.weekly * mult;
+    // Concurrent grows somewhat less than linear (time zone overlap limits)
+    var concurrentMult = Math.pow(mult, 0.85);
+    var concurrent = BASELINE.concurrent * concurrentMult;
+    // Tables scale with sqrt-ish of player pool (more players per table)
+    var tablesMult = Math.pow(mult, 0.7);
+    var tables = BASELINE.tables * tablesMult;
+    // Tournament field sizes grow faster than linear (network effect)
+    var fieldMult = Math.pow(mult, 0.9);
+    var field = BASELINE.field * fieldMult;
+    // Guarantees scale with field size (roughly proportional)
+    var guarantee = BASELINE.guarantee * fieldMult;
+    // Wait times decrease inversely
+    var wait = BASELINE.wait / Math.pow(mult, 0.6);
+    if (wait < 0.3) wait = 0.3;
+
+    return {
+      weekly: Math.round(weekly),
+      concurrent: Math.round(concurrent),
+      tables: Math.round(tables),
+      field: Math.round(field),
+      guarantee: Math.round(guarantee),
+      wait: wait
+    };
+  }
+
+  // ── Render results ──
+  function renderResults(mult) {
+    var r = calculate(mult);
+
+    document.getElementById('res-weekly').textContent = '~' + formatNum(r.weekly);
+    document.getElementById('res-concurrent').textContent = '~' + formatNum(r.concurrent);
+    document.getElementById('res-tables').textContent = '~' + formatNum(r.tables);
+    document.getElementById('res-field').textContent = '~' + formatNum(r.field);
+    document.getElementById('res-guarantee').textContent = formatMoney(r.guarantee);
+    document.getElementById('res-wait').textContent = formatWait(r.wait);
+
+    // Change badges
+    var pairs = [
+      ['res-weekly-change', r.weekly, BASELINE.weekly],
+      ['res-concurrent-change', r.concurrent, BASELINE.concurrent],
+      ['res-tables-change', r.tables, BASELINE.tables],
+      ['res-field-change', r.field, BASELINE.field],
+      ['res-guarantee-change', r.guarantee, BASELINE.guarantee]
+    ];
+    pairs.forEach(function(p) {
+      var el = document.getElementById(p[0]);
+      var txt = pctChange(p[1], p[2]);
+      el.textContent = txt;
+      el.className = 'sle-metric-change ' + (txt === 'Baseline' ? 'neutral' : 'positive');
+    });
+
+    var waitEl = document.getElementById('res-wait-change');
+    var waitPct = pctChange(r.wait, BASELINE.wait);
+    waitEl.textContent = mult <= 1 ? 'Baseline' : waitPct;
+    waitEl.className = 'sle-metric-change ' + (mult <= 1 ? 'neutral' : 'positive');
+
+    // Render comparison bars
+    renderBars(r);
+  }
+
+  // ── Comparison bars ──
+  function renderBars(r) {
+    var container = document.getElementById('sle-bars');
+    var maxes = {
+      weekly: Math.max(BASELINE.weekly, r.weekly),
+      concurrent: Math.max(BASELINE.concurrent, r.concurrent),
+      tables: Math.max(BASELINE.tables, r.tables),
+      field: Math.max(BASELINE.field, r.field),
+      guarantee: Math.max(BASELINE.guarantee, r.guarantee)
+    };
+
+    var barData = [
+      { label: 'Weekly Players', base: BASELINE.weekly, proj: r.weekly, max: maxes.weekly, fmt: formatNum },
+      { label: 'Peak Concurrent', base: BASELINE.concurrent, proj: r.concurrent, max: maxes.concurrent, fmt: formatNum },
+      { label: 'Cash Tables', base: BASELINE.tables, proj: r.tables, max: maxes.tables, fmt: formatNum },
+      { label: 'Sunday MTT Field', base: BASELINE.field, proj: r.field, max: maxes.field, fmt: formatNum },
+      { label: 'Sunday GTD', base: BASELINE.guarantee, proj: r.guarantee, max: maxes.guarantee, fmt: formatMoney }
+    ];
+
+    var html = '';
+    barData.forEach(function(d) {
+      var basePct = Math.max(5, (d.base / d.max) * 100);
+      var projPct = Math.max(5, (d.proj / d.max) * 100);
+      html += '<div style="margin-bottom:var(--space-3);">';
+      html += '<div class="sle-bar-row">';
+      html += '<span class="sle-bar-label">' + d.label + '</span>';
+      html += '<div class="sle-bar-track">';
+      html += '<div class="sle-bar-fill baseline" style="width:' + basePct.toFixed(1) + '%;">' + d.fmt(d.base) + '</div>';
+      html += '</div>';
+      html += '</div>';
+      html += '<div class="sle-bar-row" style="margin-top:4px;">';
+      html += '<span class="sle-bar-label" style="color:var(--color-text-faint);font-size:var(--text-xs);">Projected</span>';
+      html += '<div class="sle-bar-track">';
+      html += '<div class="sle-bar-fill projected" style="width:' + projPct.toFixed(1) + '%;">' + d.fmt(d.proj) + '</div>';
+      html += '</div>';
+      html += '</div>';
+      html += '</div>';
+    });
+    container.innerHTML = html;
+  }
+
+  // ── Room cards ──
+  function renderRooms() {
+    var container = document.getElementById('sle-rooms');
+    var html = '';
+    ROOMS.forEach(function(room) {
+      html += '<div class="sle-room-card">';
+      html += '<div class="sle-room-header">';
+      html += '<span class="sle-room-dot" style="background:' + room.color + ';"></span>';
+      html += '<span class="sle-room-name">' + room.name + '</span>';
+      html += '<span class="sle-room-rating">' + room.rating + '</span>';
+      html += '</div>';
+      html += '<div class="sle-room-detail"><span class="sle-room-detail-label">Readiness</span><span class="sle-room-detail-value">' + room.readiness + '</span></div>';
+      html += '<div class="sle-room-detail"><span class="sle-room-detail-label">Network Type</span><span class="sle-room-detail-value">' + room.networkType + '</span></div>';
+      html += '<div class="sle-room-detail"><span class="sle-room-detail-label">Shared Liquidity Exp.</span><span class="sle-room-detail-value">' + room.sharedExp + '</span></div>';
+      html += '<p style="margin-top:var(--space-2);font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.5;">' + room.notes + '</p>';
+      html += '<a href="' + room.link + '" target="_blank" rel="noopener noreferrer sponsored" class="btn btn--sm btn--primary" style="margin-top:var(--space-3);width:100%;text-align:center;">Visit ' + room.name.split(' ')[0] + '</a>';
+      html += '</div>';
+    });
+    container.innerHTML = html;
+  }
+
+  // ── Scenario selection ──
+  function selectScenario(scenario) {
+    scenarioCards.forEach(function(card) {
+      card.classList.remove('active');
+      if (card.getAttribute('data-scenario') === scenario) {
+        card.classList.add('active');
+        card.querySelector('input').checked = true;
+      }
+    });
+    var mult = SCENARIOS[scenario].multiplier;
+    slider.value = mult;
+    currentMultiplier = mult;
+    multiplierDisplay.textContent = mult + 'x';
+    renderResults(mult);
+  }
+
+  // ── Event listeners ──
+  scenarioCards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      var scenario = card.getAttribute('data-scenario');
+      selectScenario(scenario);
+    });
+  });
+
+  slider.addEventListener('input', function() {
+    var mult = parseFloat(this.value);
+    currentMultiplier = mult;
+    multiplierDisplay.textContent = mult + 'x';
+
+    // Deselect scenario cards if slider doesn't match any preset
+    var matched = false;
+    Object.keys(SCENARIOS).forEach(function(key) {
+      if (SCENARIOS[key].multiplier === mult) {
+        matched = true;
+        scenarioCards.forEach(function(card) {
+          card.classList.remove('active');
+          if (card.getAttribute('data-scenario') === key) {
+            card.classList.add('active');
+            card.querySelector('input').checked = true;
+          }
+        });
+      }
+    });
+    if (!matched) {
+      scenarioCards.forEach(function(card) {
+        card.classList.remove('active');
+        card.querySelector('input').checked = false;
+      });
+    }
+
+    renderResults(mult);
+  });
+
+  // ── Init ──
+  renderResults(1);
+  renderRooms();
+
+})();
+</script>
+<script src="./app.js"></script>
+<script src="./interactive-tools.js"></script>
+</body>
+</html>

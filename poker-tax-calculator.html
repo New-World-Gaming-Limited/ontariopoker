@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ontario Poker Tax Calculator 2026 | CRA Tax Guide | OntarioPoker</title>
+<meta name="description" content="Estimate taxes on your Ontario poker winnings. Find out if CRA considers you a recreational or professional player and calculate federal + provincial tax obligations.">
+<link rel="canonical" href="https://ontariopoker.com/poker-tax-calculator">
+<meta property="og:title" content="Ontario Poker Tax Calculator 2026 | CRA Tax Guide">
+<meta property="og:description" content="Estimate taxes on your Ontario poker winnings. Find out if CRA considers you a recreational or professional player and calculate federal + provincial tax obligations.">
+<meta property="og:url" content="https://ontariopoker.com/poker-tax-calculator">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OntarioPoker">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="icon" type="image/png" href="./favicon.png" sizes="96x96">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
+<link rel="stylesheet" href="./style.min.css">
+<link rel="stylesheet" href="./base.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ontariopoker.com/"},{"@type":"ListItem","position":2,"name":"Poker Tax Calculator"}]}</script>
+<script type="application/ld+json">{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Are poker winnings taxable in Canada?","acceptedAnswer":{"@type":"Answer","text":"For most recreational players, poker winnings are not taxable in Canada. The CRA treats them as windfall income similar to lottery prizes. However, if you play poker professionally or as your primary income source, the CRA may classify your winnings as business income, which is fully taxable."}},
+    {"@type":"Question","name":"How does CRA decide if I'm a professional poker player?","acceptedAnswer":{"@type":"Answer","text":"The CRA considers several factors: how often you play, your level of skill and training, whether you treat poker like a business (tracking records, setting schedules), your intention to profit, and whether poker is a major source of your income. No single factor is decisive. The CRA looks at the overall picture."}},
+    {"@type":"Question","name":"What expenses can professional poker players deduct?","acceptedAnswer":{"@type":"Answer","text":"If your poker income is classified as business income, you can deduct legitimate business expenses including tournament buy-ins, travel costs to events, poker coaching and training, tracking software subscriptions, home office expenses, and internet costs related to online play."}},
+    {"@type":"Question","name":"Do I need to report poker winnings on my tax return?","acceptedAnswer":{"@type":"Answer","text":"Recreational players generally do not need to report poker winnings. However, if your poker income is classified as business income, you must report it on your T1 return as self-employment income (Line 13500) and file a T2125 Statement of Business Activities."}},
+    {"@type":"Question","name":"What are the Ontario tax rates on poker income?","acceptedAnswer":{"@type":"Answer","text":"If poker income is taxable, Ontario provincial rates range from 5.05% on the first $52,886 to 13.16% on income over $220,000, on top of federal rates from 15% to 33%. The combined marginal rate can reach 46.16% at the highest bracket."}},
+    {"@type":"Question","name":"Can I offset poker losses against winnings?","acceptedAnswer":{"@type":"Answer","text":"If you are classified as a professional player, your poker losses and expenses reduce your net business income. Recreational players cannot deduct losses since their winnings are not taxable in the first place. Keeping detailed records of both wins and losses is strongly recommended."}}
+  ]
+}</script>
+<style>
+.tax-calc-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .tax-calc-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+.tax-form-group {
+  margin-bottom: var(--space-4);
+}
+.tax-form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-1);
+  color: var(--color-text);
+}
+.tax-form-group .label-hint {
+  font-weight: 400;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  display: block;
+  margin-bottom: var(--space-1);
+}
+.tax-input, .tax-select {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color 0.2s;
+}
+.tax-input:focus, .tax-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-surface);
+}
+.tax-input-prefix {
+  position: relative;
+}
+.tax-input-prefix::before {
+  content: '$';
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+  pointer-events: none;
+}
+.tax-input-prefix .tax-input {
+  padding-left: 28px;
+}
+.tax-classification-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+@media (max-width: 540px) {
+  .tax-classification-cards {
+    grid-template-columns: 1fr;
+  }
+}
+.tax-class-card {
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  text-align: center;
+}
+.tax-class-card:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-surface);
+}
+.tax-class-card.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary-surface);
+}
+.tax-class-card input[type="radio"] {
+  display: none;
+}
+.tax-class-icon {
+  font-size: 28px;
+  margin-bottom: var(--space-1);
+}
+.tax-class-label {
+  font-weight: 700;
+  font-size: var(--text-sm);
+  display: block;
+  margin-bottom: 2px;
+}
+.tax-class-desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+.tax-results-panel {
+  position: sticky;
+  top: var(--space-4);
+}
+.tax-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border-radius: 999px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+.tax-status-badge--green {
+  background: rgba(34, 197, 94, 0.12);
+  color: #16a34a;
+}
+[data-theme="dark"] .tax-status-badge--green {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+.tax-status-badge--yellow {
+  background: rgba(234, 179, 8, 0.12);
+  color: #a16207;
+}
+[data-theme="dark"] .tax-status-badge--yellow {
+  background: rgba(234, 179, 8, 0.15);
+  color: #facc15;
+}
+.tax-status-badge--red {
+  background: rgba(239, 68, 68, 0.12);
+  color: #dc2626;
+}
+[data-theme="dark"] .tax-status-badge--red {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+.tax-result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+.tax-result-row:last-child {
+  border-bottom: none;
+}
+.tax-result-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+.tax-result-value {
+  font-weight: 700;
+  font-size: var(--text-base);
+  color: var(--color-text);
+}
+.tax-result-value--lg {
+  font-size: var(--text-xl);
+  color: var(--color-primary);
+}
+.tax-disclaimer-box {
+  padding: var(--space-3) var(--space-4);
+  background: rgba(234, 179, 8, 0.08);
+  border-left: 3px solid #eab308;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-4);
+  line-height: 1.6;
+}
+.tax-bracket-table {
+  width: 100%;
+  min-width: 0 !important;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  table-layout: auto;
+}
+.tax-bracket-table th,
+.tax-bracket-table td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border-light);
+}
+.tax-bracket-table th {
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-surface-alt);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.tax-bracket-table td {
+  color: var(--color-text-muted);
+}
+@media (max-width: 640px) {
+  .tax-bracket-table th,
+  .tax-bracket-table td {
+    padding: var(--space-2);
+    font-size: var(--text-xs);
+  }
+}
+.tax-bracket-table tr.active-bracket td {
+  background: var(--color-primary-surface);
+  color: var(--color-text);
+  font-weight: 600;
+}
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+@media (max-width: 640px) {
+  .comparison-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.comparison-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  background: var(--color-surface);
+}
+.comparison-card h4 {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-base);
+}
+.comparison-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.comparison-card ul li {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  padding: var(--space-1) 0;
+  padding-left: 20px;
+  position: relative;
+}
+.comparison-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.comparison-card--recreational ul li::before {
+  background: #22c55e;
+}
+.comparison-card--semi ul li::before {
+  background: #eab308;
+}
+.comparison-card--pro ul li::before {
+  background: #ef4444;
+}
+.deductible-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-3);
+}
+@media (max-width: 540px) {
+  .deductible-list {
+    grid-template-columns: 1fr;
+  }
+}
+.deductible-list li {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  padding: var(--space-1) 0;
+  padding-left: 24px;
+  position: relative;
+  list-style: none;
+}
+.deductible-list li::before {
+  content: '\2713';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+.faq-item {
+  border-bottom: 1px solid var(--color-border-light);
+}
+.faq-item:last-child {
+  border-bottom: none;
+}
+.faq-q {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: var(--space-4) 0;
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: inherit;
+}
+.faq-q:hover {
+  color: var(--color-primary);
+}
+.faq-q svg {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.faq-item.open .faq-q svg {
+  transform: rotate(180deg);
+}
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.faq-item.open .faq-a {
+  max-height: 600px;
+}
+.faq-a-inner {
+  padding-bottom: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+.related-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-4);
+}
+.related-link-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  text-decoration: none;
+  color: var(--color-text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.related-link-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.tax-brackets-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+@media (max-width: 640px) {
+  .tax-brackets-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.related-link-card svg {
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+.related-link-card span {
+  font-weight: 600;
+  font-size: var(--text-sm);
+}
+</style>
+</head>
+<body>
+<div class="disclosure-bar">
+  This site contains affiliate links and promotional content. 19+ only. Play responsibly. <a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+</div>
+<header class="site-header">
+  <div class="container">
+    <a href="./index.html" class="site-logo">
+      <img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:32px;width:auto;">
+    </a>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Rooms <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ggpoker/review.html">GGPoker</a>
+          <a href="./888poker/review.html">888poker</a>
+          <a href="./betmgm-poker/review.html">BetMGM Poker</a>
+          <a href="./pokerstars/review.html">PokerStars</a>
+          <a href="./partypoker/review.html">PartyPoker</a>
+          <a href="./bwin/review.html">Bwin</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./compare.html">Compare All</a>
+          <a href="./head-to-head.html">Head-to-Head</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Promotions <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ontario-poker-promo-codes.html">All Promo Codes</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./ggpoker/promo-code.html">GGPoker Promo</a>
+          <a href="./888poker/promo-code.html">888poker Promo</a>
+          <a href="./betmgm-poker/promo-code.html">BetMGM Poker Promo</a>
+          <a href="./pokerstars/promo-code.html">PokerStars Promo</a>
+          <a href="./partypoker/promo-code.html">PartyPoker Promo</a>
+          <a href="./bwin/promo-code.html">Bwin Promo</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Tools <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./room-finder.html">Room Finder Quiz</a>
+          <a href="./which-room-quiz.html">Which Room Quiz</a>
+          <a href="./rake-calculator.html">Rake Calculator</a>
+          <a href="./poker-odds-calculator.html">Odds Calculator</a>
+          <a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+          <a href="./tournament-roi-calculator.html">Tournament ROI Calculator</a>
+          <a href="./poker-tax-calculator.html">Poker Tax Calculator</a>
+          <a href="./session-tracker.html">Session Tracker</a>
+          <a href="./shared-liquidity-estimator.html">Shared Liquidity Estimator</a>
+          <a href="./room-status-dashboard.html">Room Status Dashboard</a>
+          <a href="./ontario-poker-glossary.html">Ontario Glossary</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Learn <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./strategy.html">Strategy Guides</a>
+          <a href="./poker-glossary.html">Poker Glossary</a>
+          <a href="./how-to-play-poker-ontario.html">How to Play Poker</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./is-online-poker-legal-in-ontario.html">Legal Guide</a>
+          <a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+          <a href="./ontario-poker-tournament-schedule.html">Tournament Schedule</a>
+          <a href="./ontario-poker-traffic-index.html">Traffic Index</a>
+          <a href="./news.html">News</a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-actions">
+      <button class="search-btn" aria-label="Search site"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+      <a href="./best-poker-sites-ontario.html" class="header-cta">Best Poker Sites</a>
+      <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="./index.html">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">Poker Tax Calculator</span></nav>
+    <h1>Ontario Poker Tax Calculator</h1>
+    <p class="page-hero-subtitle">Estimate how CRA treats your poker winnings and calculate potential federal and Ontario provincial taxes. Updated for 2025/2026 tax year brackets.</p>
+  </div>
+</section>
+
+<!-- Disclaimer Banner -->
+<section class="section" style="padding-top:0;padding-bottom:0;">
+  <div class="container">
+    <div class="tax-disclaimer-box" style="margin-top:0;">
+      <strong>Not tax advice.</strong> This tool provides estimates for educational purposes only. Tax law is complex and individual circumstances vary. Always consult a qualified Canadian tax professional or accountant for advice specific to your situation.
+    </div>
+  </div>
+</section>
+
+<!-- Calculator Section -->
+<section class="section">
+  <div class="container">
+    <div class="tax-calc-wrap">
+
+      <!-- Left: Inputs -->
+      <div class="card card--flat" style="padding:var(--space-5);">
+        <h2 style="font-size:var(--text-lg);margin-bottom:var(--space-4);">Your Poker Details</h2>
+
+        <div class="tax-form-group">
+          <label>Player Classification</label>
+          <span class="label-hint">How would you describe your poker activity?</span>
+          <div class="tax-classification-cards" id="classCards">
+            <label class="tax-class-card active" data-val="recreational">
+              <input type="radio" name="playerType" value="recreational" checked>
+              <div class="tax-class-icon">&#9824;</div>
+              <span class="tax-class-label">Recreational</span>
+              <span class="tax-class-desc">Play for fun, not your main income</span>
+            </label>
+            <label class="tax-class-card" data-val="semi">
+              <input type="radio" name="playerType" value="semi">
+              <div class="tax-class-icon">&#9830;</div>
+              <span class="tax-class-label">Semi-Pro</span>
+              <span class="tax-class-desc">Regular player with other income sources</span>
+            </label>
+            <label class="tax-class-card" data-val="professional">
+              <input type="radio" name="playerType" value="professional">
+              <div class="tax-class-icon">&#9827;</div>
+              <span class="tax-class-label">Professional</span>
+              <span class="tax-class-desc">Poker is your primary income source</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="tax-form-group">
+          <label for="pokerWinnings">Annual Poker Winnings</label>
+          <span class="label-hint">Total gross poker winnings for the year (CAD)</span>
+          <div class="tax-input-prefix">
+            <input type="number" id="pokerWinnings" class="tax-input" value="30000" min="0" step="1000">
+          </div>
+        </div>
+
+        <div class="tax-form-group">
+          <label for="pokerExpenses">Annual Poker Expenses / Losses</label>
+          <span class="label-hint">Buy-ins lost, coaching, software, travel, etc. (CAD)</span>
+          <div class="tax-input-prefix">
+            <input type="number" id="pokerExpenses" class="tax-input" value="5000" min="0" step="500">
+          </div>
+        </div>
+
+        <div class="tax-form-group">
+          <label for="otherIncome">Other Employment Income</label>
+          <span class="label-hint">Salary, freelance, or other income outside poker (CAD)</span>
+          <div class="tax-input-prefix">
+            <input type="number" id="otherIncome" class="tax-input" value="60000" min="0" step="1000">
+          </div>
+        </div>
+
+        <div class="tax-form-group">
+          <label for="filingStatus">Filing Status</label>
+          <select id="filingStatus" class="tax-select">
+            <option value="single">Single / Individual</option>
+            <option value="married">Married / Common-Law</option>
+          </select>
+        </div>
+
+        <button class="btn btn--primary" style="width:100%;margin-top:var(--space-2);" id="calcBtn">Calculate Tax Estimate</button>
+      </div>
+
+      <!-- Right: Results -->
+      <div class="tax-results-panel">
+        <div class="card card--flat" style="padding:var(--space-5);" id="resultsCard">
+          <h2 style="font-size:var(--text-lg);margin-bottom:var(--space-4);">Tax Estimate</h2>
+
+          <div style="text-align:center;margin-bottom:var(--space-4);" id="statusBadgeWrap">
+            <span class="tax-status-badge tax-status-badge--green" id="statusBadge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Likely Not Taxable
+            </span>
+          </div>
+
+          <p id="statusExplanation" style="font-size:var(--text-sm);color:var(--color-text-muted);text-align:center;margin-bottom:var(--space-4);line-height:1.6;">
+            As a recreational player, your poker winnings are generally treated as non-taxable windfall income by the CRA.
+          </p>
+
+          <div id="taxBreakdown">
+            <div class="tax-result-row">
+              <span class="tax-result-label">Gross Poker Winnings</span>
+              <span class="tax-result-value" id="resGross">$30,000</span>
+            </div>
+            <div class="tax-result-row">
+              <span class="tax-result-label">Deductible Expenses</span>
+              <span class="tax-result-value" id="resExpenses">$0</span>
+            </div>
+            <div class="tax-result-row">
+              <span class="tax-result-label">Taxable Poker Income</span>
+              <span class="tax-result-value" id="resTaxable">$0</span>
+            </div>
+            <div class="tax-result-row">
+              <span class="tax-result-label">Federal Tax on Poker</span>
+              <span class="tax-result-value" id="resFederal">$0</span>
+            </div>
+            <div class="tax-result-row">
+              <span class="tax-result-label">Ontario Provincial Tax</span>
+              <span class="tax-result-value" id="resProvincial">$0</span>
+            </div>
+            <div class="tax-result-row">
+              <span class="tax-result-label">Total Tax on Poker Income</span>
+              <span class="tax-result-value" id="resTotalTax">$0</span>
+            </div>
+            <div class="tax-result-row">
+              <span class="tax-result-label">Effective Tax Rate</span>
+              <span class="tax-result-value" id="resEffRate">0%</span>
+            </div>
+            <div class="tax-result-row" style="border-bottom:none;padding-top:var(--space-3);">
+              <span class="tax-result-label" style="font-weight:600;color:var(--color-text);">Net After-Tax Poker Income</span>
+              <span class="tax-result-value tax-result-value--lg" id="resNet">$30,000</span>
+            </div>
+          </div>
+
+          <div class="tax-disclaimer-box" style="margin-top:var(--space-4);">
+            Estimate only. Does not account for CPP contributions, surtaxes, personal credits beyond the basic personal amount, or other deductions. Consult a tax professional.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Tax Treatment Comparison -->
+<section class="section section--alt">
+  <div class="container">
+    <h2 style="margin-bottom:var(--space-2);">Tax Treatment by Player Type</h2>
+    <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);">The CRA does not have a bright-line rule. Your classification depends on the totality of your circumstances.</p>
+
+    <div class="comparison-grid">
+      <div class="comparison-card comparison-card--recreational">
+        <h4 style="color:#16a34a;">Recreational Player</h4>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-3);">Winnings are generally <strong>not taxable</strong></p>
+        <ul>
+          <li>Play for entertainment, not profit</li>
+          <li>Poker is a hobby alongside regular job</li>
+          <li>No systematic approach or records</li>
+          <li>Winnings treated as windfall</li>
+          <li>Cannot deduct poker losses</li>
+        </ul>
+      </div>
+      <div class="comparison-card comparison-card--semi">
+        <h4 style="color:#a16207;">Semi-Professional</h4>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-3);">Tax status is a <strong>grey area</strong></p>
+        <ul>
+          <li>Regular schedule but not full-time</li>
+          <li>Keeps records and tracks results</li>
+          <li>Has other employment income</li>
+          <li>CRA may argue business income</li>
+          <li>Consider professional tax advice</li>
+        </ul>
+      </div>
+      <div class="comparison-card comparison-card--pro">
+        <h4 style="color:#dc2626;">Professional Player</h4>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-3);">Winnings are <strong>likely taxable</strong> as business income</p>
+        <ul>
+          <li>Poker is primary income source</li>
+          <li>Treats poker as a business</li>
+          <li>Advanced training and skill</li>
+          <li>Must report on T2125 form</li>
+          <li>Can deduct legitimate expenses</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CRA Factors -->
+<section class="section">
+  <div class="container container--narrow">
+    <h2 style="margin-bottom:var(--space-2);">How CRA Determines If You're a Professional</h2>
+    <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-5);">No single factor is decisive. The CRA evaluates the overall pattern of your poker activity based on several indicators.</p>
+
+    <div class="card card--flat" style="padding:var(--space-5);">
+      <div style="display:grid;gap:var(--space-4);">
+        <div style="display:flex;gap:var(--space-3);align-items:start;">
+          <span style="font-size:20px;flex-shrink:0;margin-top:2px;">&#128337;</span>
+          <div>
+            <strong style="display:block;margin-bottom:2px;">Frequency and Volume of Play</strong>
+            <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Playing daily or putting in 30+ hours per week signals business activity rather than a casual hobby.</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:var(--space-3);align-items:start;">
+          <span style="font-size:20px;flex-shrink:0;margin-top:2px;">&#127891;</span>
+          <div>
+            <strong style="display:block;margin-bottom:2px;">Level of Skill and Training</strong>
+            <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Investing in coaching, studying strategy, using tracking software, and reviewing hand histories shows professional-level commitment.</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:var(--space-3);align-items:start;">
+          <span style="font-size:20px;flex-shrink:0;margin-top:2px;">&#128176;</span>
+          <div>
+            <strong style="display:block;margin-bottom:2px;">Intention to Profit</strong>
+            <span style="font-size:var(--text-sm);color:var(--color-text-muted);">If your primary motivation is earning income rather than entertainment, the CRA is more likely to classify winnings as business income.</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:var(--space-3);align-items:start;">
+          <span style="font-size:20px;flex-shrink:0;margin-top:2px;">&#128203;</span>
+          <div>
+            <strong style="display:block;margin-bottom:2px;">Organizational Structure</strong>
+            <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Maintaining business-like records, using separate bank accounts for poker funds, and having a structured approach to bankroll management are indicators.</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:var(--space-3);align-items:start;">
+          <span style="font-size:20px;flex-shrink:0;margin-top:2px;">&#128200;</span>
+          <div>
+            <strong style="display:block;margin-bottom:2px;">Income Proportion</strong>
+            <span style="font-size:var(--text-sm);color:var(--color-text-muted);">If poker winnings make up the majority of your total income, the CRA has stronger grounds to treat them as business income.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tax Brackets Reference -->
+<section class="section section--alt">
+  <div class="container">
+    <h2 style="margin-bottom:var(--space-2);">2025 Canadian Tax Brackets (If Poker Income Is Taxable)</h2>
+    <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-5);">These brackets apply to your total income, including poker winnings classified as business income.</p>
+
+    <div class="tax-brackets-grid">
+      <div class="card card--flat table-responsive" style="padding:var(--space-4);">
+        <h3 style="font-size:var(--text-base);margin-bottom:var(--space-3);">Federal Tax Rates</h3>
+        <table class="tax-bracket-table">
+          <thead><tr><th>Taxable Income</th><th>Rate</th></tr></thead>
+          <tbody>
+            <tr><td>First $57,375</td><td>15%</td></tr>
+            <tr><td>$57,375 to $114,750</td><td>20.5%</td></tr>
+            <tr><td>$114,750 to $158,468</td><td>26%</td></tr>
+            <tr><td>$158,468 to $220,000</td><td>29%</td></tr>
+            <tr><td>Over $220,000</td><td>33%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card card--flat table-responsive" style="padding:var(--space-4);">
+        <h3 style="font-size:var(--text-base);margin-bottom:var(--space-3);">Ontario Provincial Rates</h3>
+        <table class="tax-bracket-table">
+          <thead><tr><th>Taxable Income</th><th>Rate</th></tr></thead>
+          <tbody>
+            <tr><td>First $52,886</td><td>5.05%</td></tr>
+            <tr><td>$52,886 to $105,775</td><td>9.15%</td></tr>
+            <tr><td>$105,775 to $150,000</td><td>11.16%</td></tr>
+            <tr><td>$150,000 to $220,000</td><td>12.16%</td></tr>
+            <tr><td>Over $220,000</td><td>13.16%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-3);text-align:center;">Basic personal amount of $16,129 (federal) and $11,865 (Ontario) applied. Rates reflect 2025 brackets. CPP/EI not included.</p>
+  </div>
+</section>
+
+<!-- Deductible Expenses -->
+<section class="section">
+  <div class="container container--narrow">
+    <h2 style="margin-bottom:var(--space-2);">Deductible Expenses for Professional Players</h2>
+    <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);">If the CRA classifies your poker income as business income, you can offset it with legitimate business expenses. Keep receipts and detailed records for all claims.</p>
+
+    <div class="card card--flat" style="padding:var(--space-5);">
+      <ul class="deductible-list">
+        <li>Tournament buy-ins and entry fees</li>
+        <li>Cash game losses (documented)</li>
+        <li>Poker coaching and training courses</li>
+        <li>Tracking and analysis software (e.g., PokerTracker, Hold'em Manager)</li>
+        <li>Travel to live poker events</li>
+        <li>Accommodation for tournament trips</li>
+        <li>Home office expenses (proportional)</li>
+        <li>Internet and phone costs (poker portion)</li>
+        <li>Computer and equipment (depreciated)</li>
+        <li>Books and educational materials</li>
+        <li>Accounting and tax preparation fees</li>
+        <li>Staking losses (if applicable)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- How to Use -->
+<section class="section section--alt">
+  <div class="container container--narrow">
+    <h2 style="margin-bottom:var(--space-4);">How to Use This Calculator</h2>
+    <div class="prose">
+      <ol style="padding-left:var(--space-5);color:var(--color-text-muted);font-size:var(--text-sm);line-height:1.8;">
+        <li><strong>Select your player classification.</strong> Be honest about how you approach poker. Recreational means you play for fun. Semi-pro means you play regularly and track results. Professional means poker is your main income.</li>
+        <li><strong>Enter your annual poker winnings.</strong> This is your total gross winnings before subtracting losses or expenses.</li>
+        <li><strong>Enter your poker expenses.</strong> Include buy-ins lost, coaching, software, travel, and other poker-related costs. These only matter for tax purposes if you are classified as professional.</li>
+        <li><strong>Enter other income.</strong> Your employment salary or other income helps determine which tax bracket applies to your poker earnings.</li>
+        <li><strong>Review results.</strong> The calculator will tell you whether your winnings are likely taxable and, if so, estimate the federal and Ontario provincial tax owed.</li>
+      </ol>
+      <p style="margin-top:var(--space-3);font-size:var(--text-sm);color:var(--color-text-muted);">Remember: this calculator uses simplified assumptions. Real tax calculations involve additional credits, deductions, and rules that vary by individual. For more details, read our <a href="./ontario-poker-taxes.html">Ontario Poker Taxes Guide</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="section">
+  <div class="container container--narrow">
+    <h2 style="margin-bottom:var(--space-4);">Frequently Asked Questions</h2>
+
+    <div class="card card--flat" style="padding:0 var(--space-5);" id="faqWrap">
+      <div class="faq-item">
+        <button class="faq-q">Are poker winnings taxable in Canada? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner">For most recreational players, poker winnings are not taxable in Canada. The CRA treats them as windfall income, similar to lottery prizes. However, if you play poker professionally or treat it as your primary income source, the CRA may classify your winnings as business income, which is fully taxable at your marginal rate.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How does CRA decide if I'm a professional poker player? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner">The CRA considers several factors: how often you play, your level of skill and training, whether you treat poker like a business (tracking records, setting schedules), your intention to profit, and whether poker is a major source of your income. No single factor is decisive. The CRA looks at the overall picture.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What expenses can professional poker players deduct? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner">If your poker income is classified as business income, you can deduct legitimate business expenses. These include tournament buy-ins, travel costs to events, poker coaching and training, tracking software subscriptions, home office expenses, and internet costs related to online play. Keep detailed receipts and records to support your claims.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do I need to report poker winnings on my tax return? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner">Recreational players generally do not need to report poker winnings. However, if your poker income is classified as business income, you must report it on your T1 return as self-employment income (Line 13500) and file a T2125 Statement of Business Activities. Failing to report taxable poker income can result in penalties and interest from the CRA.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What are the Ontario tax rates on poker income? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner">If poker income is taxable, Ontario provincial rates range from 5.05% on the first $52,886 to 13.16% on income over $220,000. These apply on top of federal rates that range from 15% to 33%. The combined marginal rate can reach 46.16% at the highest bracket. Your actual rate depends on your total income across all sources.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I offset poker losses against winnings? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner">If you are classified as a professional player with business income, your poker losses and expenses reduce your net business income. Recreational players cannot deduct losses since their winnings are not taxable in the first place. Keeping detailed records of both wins and losses is strongly recommended regardless of your classification.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related Links -->
+<section class="section section--alt">
+  <div class="container">
+    <h2 style="margin-bottom:var(--space-4);">Related Resources</h2>
+    <div class="related-links-grid">
+      <a href="./ontario-poker-taxes.html" class="related-link-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <span>Ontario Poker Taxes: Full Guide</span>
+      </a>
+      <a href="./best-poker-sites-ontario.html" class="related-link-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span>Best Poker Sites in Ontario</span>
+      </a>
+      <a href="./rake-calculator.html" class="related-link-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+        <span>Rake Calculator</span>
+      </a>
+      <a href="./poker-bankroll-calculator.html" class="related-link-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span>Bankroll Calculator</span>
+      </a>
+      <a href="./is-online-poker-legal-in-ontario.html" class="related-link-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Is Online Poker Legal in Ontario?</span>
+      </a>
+      <a href="./ontario-poker-rakeback-rewards.html" class="related-link-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        <span>Rakeback and Rewards Guide</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter CTA -->
+<section class="section">
+  <div class="container container--narrow" style="text-align:center;">
+    <h2 style="margin-bottom:var(--space-2);">Stay Updated on Ontario Poker</h2>
+    <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);">Get the latest on regulation changes, new room launches, and tax updates for Ontario poker players.</p>
+    <form action="#" method="POST" style="display:flex;gap:var(--space-2);justify-content:center;flex-wrap:wrap;max-width:480px;margin:0 auto;">
+      <input type="email" name="email" placeholder="you@example.com" required style="flex:1;min-width:200px;padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-sm);background:var(--color-surface);color:var(--color-text);">
+      <button type="submit" class="btn btn--primary">Subscribe</button>
+    </form>
+    <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-2);">No spam. Unsubscribe any time. <a href="./privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a>. 19+ only.</p>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-rg">
+<svg fill="none" stroke="currentColor" stroke-width="2" style="width:32px;height:32px;flex-shrink:0;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<p>Poker is supposed to be fun. If it stops feeling that way, step away. Help is available at ConnexOntario: 1-866-531-2600.</p>
+<a class="btn btn--sm" href="./responsible-gambling.html" style="background:rgba(255,255,255,0.15);color:inherit;white-space:nowrap;">Responsible Gambling</a>
+</div>
+<div class="footer-brand">
+<a class="site-logo" href="./index.html" style="margin-bottom:var(--space-2);">
+<img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:26px;width:auto;">
+</a>
+<p>Your regulated Ontario poker resource online. Reviews, promotions, and guides for all six licensed poker rooms. Published by NWG PTY Limited.</p>
+<p style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-faint);">ontariopoker.com &middot; c/o WeWork, 240 Richmond St W, Toronto, ON M5V 1V6 &middot; <a href="mailto:help@ontariopoker.com" style="color:inherit;">help@ontariopoker.com</a></p>
+</div>
+<div class="footer-newsletter" style="margin-bottom:var(--space-6);padding:var(--space-5);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);">
+<h4 style="margin-bottom:var(--space-2);">Stay up to date</h4>
+<p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-3);">Ontario poker news, new room launches, and regulation updates. No spam, unsubscribe any time.</p>
+<form action="#" method="POST" style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+<input type="email" name="email" placeholder="you@example.com" required style="flex:1;min-width:180px;padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-sm);background:var(--color-surface);color:var(--color-text);">
+<button type="submit" class="btn btn--sm btn--primary">Subscribe</button>
+</form>
+<p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-2);">By subscribing you agree to our <a href="./privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a>. 19+ only.</p>
+</div>
+<div class="footer-columns">
+<div class="footer-col">
+<h4 class="footer-col-toggle">Poker Rooms<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ggpoker/index.html">GGPoker</a><a href="./888poker/index.html">888poker</a><a href="./betmgm-poker/index.html">BetMGM Poker</a><a href="./pokerstars/index.html">PokerStars Ontario</a><a href="./partypoker/index.html">PartyPoker Ontario</a><a href="./bwin/index.html">Bwin Ontario</a>
+<a href="./compare.html">Compare All Rooms</a>
+<a href="./best-poker-sites-ontario.html">Best Poker Sites</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Tools<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./room-finder.html">Room Finder Quiz</a>
+<a href="./which-room-quiz.html">Which Room Quiz</a>
+<a href="./head-to-head.html">Head-to-Head Compare</a>
+<a href="./rake-calculator.html">Rake Calculator</a>
+<a href="./poker-odds-calculator.html">Odds Calculator</a>
+<a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+<a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+<a href="./tournament-roi-calculator.html">Tournament ROI</a>
+<a href="./poker-tax-calculator.html">Tax Calculator</a>
+<a href="./session-tracker.html">Session Tracker</a>
+<a href="./room-status-dashboard.html">Room Status</a>
+<a href="./shared-liquidity-estimator.html">Liquidity Estimator</a>
+<a href="./ontario-poker-glossary.html">Ontario Glossary</a>
+<a href="./compare.html">Full Comparison</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Learn<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./strategy.html">Strategy Guides</a>
+<a href="./poker-glossary.html">Poker Glossary</a>
+<a href="./how-to-play-poker-ontario.html">How to Play Poker</a>
+<a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+<a href="./ontario-poker-tournament-schedule.html">Tournament Schedule</a>
+<a href="./news.html">News Hub</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Guides<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ontario-poker-promo-codes.html">Promo Codes</a>
+<a href="./ontario-poker-tournaments.html">Tournaments</a>
+<a href="./ontario-poker-beginners-guide.html">Beginners Guide</a>
+<a href="./ontario-poker-plo-omaha.html">PLO & Omaha</a>
+<a href="./ontario-poker-taxes.html">Poker Taxes Ontario</a>
+<a href="./wsop-online-ontario.html">WSOP Online Ontario</a>
+<a href="./ontario-poker-sit-and-go.html">Sit & Go Guide</a>
+<a href="./ontario-poker-bonuses.html">Bonuses & Offers</a>
+<a href="./ontario-poker-freerolls.html">Freerolls</a>
+<a href="./ontario-poker-apps.html">Poker Apps</a>
+<a href="./ontario-poker-withdrawal-times.html">Withdrawal Times</a>
+<a href="./ontario-poker-payment-methods.html">Payment Methods</a>
+<a href="./ontario-poker-rakeback-rewards.html">Rakeback &amp; Rewards</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Transparency<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./editorial-policy.html">Editorial Policy</a>
+<a href="./fact-checking.html">Fact Checking</a>
+<a href="./corrections-policy.html">Corrections Policy</a>
+<a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+<a href="./complaints-policy.html">Complaints Policy</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Responsible Gambling<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./responsible-gambling.html">Responsible Gambling</a>
+<a href="./self-exclusion-resources.html">Self-Exclusion Resources</a>
+<a href="./how-to-complain-about-an-ontario-poker-site.html">How to Complain</a>
+<a href="./contact.html">Contact &amp; Support</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Legal<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./about.html">About Us</a>
+<a href="./management-team.html">Our Authors</a>
+<a href="./privacy.html">Privacy Policy</a>
+<a href="./cookie-policy.html">Cookie Policy</a>
+<a href="./terms.html">Terms &amp; Conditions</a>
+<a href="./accessibility.html">Accessibility</a>
+</div>
+</div>
+</div>
+<div class="ftc-footer">
+<p><strong>Affiliate Disclosure:</strong> OntarioPoker.com is owned and operated by NWG PTY Limited. This site contains affiliate links. If you click through and register using our links, we may receive compensation at no additional cost to you. All editorial ratings are our own. See our <a href="./affiliate-disclosure.html" style="color:inherit;text-decoration:underline;">Affiliate Disclosure</a>.</p>
+<p><strong>Disclaimer:</strong> Online poker in Ontario is regulated by the Alcohol and Gaming Commission of Ontario (AGCO) and operated through iGaming Ontario. You must be 19+ and physically located in Ontario to play. If you or someone you know has a gambling problem, call ConnexOntario at 1-866-531-2600.</p>
+</div>
+<div class="footer-bottom">
+<span>&copy; 2026 NWG PTY Limited &middot; ontariopoker.com. All rights reserved.</span>
+</div>
+</div>
+</footer>
+<div id="searchOverlay" class="search-overlay">
+  <div class="search-box">
+    <div class="search-input-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" class="search-input" placeholder="Search reviews, guides, promotions..." autocomplete="off">
+      <button class="search-close" aria-label="Close search"><span aria-hidden="true">&#x2715;</span></button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+
+<script src="./app.min.js" defer></script>
+<script>
+(function() {
+  'use strict';
+
+  // 2025 Federal tax brackets
+  var fedBrackets = [
+    { limit: 57375, rate: 0.15 },
+    { limit: 114750, rate: 0.205 },
+    { limit: 158468, rate: 0.26 },
+    { limit: 220000, rate: 0.29 },
+    { limit: Infinity, rate: 0.33 }
+  ];
+
+  // Ontario provincial tax brackets
+  var ontBrackets = [
+    { limit: 52886, rate: 0.0505 },
+    { limit: 105775, rate: 0.0915 },
+    { limit: 150000, rate: 0.1116 },
+    { limit: 220000, rate: 0.1216 },
+    { limit: Infinity, rate: 0.1316 }
+  ];
+
+  var fedBPA = 16129;
+  var ontBPA = 11865;
+
+  function calcBracketTax(income, brackets, personalAmount) {
+    var taxableIncome = Math.max(0, income - personalAmount);
+    var tax = 0;
+    var prev = 0;
+    for (var i = 0; i < brackets.length; i++) {
+      var bracket = brackets[i];
+      var bracketIncome = Math.min(taxableIncome, bracket.limit) - prev;
+      if (bracketIncome <= 0) break;
+      tax += bracketIncome * bracket.rate;
+      prev = bracket.limit;
+    }
+    return Math.max(0, tax);
+  }
+
+  function calcMarginalTax(totalIncome, pokerIncome, brackets, personalAmount) {
+    // Tax on total income minus tax on income without poker
+    var totalTax = calcBracketTax(totalIncome, brackets, personalAmount);
+    var baseTax = calcBracketTax(totalIncome - pokerIncome, brackets, personalAmount);
+    return Math.max(0, totalTax - baseTax);
+  }
+
+  function fmt(n) {
+    return '$' + Math.round(n).toLocaleString('en-CA');
+  }
+
+  function pct(n) {
+    return (n * 100).toFixed(1) + '%';
+  }
+
+  // Player type cards
+  var classCards = document.querySelectorAll('.tax-class-card');
+  classCards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      classCards.forEach(function(c) { c.classList.remove('active'); });
+      card.classList.add('active');
+      card.querySelector('input').checked = true;
+      calculate();
+    });
+  });
+
+  // Inputs
+  var elWinnings = document.getElementById('pokerWinnings');
+  var elExpenses = document.getElementById('pokerExpenses');
+  var elOther = document.getElementById('otherIncome');
+  var elFiling = document.getElementById('filingStatus');
+  var elCalcBtn = document.getElementById('calcBtn');
+
+  // Results
+  var elStatusBadge = document.getElementById('statusBadge');
+  var elStatusExplanation = document.getElementById('statusExplanation');
+  var elResGross = document.getElementById('resGross');
+  var elResExpenses = document.getElementById('resExpenses');
+  var elResTaxable = document.getElementById('resTaxable');
+  var elResFederal = document.getElementById('resFederal');
+  var elResProvincial = document.getElementById('resProvincial');
+  var elResTotalTax = document.getElementById('resTotalTax');
+  var elResEffRate = document.getElementById('resEffRate');
+  var elResNet = document.getElementById('resNet');
+
+  function getPlayerType() {
+    var checked = document.querySelector('input[name="playerType"]:checked');
+    return checked ? checked.value : 'recreational';
+  }
+
+  function calculate() {
+    var playerType = getPlayerType();
+    var winnings = Math.max(0, parseFloat(elWinnings.value) || 0);
+    var expenses = Math.max(0, parseFloat(elExpenses.value) || 0);
+    var otherIncome = Math.max(0, parseFloat(elOther.value) || 0);
+
+    var isTaxable = false;
+    var badgeClass = '';
+    var badgeText = '';
+    var explanation = '';
+
+    if (playerType === 'recreational') {
+      isTaxable = false;
+      badgeClass = 'tax-status-badge--green';
+      badgeText = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Likely Not Taxable';
+      explanation = 'As a recreational player, your poker winnings are generally treated as non-taxable windfall income by the CRA. You do not need to report these on your tax return.';
+    } else if (playerType === 'semi') {
+      isTaxable = true;
+      badgeClass = 'tax-status-badge--yellow';
+      badgeText = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Grey Area - May Be Taxable';
+      explanation = 'As a semi-professional player, your tax status depends on your specific circumstances. The CRA could argue your winnings are business income. We recommend consulting a tax professional. The estimates below show potential tax if classified as business income.';
+    } else {
+      isTaxable = true;
+      badgeClass = 'tax-status-badge--red';
+      badgeText = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Likely Taxable as Business Income';
+      explanation = 'As a professional player, your poker winnings are likely classified as business income by the CRA. You should report them on your T1 return (Line 13500) with a T2125 form. You can deduct legitimate poker expenses.';
+    }
+
+    elStatusBadge.className = 'tax-status-badge ' + badgeClass;
+    elStatusBadge.innerHTML = badgeText;
+    elStatusExplanation.textContent = explanation;
+
+    var deductibleExpenses = 0;
+    var taxablePokerIncome = 0;
+    var federalTax = 0;
+    var provincialTax = 0;
+    var totalTax = 0;
+    var effectiveRate = 0;
+    var netIncome = winnings;
+
+    if (isTaxable) {
+      deductibleExpenses = expenses;
+      taxablePokerIncome = Math.max(0, winnings - deductibleExpenses);
+      var totalIncome = otherIncome + taxablePokerIncome;
+
+      federalTax = calcMarginalTax(totalIncome, taxablePokerIncome, fedBrackets, fedBPA);
+      provincialTax = calcMarginalTax(totalIncome, taxablePokerIncome, ontBrackets, ontBPA);
+      totalTax = federalTax + provincialTax;
+      effectiveRate = taxablePokerIncome > 0 ? totalTax / taxablePokerIncome : 0;
+      netIncome = winnings - totalTax;
+    }
+
+    elResGross.textContent = fmt(winnings);
+    elResExpenses.textContent = isTaxable ? fmt(deductibleExpenses) : '$0';
+    elResTaxable.textContent = isTaxable ? fmt(taxablePokerIncome) : '$0';
+    elResFederal.textContent = isTaxable ? fmt(federalTax) : '$0';
+    elResProvincial.textContent = isTaxable ? fmt(provincialTax) : '$0';
+    elResTotalTax.textContent = isTaxable ? fmt(totalTax) : '$0';
+    elResEffRate.textContent = isTaxable ? pct(effectiveRate) : '0%';
+    elResNet.textContent = fmt(netIncome);
+  }
+
+  // Auto-calculate on changes
+  [elWinnings, elExpenses, elOther].forEach(function(el) {
+    el.addEventListener('input', calculate);
+  });
+  elFiling.addEventListener('change', calculate);
+  elCalcBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    calculate();
+    document.getElementById('resultsCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = btn.parentElement;
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(fi) { fi.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // Initial calculation
+  calculate();
+})();
+</script>
+<script src="./app.js"></script>
+<script src="./interactive-tools.js"></script>
+</body>
+</html>

@@ -171,6 +171,11 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
     grid-template-columns: 1fr;
   }
 }
+
+.ppc-card{padding:var(--space-3) var(--space-4) !important;margin-bottom:var(--space-2) !important;}
+.ppc-card .ppc-card-left{gap:var(--space-2) !important;}
+.ppc-card .ppc-brand-name{font-size:var(--text-base) !important;}
+.ppc-card .ppc-card-right{gap:var(--space-2) !important;}
 </style>
 <link href="./style.min.css" rel="stylesheet">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ontariopoker.com/"}, {"@type": "ListItem", "position": 2, "name": "Best Poker Sites"}]}</script>
@@ -231,9 +236,18 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
         <button class="nav-dropdown-trigger">Tools <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
         <div class="nav-dropdown-menu">
           <a href="./room-finder.html">Room Finder Quiz</a>
+          <a href="./which-room-quiz.html">Which Room Quiz</a>
           <a href="./rake-calculator.html">Rake Calculator</a>
           <a href="./poker-odds-calculator.html">Odds Calculator</a>
           <a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+          <a href="./tournament-roi-calculator.html">Tournament ROI Calculator</a>
+          <a href="./poker-tax-calculator.html">Poker Tax Calculator</a>
+          <a href="./session-tracker.html">Session Tracker</a>
+          <a href="./shared-liquidity-estimator.html">Shared Liquidity Estimator</a>
+          <a href="./room-status-dashboard.html">Room Status Dashboard</a>
+          <a href="./ontario-poker-glossary.html">Ontario Glossary</a>
         </div>
       </div>
       <div class="nav-dropdown">
@@ -285,9 +299,17 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
   <div class="mobile-nav-section">
     <span class="mobile-nav-heading">Tools</span>
     <a href="./room-finder.html">Room Finder Quiz</a>
+    <a href="./which-room-quiz.html">Which Room Quiz</a>
     <a href="./rake-calculator.html">Rake Calculator</a>
     <a href="./poker-odds-calculator.html">Odds Calculator</a>
     <a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+    <a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+    <a href="./tournament-roi-calculator.html">Tournament ROI Calculator</a>
+    <a href="./poker-tax-calculator.html">Poker Tax Calculator</a>
+    <a href="./session-tracker.html">Session Tracker</a>
+    <a href="./shared-liquidity-estimator.html">Shared Liquidity Estimator</a>
+    <a href="./room-status-dashboard.html">Room Status Dashboard</a>
+    <a href="./ontario-poker-glossary.html">Ontario Glossary</a>
   </div>
   <div class="mobile-nav-section">
     <span class="mobile-nav-heading">Learn</span>
@@ -587,42 +609,42 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
         <thead><tr><th>Room</th><th>Rating</th><th>Offer Status</th><th>Code</th><th>Deposits</th><th>Details</th></tr></thead>
         <tbody><tr>
   <td><a href="#ggpoker-review"><strong>GGPoker</strong></a></td>
-  <td>9.4/10</td>
+  <td>9.4/10.0</td>
   <td><span class="badge badge--warning">No need for a code</span></td>
   <td>N/A</td>
   <td>Interac, Visa, Mastercard, MuchBetter</td>
   <td><a href="ggpoker/review.html">Full Review</a></td>
 </tr><tr>
   <td><a href="#888poker-review"><strong>888poker</strong></a></td>
-  <td>9.0/10</td>
+  <td>9.0/10.0</td>
   <td><span class="badge badge--info">No Code Required</span></td>
   <td>No code needed</td>
   <td>Interac, Visa, Mastercard, Apple Pay</td>
   <td><a href="888poker/review.html">Full Review</a></td>
 </tr><tr>
   <td><a href="#betmgm-poker-review"><strong>BetMGM Poker</strong></a></td>
-  <td>8.8/10</td>
+  <td>8.8/10.0</td>
   <td><span class="badge badge--warning">No need for a code</span></td>
   <td>N/A</td>
   <td>Interac, Visa, Mastercard, PayPal</td>
   <td><a href="betmgm-poker/review.html">Full Review</a></td>
 </tr><tr>
   <td><a href="#pokerstars-review"><strong>PokerStars Ontario</strong></a></td>
-  <td>8.7/10</td>
+  <td>8.7/10.0</td>
   <td><span class="badge badge--muted">No need for a code</span></td>
   <td>N/A</td>
   <td>Interac, Visa, Mastercard</td>
   <td><a href="pokerstars/review.html">Full Review</a></td>
 </tr><tr>
   <td><a href="#partypoker-review"><strong>PartyPoker Ontario</strong></a></td>
-  <td>7.8/10</td>
+  <td>7.8/10.0</td>
   <td><span class="badge badge--muted">No need for a code</span></td>
   <td>N/A</td>
   <td>Interac, Visa, Mastercard</td>
   <td><a href="partypoker/review.html">Full Review</a></td>
 </tr><tr>
   <td><a href="#bwin-review"><strong>Bwin Ontario</strong></a></td>
-  <td>7.2/10</td>
+  <td>7.2/10.0</td>
   <td><span class="badge badge--muted">No need for a code</span></td>
   <td>N/A</td>
   <td>Interac, Visa, Mastercard</td>
@@ -794,10 +816,18 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 <h4 class="footer-col-toggle">Tools<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
 <div class="footer-col-links">
 <a href="./room-finder.html">Room Finder Quiz</a>
+<a href="./which-room-quiz.html">Which Room Quiz</a>
 <a href="./head-to-head.html">Head-to-Head Compare</a>
 <a href="./rake-calculator.html">Rake Calculator</a>
 <a href="./poker-odds-calculator.html">Odds Calculator</a>
 <a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+<a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+<a href="./tournament-roi-calculator.html">Tournament ROI</a>
+<a href="./poker-tax-calculator.html">Tax Calculator</a>
+<a href="./session-tracker.html">Session Tracker</a>
+<a href="./room-status-dashboard.html">Room Status</a>
+<a href="./shared-liquidity-estimator.html">Liquidity Estimator</a>
+<a href="./ontario-poker-glossary.html">Ontario Glossary</a>
 <a href="./compare.html">Full Comparison</a>
 </div>
 </div>

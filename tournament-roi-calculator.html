@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ontario Tournament ROI Calculator 2026 | Hourly Rate Tool | OntarioPoker</title>
+<meta name="description" content="Calculate your tournament ROI and hourly rate for Ontario's ring-fenced poker rooms. Analyze profitability with field-size data from GGPoker, PokerStars, 888poker and more.">
+<link rel="canonical" href="https://ontariopoker.com/tournament-roi-calculator">
+<meta property="og:title" content="Ontario Tournament ROI Calculator 2026 | Hourly Rate Tool">
+<meta property="og:description" content="Calculate your tournament ROI and hourly rate for Ontario's ring-fenced poker rooms. Analyze profitability with field-size data from GGPoker, PokerStars, 888poker and more.">
+<meta property="og:url" content="https://ontariopoker.com/tournament-roi-calculator">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OntarioPoker">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="icon" type="image/png" href="./favicon.png" sizes="96x96">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
+<link rel="stylesheet" href="./style.min.css">
+<link rel="stylesheet" href="./base.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ontariopoker.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://ontariopoker.com/room-finder"},{"@type":"ListItem","position":3,"name":"Tournament ROI Calculator"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a good tournament ROI in Ontario?","acceptedAnswer":{"@type":"Answer","text":"A solid tournament ROI in Ontario's ring-fenced market is 15% to 30% for regular players. Because field sizes are smaller than global sites (typically 20 to 300 players), variance is lower but prize pools are also smaller. Winning players who consistently cash should aim for at least 10% ROI to cover time and opportunity costs."}},{"@type":"Question","name":"How do Ontario tournament field sizes compare to global sites?","acceptedAnswer":{"@type":"Answer","text":"Ontario runs ring-fenced player pools, meaning you only play against other Ontario residents. This keeps field sizes smaller than dot-com rooms. A typical Ontario daily tournament draws 20 to 150 players, while weekend majors on GGPoker can reach 300 to 500 entries. On global sites, the same buy-in level might attract 1,000 to 5,000 players."}},{"@type":"Question","name":"Is tournament poker more profitable than cash games in Ontario?","acceptedAnswer":{"@type":"Answer","text":"It depends on your skill edge and volume. Cash games offer a steadier hourly rate with lower variance. Tournaments can produce larger individual scores but come with long stretches of negative sessions. In Ontario's smaller player pools, skilled tournament players may find softer competition at certain buy-in levels, but the smaller guaranteed prize pools cap your upside compared to global sites."}},{"@type":"Question","name":"How many tournaments should I play per month to get a reliable ROI estimate?","acceptedAnswer":{"@type":"Answer","text":"You need a sample size of at least 200 to 500 tournaments before your ROI stabilizes and becomes statistically meaningful. At fewer than 100 tournaments, variance dominates and your results could be far from your true win rate. Most serious Ontario grinders play 100 to 300 tournaments per month to generate enough data."}},{"@type":"Question","name":"Which Ontario poker room has the best tournament schedule?","acceptedAnswer":{"@type":"Answer","text":"GGPoker Ontario offers the largest tournament schedule with the biggest guaranteed prize pools and most diverse buy-in levels. PokerStars Ontario also runs a full daily schedule. 888poker and BetMGM Poker have smaller but growing tournament lineups. Check the Ontario Tournament Schedule page for current daily and weekly events across all six rooms."}}]}</script>
+<style>
+/* Tournament ROI Calculator - Page-specific styles */
+.roi-calc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+@media (max-width: 768px) {
+  .roi-calc-grid { grid-template-columns: 1fr; }
+}
+
+.roi-input-group {
+  margin-bottom: var(--space-4);
+}
+.roi-input-group label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+.roi-input-group .roi-hint {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+.roi-input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color 200ms ease;
+}
+.roi-input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.roi-presets {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  flex-wrap: wrap;
+}
+.roi-preset-btn {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+.roi-preset-btn:hover,
+.roi-preset-btn.active {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--color-primary-surface);
+}
+
+/* Results panel */
+.roi-results-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+.roi-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+@media (max-width: 480px) {
+  .roi-stat-grid { grid-template-columns: 1fr; }
+}
+.roi-stat-card {
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  text-align: center;
+}
+.roi-stat-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-1);
+}
+.roi-stat-value {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+.roi-stat-value.positive { color: var(--color-success); }
+.roi-stat-value.negative { color: var(--color-danger); }
+
+/* Comparison bar */
+.roi-comparison {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+}
+.roi-comparison-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-3);
+}
+.roi-bar-wrap {
+  margin-bottom: var(--space-2);
+}
+.roi-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+.roi-bar-track {
+  height: 8px;
+  background: var(--color-border-light);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.roi-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 500ms ease;
+}
+
+/* Chart area */
+.roi-chart-wrap {
+  margin-top: var(--space-4);
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+.roi-chart-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-3);
+}
+.roi-chart-canvas {
+  width: 100%;
+  height: 220px;
+  display: block;
+}
+
+/* Break-even card */
+.roi-breakeven {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+  background: var(--color-primary-surface);
+}
+.roi-breakeven-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+.roi-breakeven-text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* Ontario info banner */
+.roi-ontario-info {
+  margin-top: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-primary-surface);
+  border-left: 3px solid var(--color-primary);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+.roi-ontario-info strong {
+  color: var(--color-text);
+}
+
+/* Placeholder state */
+.roi-placeholder {
+  text-align: center;
+  padding: var(--space-8) var(--space-4);
+  color: var(--color-text-muted);
+}
+.roi-placeholder svg {
+  display: inline-block;
+  margin-bottom: var(--space-3);
+  color: var(--color-text-faint);
+}
+.roi-placeholder p {
+  font-size: var(--text-sm);
+  max-width: 320px;
+  margin: 0 auto;
+}
+</style>
+</head>
+<body>
+<div class="disclosure-bar">
+  This site contains affiliate links and promotional content. 19+ only. Play responsibly. <a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+</div>
+<header class="site-header">
+  <div class="container">
+    <a href="./index.html" class="site-logo">
+      <img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:32px;width:auto;">
+    </a>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Rooms <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ggpoker/review.html">GGPoker</a>
+          <a href="./888poker/review.html">888poker</a>
+          <a href="./betmgm-poker/review.html">BetMGM Poker</a>
+          <a href="./pokerstars/review.html">PokerStars</a>
+          <a href="./partypoker/review.html">PartyPoker</a>
+          <a href="./bwin/review.html">Bwin</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./compare.html">Compare All</a>
+          <a href="./head-to-head.html">Head-to-Head</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Promotions <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ontario-poker-promo-codes.html">All Promo Codes</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./ggpoker/promo-code.html">GGPoker Promo</a>
+          <a href="./888poker/promo-code.html">888poker Promo</a>
+          <a href="./betmgm-poker/promo-code.html">BetMGM Poker Promo</a>
+          <a href="./pokerstars/promo-code.html">PokerStars Promo</a>
+          <a href="./partypoker/promo-code.html">PartyPoker Promo</a>
+          <a href="./bwin/promo-code.html">Bwin Promo</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Tools <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./room-finder.html">Room Finder Quiz</a>
+          <a href="./which-room-quiz.html">Which Room Quiz</a>
+          <a href="./rake-calculator.html">Rake Calculator</a>
+          <a href="./poker-odds-calculator.html">Odds Calculator</a>
+          <a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+          <a href="./tournament-roi-calculator.html">Tournament ROI Calculator</a>
+          <a href="./poker-tax-calculator.html">Poker Tax Calculator</a>
+          <a href="./session-tracker.html">Session Tracker</a>
+          <a href="./shared-liquidity-estimator.html">Shared Liquidity Estimator</a>
+          <a href="./room-status-dashboard.html">Room Status Dashboard</a>
+          <a href="./ontario-poker-glossary.html">Ontario Glossary</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Learn <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./strategy.html">Strategy Guides</a>
+          <a href="./poker-glossary.html">Poker Glossary</a>
+          <a href="./how-to-play-poker-ontario.html">How to Play Poker</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./is-online-poker-legal-in-ontario.html">Legal Guide</a>
+          <a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+          <a href="./ontario-poker-tournament-schedule.html">Tournament Schedule</a>
+          <a href="./ontario-poker-traffic-index.html">Traffic Index</a>
+          <a href="./news.html">News</a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-actions">
+      <button class="search-btn" aria-label="Search site"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+      <a href="./best-poker-sites-ontario.html" class="header-cta">Best Poker Sites</a>
+      <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="./index.html">Home</a> <span aria-hidden="true">/</span> <a href="./room-finder.html">Tools</a> <span aria-hidden="true">/</span> <span aria-current="page">Tournament ROI Calculator</span></nav>
+    <h1>Ontario Tournament ROI Calculator</h1>
+    <p class="page-hero-subtitle">Analyze your tournament profitability and hourly rate across Ontario's ring-fenced poker rooms. Factor in field sizes unique to the Ontario market. Updated March 2026.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="roi-ontario-info">
+      <strong>Ontario's ring-fenced market:</strong> All six regulated Ontario rooms run separate player pools. You only play against other Ontario residents, which means field sizes are typically 20 to 500 players rather than the thousands you would see on global dot-com sites. This calculator uses Ontario-specific field size ranges.
+    </div>
+
+    <div class="roi-calc-grid">
+      <!-- Left: Inputs -->
+      <div>
+        <div class="card card--flat" style="padding:var(--space-5);">
+          <h2 style="font-size:var(--text-lg);font-weight:700;margin-bottom:var(--space-4);">Your Tournament Stats</h2>
+
+          <div class="roi-input-group">
+            <label for="roiRoom">Poker Room</label>
+            <select id="roiRoom" class="roi-input">
+              <option value="ggpoker">GGPoker Ontario</option>
+              <option value="pokerstars">PokerStars Ontario</option>
+              <option value="888poker">888poker Ontario</option>
+              <option value="betmgm">BetMGM Poker Ontario</option>
+              <option value="partypoker">PartyPoker Ontario</option>
+              <option value="bwin">Bwin Ontario</option>
+            </select>
+            <span class="roi-hint">Room selection affects typical field size ranges.</span>
+          </div>
+
+          <div class="roi-input-group">
+            <label for="roiBuyin">Average Buy-in (C$)</label>
+            <input type="number" id="roiBuyin" class="roi-input" value="22" min="1" max="10000" step="1">
+            <span class="roi-hint">Include fees. Common Ontario buy-ins: $5.50, $11, $22, $55, $109.</span>
+          </div>
+
+          <div class="roi-input-group">
+            <label for="roiFieldSize">Average Field Size</label>
+            <input type="number" id="roiFieldSize" class="roi-input" value="80" min="2" max="10000" step="1">
+            <div class="roi-presets">
+              <button class="roi-preset-btn" data-field="35">Small (20-50)</button>
+              <button class="roi-preset-btn active" data-field="80">Medium (50-150)</button>
+              <button class="roi-preset-btn" data-field="300">Large (150-500)</button>
+            </div>
+            <span class="roi-hint">Ontario fields are smaller than global sites due to ring-fenced pools.</span>
+          </div>
+
+          <div class="roi-input-group">
+            <label for="roiItm">ITM Rate (%)</label>
+            <input type="number" id="roiItm" class="roi-input" value="18" min="0" max="100" step="0.5">
+            <span class="roi-hint">Percentage of tournaments where you finish in the money. Average ITM is around 15%.</span>
+          </div>
+
+          <div class="roi-input-group">
+            <label for="roiAvgCash">Average Cash Amount (C$)</label>
+            <input type="number" id="roiAvgCash" class="roi-input" value="65" min="0" max="1000000" step="1">
+            <span class="roi-hint">Your average payout when you do cash (across all ITM finishes).</span>
+          </div>
+
+          <div class="roi-input-group">
+            <label for="roiDuration">Average Tournament Duration (hours)</label>
+            <input type="number" id="roiDuration" class="roi-input" value="2.5" min="0.25" max="24" step="0.25">
+            <span class="roi-hint">Average time you spend per tournament, including busted events.</span>
+          </div>
+
+          <div class="roi-input-group">
+            <label for="roiVolume">Tournaments Per Month</label>
+            <input type="number" id="roiVolume" class="roi-input" value="40" min="1" max="1000" step="1">
+          </div>
+
+          <button id="roiCalcBtn" class="btn btn--primary" style="width:100%;margin-top:var(--space-2);">Calculate ROI</button>
+        </div>
+      </div>
+
+      <!-- Right: Results -->
+      <div>
+        <div class="roi-results-panel" id="roiResultsPanel">
+          <div class="roi-placeholder" id="roiPlaceholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 16l4-6 4 4 5-8"/></svg>
+            <p>Enter your tournament stats and click "Calculate ROI" to see your profitability analysis.</p>
+          </div>
+          <div id="roiResults" style="display:none;">
+            <h3 style="font-size:var(--text-lg);font-weight:700;margin-bottom:var(--space-4);">Your Results</h3>
+
+            <div class="roi-stat-grid">
+              <div class="roi-stat-card">
+                <div class="roi-stat-label">Tournament ROI</div>
+                <div class="roi-stat-value" id="roiPercent">--</div>
+              </div>
+              <div class="roi-stat-card">
+                <div class="roi-stat-label">Hourly Rate</div>
+                <div class="roi-stat-value" id="roiHourly">--</div>
+              </div>
+              <div class="roi-stat-card">
+                <div class="roi-stat-label">Monthly Profit</div>
+                <div class="roi-stat-value" id="roiMonthly">--</div>
+              </div>
+              <div class="roi-stat-card">
+                <div class="roi-stat-label">Yearly Projection</div>
+                <div class="roi-stat-value" id="roiYearly">--</div>
+              </div>
+            </div>
+
+            <!-- Hourly vs Min Wage -->
+            <div class="roi-comparison" id="roiComparisonSection">
+              <div class="roi-comparison-title">Your Hourly Rate vs. Ontario Minimum Wage (C$17.20/hr)</div>
+              <div class="roi-bar-wrap">
+                <div class="roi-bar-label">
+                  <span>Your Rate: <strong id="roiBarYourRate">--</strong></span>
+                  <span>Min Wage: C$17.20/hr</span>
+                </div>
+                <div class="roi-bar-track">
+                  <div class="roi-bar-fill" id="roiBarYour" style="width:0%;background:var(--color-primary);"></div>
+                </div>
+              </div>
+              <div class="roi-bar-wrap" style="margin-top:var(--space-2);">
+                <div class="roi-bar-track">
+                  <div class="roi-bar-fill" id="roiBarWage" style="width:0%;background:var(--color-text-faint);"></div>
+                </div>
+              </div>
+              <p id="roiWageVerdict" style="font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-2);"></p>
+            </div>
+
+            <!-- Break-even -->
+            <div class="roi-breakeven" id="roiBreakevenSection">
+              <div class="roi-breakeven-title">Break-Even Analysis</div>
+              <p class="roi-breakeven-text" id="roiBreakevenText">--</p>
+            </div>
+
+            <!-- Chart -->
+            <div class="roi-chart-wrap">
+              <div class="roi-chart-title">12-Month Profit Trajectory</div>
+              <canvas class="roi-chart-canvas" id="roiChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="prose" style="max-width:var(--content-default);">
+      <h2>How to Use This Calculator</h2>
+      <p>This tool estimates your tournament return on investment (ROI) and hourly rate based on the stats you enter. Here is how to get the most out of it:</p>
+
+      <h3>Step 1: Select Your Room</h3>
+      <p>Pick the Ontario poker room where you play most of your tournaments. Each room has different typical field sizes. GGPoker Ontario generally draws the largest fields thanks to its extensive tournament schedule and guaranteed prize pools. Smaller rooms like Bwin or PartyPoker Ontario tend to have smaller fields in the 20 to 80 player range.</p>
+
+      <h3>Step 2: Enter Your Average Buy-in</h3>
+      <p>Use your average buy-in including fees. If you mostly play $11 events but occasionally take shots at $55 tournaments, your average might be around $18 to $22.</p>
+
+      <h3>Step 3: Set the Field Size</h3>
+      <p>Use the preset buttons for quick estimates, or type an exact number. Ontario tournaments typically fall into three tiers:</p>
+      <ul style="list-style:disc;padding-left:var(--space-6);margin:var(--space-3) 0;">
+        <li><strong>Small (20-50):</strong> Off-peak dailies, lower buy-in events on smaller rooms</li>
+        <li><strong>Medium (50-150):</strong> Peak-hour dailies on GGPoker and PokerStars</li>
+        <li><strong>Large (150-500):</strong> Weekend majors, Sunday specials, and festival events on GGPoker</li>
+      </ul>
+
+      <h3>Step 4: Enter Your ITM% and Average Cash</h3>
+      <p>Your ITM (In The Money) rate is the percentage of tournaments where you finish in a paid position. Most online tournament structures pay the top 15% of the field. A strong player cashes 18% to 22% of the time. Your average cash amount is the mean payout across all your cashing finishes, not counting the tournaments where you bust.</p>
+
+      <h3>Step 5: Review Your Results</h3>
+      <p>The calculator outputs your ROI percentage, your effective hourly rate, and projections for monthly and yearly earnings. The chart shows your expected profit trajectory over 12 months at your current pace.</p>
+
+      <h2>Understanding Tournament ROI in Ontario</h2>
+      <p>Tournament ROI measures the percentage return on your buy-in investment over time. The formula is:</p>
+      <div class="card card--flat" style="padding:var(--space-4);margin:var(--space-3) 0;text-align:center;font-weight:600;">
+        ROI = ((Total Cashes - Total Buy-ins) / Total Buy-ins) x 100
+      </div>
+      <p>For example, if you play 100 tournaments at $22 each (investing $2,200 total) and your total cashes equal $2,640, your ROI is 20%.</p>
+
+      <p>Ontario's ring-fenced environment changes the dynamics compared to global sites. Smaller fields mean less variance per tournament and faster average play time. However, they also mean smaller prize pools. A $22 tournament with 80 runners has a prize pool of roughly $1,600 (after rake), compared to $22,000 for the same buy-in with 1,000 runners on a global site.</p>
+
+      <p>The tradeoff: Ontario tournaments are quicker to finish, which can improve your hourly rate even if individual scores are smaller. You can fit more events into a session.</p>
+
+      <h2>Ontario Field Sizes by Room</h2>
+      <div class="card card--flat" style="margin:var(--space-4) 0;">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Room</th>
+                <th>Daily Events</th>
+                <th>Typical Field</th>
+                <th>Weekend Majors</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>GGPoker Ontario</td><td>15-25</td><td>60-200</td><td>200-500</td></tr>
+              <tr><td>PokerStars Ontario</td><td>12-20</td><td>40-150</td><td>150-350</td></tr>
+              <tr><td>888poker Ontario</td><td>8-15</td><td>25-80</td><td>80-200</td></tr>
+              <tr><td>BetMGM Poker Ontario</td><td>6-12</td><td>20-60</td><td>60-150</td></tr>
+              <tr><td>PartyPoker Ontario</td><td>5-10</td><td>15-50</td><td>40-120</td></tr>
+              <tr><td>Bwin Ontario</td><td>4-8</td><td>10-40</td><td>30-80</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p>GGPoker Ontario consistently runs the most tournaments with the largest fields, making it the top choice for tournament grinders. See our full <a href="./best-poker-sites-ontario.html">ranking of Ontario poker sites</a> for detailed room comparisons.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="prose" style="max-width:var(--content-default);">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">What is a good tournament ROI in Ontario?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-answer"><p>A solid tournament ROI in Ontario's ring-fenced market is 15% to 30% for regular players. Because field sizes are smaller than global sites (typically 20 to 300 players), variance is lower but prize pools are also smaller. Winning players who consistently cash should aim for at least 10% ROI to cover time and opportunity costs.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">How do Ontario tournament field sizes compare to global sites?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-answer"><p>Ontario runs ring-fenced player pools, meaning you only play against other Ontario residents. This keeps field sizes smaller than dot-com rooms. A typical Ontario daily tournament draws 20 to 150 players, while weekend majors on GGPoker can reach 300 to 500 entries. On global sites, the same buy-in level might attract 1,000 to 5,000 players.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Is tournament poker more profitable than cash games in Ontario?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-answer"><p>It depends on your skill edge and volume. Cash games offer a steadier hourly rate with lower variance. Tournaments can produce larger individual scores but come with long stretches of negative sessions. In Ontario's smaller player pools, skilled tournament players may find softer competition at certain buy-in levels, but the smaller guaranteed prize pools cap your upside compared to global sites.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">How many tournaments should I play per month to get a reliable ROI estimate?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-answer"><p>You need a sample size of at least 200 to 500 tournaments before your ROI stabilizes and becomes statistically meaningful. At fewer than 100 tournaments, variance dominates and your results could be far from your true win rate. Most serious Ontario grinders play 100 to 300 tournaments per month to generate enough data.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Which Ontario poker room has the best tournament schedule?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-answer"><p>GGPoker Ontario offers the largest tournament schedule with the biggest guaranteed prize pools and most diverse buy-in levels. PokerStars Ontario also runs a full daily schedule. 888poker and BetMGM Poker have smaller but growing tournament lineups. Check the <a href="./ontario-poker-tournament-schedule.html">Ontario Tournament Schedule</a> page for current daily and weekly events across all six rooms.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <h2 style="font-size:var(--text-xl);font-weight:700;margin-bottom:var(--space-4);">Related Pages</h2>
+    <div style="display:grid;gap:var(--space-3);grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));">
+      <a href="./ontario-poker-tournaments.html" class="card card--flat" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid var(--color-primary);">
+        <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">Ontario Poker Tournaments</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">Full guide to tournament types, schedules, and strategies for Ontario's regulated rooms.</p>
+      </a>
+      <a href="./best-poker-sites-ontario.html" class="card card--flat" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid #BE0F34;">
+        <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">Best Poker Sites in Ontario</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">Ranked and reviewed: all six licensed Ontario poker rooms compared.</p>
+      </a>
+      <a href="./strategy.html" class="card card--flat" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid var(--color-success);">
+        <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">Strategy Guides</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">Tournament and cash game strategy tailored for Ontario's player pools.</p>
+      </a>
+      <a href="./poker-bankroll-calculator.html" class="card card--flat" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid #1A1A6C;">
+        <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">Bankroll Calculator</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">Find the right buy-in level for your bankroll with format-specific guidelines.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-rg">
+<svg fill="none" stroke="currentColor" stroke-width="2" style="width:32px;height:32px;flex-shrink:0;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<p>Poker is supposed to be fun. If it stops feeling that way, step away. Help is available at ConnexOntario: 1-866-531-2600.</p>
+<a class="btn btn--sm" href="./responsible-gambling.html" style="background:rgba(255,255,255,0.15);color:inherit;white-space:nowrap;">Responsible Gambling</a>
+</div>
+<div class="footer-brand">
+<a class="site-logo" href="./index.html" style="margin-bottom:var(--space-2);">
+<img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:26px;width:auto;">
+</a>
+<p>Your regulated Ontario poker resource online. Reviews, promotions, and guides for all six licensed poker rooms. Published by NWG PTY Limited.</p>
+<p style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-faint);">ontariopoker.com &middot; c/o WeWork, 240 Richmond St W, Toronto, ON M5V 1V6 &middot; <a href="mailto:help@ontariopoker.com" style="color:inherit;">help@ontariopoker.com</a></p>
+</div>
+<div class="footer-newsletter" style="margin-bottom:var(--space-6);padding:var(--space-5);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);">
+<h4 style="margin-bottom:var(--space-2);">Stay up to date</h4>
+<p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-3);">Ontario poker news, new room launches, and regulation updates. No spam, unsubscribe any time.</p>
+<form action="#" method="POST" style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+<input type="email" name="email" placeholder="you@example.com" required style="flex:1;min-width:180px;padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-sm);background:var(--color-surface);color:var(--color-text);">
+<button type="submit" class="btn btn--sm btn--primary">Subscribe</button>
+</form>
+<p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-2);">By subscribing you agree to our <a href="./privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a>. 19+ only.</p>
+</div>
+<div class="footer-columns">
+<div class="footer-col">
+<h4 class="footer-col-toggle">Poker Rooms<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ggpoker/index.html">GGPoker</a><a href="./888poker/index.html">888poker</a><a href="./betmgm-poker/index.html">BetMGM Poker</a><a href="./pokerstars/index.html">PokerStars Ontario</a><a href="./partypoker/index.html">PartyPoker Ontario</a><a href="./bwin/index.html">Bwin Ontario</a>
+<a href="./compare.html">Compare All Rooms</a>
+<a href="./best-poker-sites-ontario.html">Best Poker Sites</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Tools<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./room-finder.html">Room Finder Quiz</a>
+<a href="./which-room-quiz.html">Which Room Quiz</a>
+<a href="./head-to-head.html">Head-to-Head Compare</a>
+<a href="./rake-calculator.html">Rake Calculator</a>
+<a href="./poker-odds-calculator.html">Odds Calculator</a>
+<a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+<a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+<a href="./tournament-roi-calculator.html">Tournament ROI</a>
+<a href="./poker-tax-calculator.html">Tax Calculator</a>
+<a href="./session-tracker.html">Session Tracker</a>
+<a href="./room-status-dashboard.html">Room Status</a>
+<a href="./shared-liquidity-estimator.html">Liquidity Estimator</a>
+<a href="./ontario-poker-glossary.html">Ontario Glossary</a>
+<a href="./compare.html">Full Comparison</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Learn<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./strategy.html">Strategy Guides</a>
+<a href="./poker-glossary.html">Poker Glossary</a>
+<a href="./how-to-play-poker-ontario.html">How to Play Poker</a>
+<a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+<a href="./ontario-poker-tournament-schedule.html">Tournament Schedule</a>
+<a href="./news.html">News Hub</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Guides<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ontario-poker-promo-codes.html">Promo Codes</a>
+<a href="./ontario-poker-tournaments.html">Tournaments</a>
+<a href="./ontario-poker-beginners-guide.html">Beginners Guide</a>
+<a href="./ontario-poker-plo-omaha.html">PLO & Omaha</a>
+<a href="./ontario-poker-taxes.html">Poker Taxes Ontario</a>
+<a href="./wsop-online-ontario.html">WSOP Online Ontario</a>
+<a href="./ontario-poker-sit-and-go.html">Sit & Go Guide</a>
+<a href="./ontario-poker-bonuses.html">Bonuses & Offers</a>
+<a href="./ontario-poker-freerolls.html">Freerolls</a>
+<a href="./ontario-poker-apps.html">Poker Apps</a>
+<a href="./ontario-poker-withdrawal-times.html">Withdrawal Times</a>
+<a href="./ontario-poker-payment-methods.html">Payment Methods</a>
+<a href="./ontario-poker-rakeback-rewards.html">Rakeback &amp; Rewards</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Transparency<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./editorial-policy.html">Editorial Policy</a>
+<a href="./fact-checking.html">Fact Checking</a>
+<a href="./corrections-policy.html">Corrections Policy</a>
+<a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+<a href="./complaints-policy.html">Complaints Policy</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Responsible Gambling<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./responsible-gambling.html">Responsible Gambling</a>
+<a href="./self-exclusion-resources.html">Self-Exclusion Resources</a>
+<a href="./how-to-complain-about-an-ontario-poker-site.html">How to Complain</a>
+<a href="./contact.html">Contact &amp; Support</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Legal<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./about.html">About Us</a>
+<a href="./management-team.html">Our Authors</a>
+<a href="./privacy.html">Privacy Policy</a>
+<a href="./cookie-policy.html">Cookie Policy</a>
+<a href="./terms.html">Terms &amp; Conditions</a>
+<a href="./accessibility.html">Accessibility</a>
+</div>
+</div>
+</div>
+<div class="ftc-footer">
+<p><strong>Affiliate Disclosure:</strong> OntarioPoker.com is owned and operated by NWG PTY Limited. This site contains affiliate links. If you click through and register using our links, we may receive compensation at no additional cost to you. All editorial ratings are our own. See our <a href="./affiliate-disclosure.html" style="color:inherit;text-decoration:underline;">Affiliate Disclosure</a>.</p>
+<p><strong>Disclaimer:</strong> Online poker in Ontario is regulated by the Alcohol and Gaming Commission of Ontario (AGCO) and operated through iGaming Ontario. You must be 19+ and physically located in Ontario to play. If you or someone you know has a gambling problem, call ConnexOntario at 1-866-531-2600.</p>
+</div>
+<div class="footer-bottom">
+<span>&copy; 2026 NWG PTY Limited &middot; ontariopoker.com. All rights reserved.</span>
+</div>
+</div>
+</footer>
+<div id="searchOverlay" class="search-overlay">
+  <div class="search-box">
+    <div class="search-input-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" class="search-input" placeholder="Search reviews, guides, promotions..." autocomplete="off">
+      <button class="search-close" aria-label="Close search"><span aria-hidden="true">&#x2715;</span></button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+
+<script src="./app.min.js" defer></script>
+<script>
+(function() {
+  'use strict';
+
+  // Room-specific default field sizes
+  var ROOM_DEFAULTS = {
+    ggpoker:    { small: 40, medium: 120, large: 350 },
+    pokerstars: { small: 35, medium: 90, large: 250 },
+    '888poker': { small: 25, medium: 55, large: 140 },
+    betmgm:     { small: 20, medium: 40, large: 100 },
+    partypoker: { small: 15, medium: 35, large: 80 },
+    bwin:       { small: 10, medium: 25, large: 55 }
+  };
+
+  var PRESET_MAP = {
+    35: 'small',
+    80: 'medium',
+    300: 'large'
+  };
+
+  var MIN_WAGE = 17.20;
+
+  // Cache DOM elements
+  var elRoom = document.getElementById('roiRoom');
+  var elBuyin = document.getElementById('roiBuyin');
+  var elFieldSize = document.getElementById('roiFieldSize');
+  var elItm = document.getElementById('roiItm');
+  var elAvgCash = document.getElementById('roiAvgCash');
+  var elDuration = document.getElementById('roiDuration');
+  var elVolume = document.getElementById('roiVolume');
+  var elCalcBtn = document.getElementById('roiCalcBtn');
+  var elPlaceholder = document.getElementById('roiPlaceholder');
+  var elResults = document.getElementById('roiResults');
+  var elRoiPercent = document.getElementById('roiPercent');
+  var elHourly = document.getElementById('roiHourly');
+  var elMonthly = document.getElementById('roiMonthly');
+  var elYearly = document.getElementById('roiYearly');
+  var elBarYourRate = document.getElementById('roiBarYourRate');
+  var elBarYour = document.getElementById('roiBarYour');
+  var elBarWage = document.getElementById('roiBarWage');
+  var elWageVerdict = document.getElementById('roiWageVerdict');
+  var elBreakevenText = document.getElementById('roiBreakevenText');
+  var elChart = document.getElementById('roiChart');
+
+  // Preset buttons
+  var presetBtns = document.querySelectorAll('.roi-preset-btn');
+  presetBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var fieldVal = parseInt(this.getAttribute('data-field'));
+      var room = elRoom.value;
+      var defaults = ROOM_DEFAULTS[room] || ROOM_DEFAULTS.ggpoker;
+      var tier = PRESET_MAP[fieldVal];
+      var actualVal = defaults[tier] || fieldVal;
+
+      elFieldSize.value = actualVal;
+
+      presetBtns.forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+    });
+  });
+
+  // When room changes, update field size if a preset is active
+  elRoom.addEventListener('change', function() {
+    var activePreset = document.querySelector('.roi-preset-btn.active');
+    if (activePreset) {
+      var fieldVal = parseInt(activePreset.getAttribute('data-field'));
+      var tier = PRESET_MAP[fieldVal];
+      var room = elRoom.value;
+      var defaults = ROOM_DEFAULTS[room] || ROOM_DEFAULTS.ggpoker;
+      elFieldSize.value = defaults[tier] || fieldVal;
+    }
+  });
+
+  function formatCurrency(val) {
+    if (Math.abs(val) >= 1000) {
+      return (val < 0 ? '-' : '') + 'C$' + Math.abs(val).toLocaleString('en-CA', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    }
+    return (val < 0 ? '-' : '') + 'C$' + Math.abs(val).toFixed(2);
+  }
+
+  function calculate() {
+    var buyin = parseFloat(elBuyin.value) || 0;
+    var fieldSize = parseInt(elFieldSize.value) || 0;
+    var itm = parseFloat(elItm.value) || 0;
+    var avgCash = parseFloat(elAvgCash.value) || 0;
+    var duration = parseFloat(elDuration.value) || 0;
+    var volume = parseInt(elVolume.value) || 0;
+
+    if (buyin <= 0 || volume <= 0 || duration <= 0) {
+      return;
+    }
+
+    // Core calculations
+    var itmDecimal = itm / 100;
+    var totalBuyinsMonth = buyin * volume;
+    var totalCashesMonth = avgCash * itmDecimal * volume;
+    var profitMonth = totalCashesMonth - totalBuyinsMonth;
+    var roi = totalBuyinsMonth > 0 ? ((totalCashesMonth - totalBuyinsMonth) / totalBuyinsMonth) * 100 : 0;
+
+    var totalHoursMonth = duration * volume;
+    var hourlyRate = totalHoursMonth > 0 ? profitMonth / totalHoursMonth : 0;
+
+    var profitYear = profitMonth * 12;
+
+    // Show results
+    elPlaceholder.style.display = 'none';
+    elResults.style.display = 'block';
+
+    // ROI
+    elRoiPercent.textContent = roi.toFixed(1) + '%';
+    elRoiPercent.className = 'roi-stat-value ' + (roi >= 0 ? 'positive' : 'negative');
+
+    // Hourly
+    elHourly.textContent = formatCurrency(hourlyRate) + '/hr';
+    elHourly.className = 'roi-stat-value ' + (hourlyRate >= 0 ? 'positive' : 'negative');
+
+    // Monthly
+    elMonthly.textContent = formatCurrency(profitMonth);
+    elMonthly.className = 'roi-stat-value ' + (profitMonth >= 0 ? 'positive' : 'negative');
+
+    // Yearly
+    elYearly.textContent = formatCurrency(profitYear);
+    elYearly.className = 'roi-stat-value ' + (profitYear >= 0 ? 'positive' : 'negative');
+
+    // Comparison bars
+    var maxRate = Math.max(Math.abs(hourlyRate), MIN_WAGE) * 1.2;
+    var yourPct = Math.min(100, (Math.abs(hourlyRate) / maxRate) * 100);
+    var wagePct = Math.min(100, (MIN_WAGE / maxRate) * 100);
+
+    elBarYourRate.textContent = formatCurrency(hourlyRate) + '/hr';
+    elBarYour.style.width = yourPct + '%';
+    elBarYour.style.background = hourlyRate >= MIN_WAGE ? 'var(--color-success)' : (hourlyRate >= 0 ? 'var(--color-primary)' : 'var(--color-danger)');
+    elBarWage.style.width = wagePct + '%';
+
+    if (hourlyRate >= MIN_WAGE) {
+      elWageVerdict.textContent = 'Your tournament hourly rate exceeds Ontario minimum wage by ' + formatCurrency(hourlyRate - MIN_WAGE) + '/hr.';
+    } else if (hourlyRate >= 0) {
+      elWageVerdict.textContent = 'You are profitable but earning below Ontario minimum wage. Consider increasing volume or moving to higher buy-ins if your bankroll supports it.';
+    } else {
+      elWageVerdict.textContent = 'You are currently losing money. Review your game selection, study strategy, or consider lower buy-in levels to reduce variance.';
+    }
+
+    // Break-even analysis
+    var breakEvenItm = buyin > 0 && avgCash > 0 ? (buyin / avgCash) * 100 : 0;
+    var breakEvenCash = buyin > 0 && itmDecimal > 0 ? buyin / itmDecimal : 0;
+
+    var beText = 'To break even with a C$' + buyin.toFixed(0) + ' buy-in: ';
+    beText += 'you need an ITM rate of at least ' + breakEvenItm.toFixed(1) + '% (at your current average cash of C$' + avgCash.toFixed(0) + '), ';
+    beText += 'or an average cash of at least C$' + breakEvenCash.toFixed(0) + ' (at your current ITM rate of ' + itm.toFixed(1) + '%).';
+
+    if (roi > 0) {
+      beText += ' You are currently ' + roi.toFixed(1) + '% above break-even.';
+    } else if (roi < 0) {
+      beText += ' You are currently ' + Math.abs(roi).toFixed(1) + '% below break-even.';
+    }
+
+    elBreakevenText.textContent = beText;
+
+    // Draw chart
+    drawChart(profitMonth);
+  }
+
+  function drawChart(monthlyProfit) {
+    var canvas = elChart;
+    var ctx = canvas.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.getBoundingClientRect();
+
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+
+    var w = rect.width;
+    var h = rect.height;
+    var pad = { top: 20, right: 20, bottom: 30, left: 60 };
+    var plotW = w - pad.left - pad.right;
+    var plotH = h - pad.top - pad.bottom;
+
+    // Generate 12 months of data
+    var data = [];
+    var cumulative = 0;
+    for (var i = 0; i <= 12; i++) {
+      data.push(cumulative);
+      cumulative += monthlyProfit;
+    }
+
+    var minVal = Math.min.apply(null, data);
+    var maxVal = Math.max.apply(null, data);
+    if (minVal === maxVal) {
+      minVal -= 100;
+      maxVal += 100;
+    }
+    var range = maxVal - minVal;
+    var yPad = range * 0.1;
+    minVal -= yPad;
+    maxVal += yPad;
+
+    // Get computed styles for theming
+    var styles = getComputedStyle(document.documentElement);
+    var textColor = styles.getPropertyValue('--color-text-muted').trim() || '#666';
+    var borderColor = styles.getPropertyValue('--color-border-light').trim() || '#eee';
+    var primaryColor = styles.getPropertyValue('--color-primary').trim() || '#1A6B3C';
+    var dangerColor = styles.getPropertyValue('--color-danger').trim() || '#dc2626';
+    var lineColor = monthlyProfit >= 0 ? primaryColor : dangerColor;
+
+    // Clear
+    ctx.clearRect(0, 0, w, h);
+
+    // Grid lines
+    ctx.strokeStyle = borderColor;
+    ctx.lineWidth = 1;
+    var gridLines = 5;
+    for (var i = 0; i <= gridLines; i++) {
+      var y = pad.top + (plotH / gridLines) * i;
+      ctx.beginPath();
+      ctx.moveTo(pad.left, y);
+      ctx.lineTo(w - pad.right, y);
+      ctx.stroke();
+
+      // Y labels
+      var val = maxVal - ((maxVal - minVal) / gridLines) * i;
+      ctx.fillStyle = textColor;
+      ctx.font = '11px Inter, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText('C$' + Math.round(val).toLocaleString(), pad.left - 8, y + 4);
+    }
+
+    // Zero line
+    if (minVal < 0 && maxVal > 0) {
+      var zeroY = pad.top + plotH * (maxVal / (maxVal - minVal));
+      ctx.strokeStyle = textColor;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(pad.left, zeroY);
+      ctx.lineTo(w - pad.right, zeroY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // X labels
+    ctx.fillStyle = textColor;
+    ctx.font = '11px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    var months = ['Now', 'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
+    for (var i = 0; i < data.length; i++) {
+      var x = pad.left + (plotW / 12) * i;
+      if (i % 2 === 0 || data.length <= 7) {
+        ctx.fillText(months[i], x, h - 8);
+      }
+    }
+
+    // Area fill
+    ctx.beginPath();
+    for (var i = 0; i < data.length; i++) {
+      var x = pad.left + (plotW / 12) * i;
+      var y = pad.top + plotH * ((maxVal - data[i]) / (maxVal - minVal));
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    var lastX = pad.left + plotW;
+    var baseY = minVal < 0 && maxVal > 0 ?
+      pad.top + plotH * (maxVal / (maxVal - minVal)) :
+      pad.top + plotH;
+    ctx.lineTo(lastX, baseY);
+    ctx.lineTo(pad.left, baseY);
+    ctx.closePath();
+    ctx.fillStyle = lineColor + '18';
+    ctx.fill();
+
+    // Line
+    ctx.beginPath();
+    for (var i = 0; i < data.length; i++) {
+      var x = pad.left + (plotW / 12) * i;
+      var y = pad.top + plotH * ((maxVal - data[i]) / (maxVal - minVal));
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = lineColor;
+    ctx.lineWidth = 2.5;
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+
+    // Dots
+    for (var i = 0; i < data.length; i++) {
+      var x = pad.left + (plotW / 12) * i;
+      var y = pad.top + plotH * ((maxVal - data[i]) / (maxVal - minVal));
+      ctx.beginPath();
+      ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = lineColor;
+      ctx.fill();
+      ctx.strokeStyle = 'var(--color-surface, #fff)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+  }
+
+  // Init
+  window.addEventListener('DOMContentLoaded', function() {
+    elCalcBtn.addEventListener('click', calculate);
+
+    // Also calculate on Enter key
+    var inputs = document.querySelectorAll('.roi-input');
+    inputs.forEach(function(input) {
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') calculate();
+      });
+    });
+  });
+
+  // Redraw chart on resize
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      if (elResults.style.display !== 'none') {
+        var buyin = parseFloat(elBuyin.value) || 0;
+        var itm = parseFloat(elItm.value) || 0;
+        var avgCash = parseFloat(elAvgCash.value) || 0;
+        var volume = parseInt(elVolume.value) || 0;
+        var itmDecimal = itm / 100;
+        var totalBuyinsMonth = buyin * volume;
+        var totalCashesMonth = avgCash * itmDecimal * volume;
+        var profitMonth = totalCashesMonth - totalBuyinsMonth;
+        drawChart(profitMonth);
+      }
+    }, 250);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ontario Deposit Limit Planner 2026 | Budget Across 6 Rooms | OntarioPoker</title>
+<meta name="description" content="Plan and set AGCO-compliant deposit limits across all 6 regulated Ontario poker rooms. Budget your monthly poker spend by room with our free planner tool.">
+<link rel="canonical" href="https://ontariopoker.com/deposit-limit-planner">
+<meta property="og:title" content="Ontario Deposit Limit Planner 2026 | Budget Across 6 Rooms">
+<meta property="og:description" content="Plan and set AGCO-compliant deposit limits across all 6 regulated Ontario poker rooms. Budget your monthly poker spend by room with our free planner tool.">
+<meta property="og:url" content="https://ontariopoker.com/deposit-limit-planner">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OntarioPoker">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="icon" type="image/png" href="./favicon.png" sizes="96x96">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
+<link rel="stylesheet" href="./style.min.css">
+<link rel="stylesheet" href="./base.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ontariopoker.com/"}, {"@type": "ListItem", "position": 2, "name": "Deposit Limit Planner"}]}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are Ontario poker rooms required to offer deposit limits?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Under AGCO regulations, all licensed Ontario poker operators must provide deposit limit tools. Players can set daily, weekly, or monthly deposit caps directly within each room's responsible gambling settings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I set different deposit limits at each Ontario poker room?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. Each room operates independently, so you can configure separate daily, weekly, and monthly deposit limits at GGPoker, 888poker, BetMGM Poker, PokerStars, PartyPoker, and Bwin. This planner helps you coordinate those limits within a single total budget."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I change my deposit limit at an Ontario poker room?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Log in to the room, navigate to Settings or Responsible Gambling, and adjust your deposit limit. Decreases take effect immediately. Increases typically require a 24-hour cooling-off period before they become active, as mandated by AGCO rules."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if I reach my deposit limit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Once you hit your deposit limit at a room, you cannot deposit additional funds until the limit period resets (daily, weekly, or monthly). You can still play with your existing balance. This is an important safeguard for responsible bankroll management."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I spread my poker budget across multiple rooms?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Playing at multiple rooms can give you access to different player pools, promotions, and game types. However, tracking your total spend becomes harder. This planner helps by letting you allocate a fixed monthly budget across rooms and set matching deposit limits at each one."
+      }
+    }
+  ]
+}</script>
+<style>
+/* Deposit Limit Planner Tool Styles */
+.dlp-tool { max-width: 100%; }
+
+.dlp-budget-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+.dlp-budget-input-wrap label {
+  font-weight: 600;
+  font-size: var(--text-lg);
+  white-space: nowrap;
+}
+.dlp-budget-input {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  width: 180px;
+  text-align: right;
+  transition: border-color var(--transition-interactive);
+}
+.dlp-budget-input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-glow);
+}
+
+.dlp-overview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+@media (max-width: 640px) {
+  .dlp-overview { grid-template-columns: 1fr; }
+}
+
+.dlp-stat-card {
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+.dlp-stat-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+.dlp-stat-value {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.dlp-stat-value.over { color: var(--color-error); }
+.dlp-stat-value.under { color: var(--color-success); }
+
+/* Progress bar */
+.dlp-progress-wrap {
+  margin-bottom: var(--space-6);
+}
+.dlp-progress-bar {
+  height: 28px;
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  display: flex;
+  position: relative;
+  border: 1px solid var(--color-border);
+}
+.dlp-progress-segment {
+  height: 100%;
+  transition: width 0.3s ease;
+  position: relative;
+  min-width: 0;
+}
+.dlp-progress-label {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* Room cards */
+.dlp-rooms { display: flex; flex-direction: column; gap: var(--space-4); margin-bottom: var(--space-6); }
+
+.dlp-room-card {
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition: box-shadow var(--transition-interactive);
+}
+.dlp-room-card:hover {
+  box-shadow: var(--shadow-md);
+}
+.dlp-room-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.dlp-room-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+.dlp-room-name {
+  font-weight: 700;
+  font-size: var(--text-base);
+  flex: 1;
+}
+.dlp-room-rating {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+.dlp-room-controls {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+@media (max-width: 480px) {
+  .dlp-room-controls { grid-template-columns: 1fr; }
+}
+.dlp-slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.dlp-slider {
+  flex: 1;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-full);
+  outline: none;
+  cursor: pointer;
+}
+.dlp-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.dlp-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.dlp-pct-label {
+  font-weight: 600;
+  font-size: var(--text-sm);
+  min-width: 44px;
+  text-align: right;
+}
+.dlp-amount-input {
+  width: 110px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 600;
+  text-align: right;
+  font-size: var(--text-sm);
+}
+.dlp-amount-input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-glow);
+}
+.dlp-room-limits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-light);
+}
+@media (max-width: 480px) {
+  .dlp-room-limits { grid-template-columns: 1fr; }
+}
+.dlp-limit-item {
+  text-align: center;
+  padding: var(--space-2);
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-sm);
+}
+.dlp-limit-period {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.dlp-limit-value {
+  font-weight: 700;
+  font-size: var(--text-base);
+  color: var(--color-text);
+}
+
+/* Segmented bar legend */
+.dlp-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+.dlp-legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+.dlp-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+/* AGCO reminder */
+.dlp-agco-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-success-light);
+  border: 1px solid var(--color-success-border);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-6);
+}
+.dlp-agco-notice svg {
+  flex-shrink: 0;
+  color: var(--color-success);
+  margin-top: 2px;
+}
+.dlp-agco-notice p {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* Export button */
+.dlp-actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+/* Deposit limit support table */
+.dlp-support-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+.dlp-support-table th,
+.dlp-support-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
+}
+.dlp-support-table th {
+  background: var(--color-surface-alt);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+.dlp-support-table th:first-child,
+.dlp-support-table td:first-child {
+  text-align: left;
+  font-weight: 600;
+}
+.dlp-support-table .check {
+  color: var(--color-success);
+  font-weight: 700;
+}
+.dlp-support-table .dash {
+  color: var(--color-text-faint);
+}
+
+/* Tips grid */
+.dlp-tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+.dlp-tip-card {
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+.dlp-tip-card h4 {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+  color: var(--color-text);
+}
+.dlp-tip-card p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Print styles */
+@media print {
+  .disclosure-bar, .site-header, .site-footer, .search-overlay,
+  .dlp-actions, .breadcrumb, .nav-desktop, .nav-actions,
+  .section--related, .faq-section, .how-to-section { display: none !important; }
+  .dlp-room-card { break-inside: avoid; }
+  body { background: white; color: black; }
+}
+</style>
+</head>
+<body>
+<div class="disclosure-bar">
+  This site contains affiliate links and promotional content. 19+ only. Play responsibly. <a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+</div>
+<header class="site-header">
+  <div class="container">
+    <a href="./index.html" class="site-logo">
+      <img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:32px;width:auto;">
+    </a>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Rooms <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ggpoker/review.html">GGPoker</a>
+          <a href="./888poker/review.html">888poker</a>
+          <a href="./betmgm-poker/review.html">BetMGM Poker</a>
+          <a href="./pokerstars/review.html">PokerStars</a>
+          <a href="./partypoker/review.html">PartyPoker</a>
+          <a href="./bwin/review.html">Bwin</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./compare.html">Compare All</a>
+          <a href="./head-to-head.html">Head-to-Head</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Promotions <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ontario-poker-promo-codes.html">All Promo Codes</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./ggpoker/promo-code.html">GGPoker Promo</a>
+          <a href="./888poker/promo-code.html">888poker Promo</a>
+          <a href="./betmgm-poker/promo-code.html">BetMGM Poker Promo</a>
+          <a href="./pokerstars/promo-code.html">PokerStars Promo</a>
+          <a href="./partypoker/promo-code.html">PartyPoker Promo</a>
+          <a href="./bwin/promo-code.html">Bwin Promo</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Tools <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./room-finder.html">Room Finder Quiz</a>
+          <a href="./which-room-quiz.html">Which Room Quiz</a>
+          <a href="./rake-calculator.html">Rake Calculator</a>
+          <a href="./poker-odds-calculator.html">Odds Calculator</a>
+          <a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+          <a href="./tournament-roi-calculator.html">Tournament ROI Calculator</a>
+          <a href="./poker-tax-calculator.html">Poker Tax Calculator</a>
+          <a href="./session-tracker.html">Session Tracker</a>
+          <a href="./shared-liquidity-estimator.html">Shared Liquidity Estimator</a>
+          <a href="./room-status-dashboard.html">Room Status Dashboard</a>
+          <a href="./ontario-poker-glossary.html">Ontario Glossary</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Learn <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./strategy.html">Strategy Guides</a>
+          <a href="./poker-glossary.html">Poker Glossary</a>
+          <a href="./how-to-play-poker-ontario.html">How to Play Poker</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./is-online-poker-legal-in-ontario.html">Legal Guide</a>
+          <a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+          <a href="./ontario-poker-tournament-schedule.html">Tournament Schedule</a>
+          <a href="./ontario-poker-traffic-index.html">Traffic Index</a>
+          <a href="./news.html">News</a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-actions">
+      <button class="search-btn" aria-label="Search site"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+      <a href="./best-poker-sites-ontario.html" class="header-cta">Best Poker Sites</a>
+      <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="./index.html">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">Deposit Limit Planner</span></nav>
+    <h1>Ontario Deposit Limit Planner</h1>
+    <p class="page-hero-subtitle">Plan your monthly poker budget across all six AGCO-regulated Ontario rooms. Set deposit limits that keep your play responsible and your bankroll on track. Updated March 2026.</p>
+  </div>
+</section>
+
+<!-- Tool Section -->
+<section class="section">
+  <div class="container">
+    <div class="dlp-tool" id="dlpTool">
+
+      <!-- AGCO Notice -->
+      <div class="dlp-agco-notice">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div>
+          <p><strong>AGCO Requirement:</strong> All six regulated Ontario poker rooms must offer deposit limit tools under provincial gaming regulations. You can set daily, weekly, and monthly deposit caps in each room's responsible gambling settings. Decreases apply right away; increases take effect after a cooling-off period (typically 24 hours).</p>
+        </div>
+      </div>
+
+      <!-- Budget Input -->
+      <div class="card card--flat" style="padding:var(--space-5);margin-bottom:var(--space-6);">
+        <div class="dlp-budget-input-wrap">
+          <label for="dlpBudget">Monthly Budget (CAD)</label>
+          <div style="position:relative;display:inline-flex;align-items:center;">
+            <span style="position:absolute;left:var(--space-3);font-weight:700;font-size:var(--text-xl);color:var(--color-text-muted);pointer-events:none;">$</span>
+            <input type="number" id="dlpBudget" class="dlp-budget-input" value="500" min="0" max="100000" step="10" style="padding-left:var(--space-8);">
+          </div>
+        </div>
+
+        <!-- Overview Stats -->
+        <div class="dlp-overview">
+          <div class="dlp-stat-card">
+            <div class="dlp-stat-label">Total Allocated</div>
+            <div class="dlp-stat-value" id="dlpAllocated">$500.00</div>
+          </div>
+          <div class="dlp-stat-card">
+            <div class="dlp-stat-label">Remaining</div>
+            <div class="dlp-stat-value" id="dlpRemaining">$0.00</div>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="dlp-progress-wrap">
+          <div class="dlp-progress-bar" id="dlpProgressBar"></div>
+          <div class="dlp-progress-label">
+            <span>0%</span>
+            <span id="dlpProgressPct">100% allocated</span>
+            <span>100%</span>
+          </div>
+          <div class="dlp-legend" id="dlpLegend"></div>
+        </div>
+      </div>
+
+      <!-- Room Allocation Cards -->
+      <h2 style="font-size:var(--text-lg);margin-bottom:var(--space-4);">Allocate by Room</h2>
+      <div class="dlp-rooms" id="dlpRooms"></div>
+
+      <!-- Actions -->
+      <div class="dlp-actions">
+        <button class="btn btn--primary" id="dlpExport" onclick="exportSummary()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export / Print Summary
+        </button>
+        <button class="btn btn--ghost" onclick="resetAllocations()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          Reset to Defaults
+        </button>
+      </div>
+
+      <!-- Deposit Limit Support Table -->
+      <h2 style="font-size:var(--text-lg);margin-bottom:var(--space-4);">Deposit Limit Options by Room</h2>
+      <div class="card card--flat table-responsive" style="margin-bottom:var(--space-6);">
+        <table class="dlp-support-table">
+          <thead>
+            <tr>
+              <th>Room</th>
+              <th>Daily Limit</th>
+              <th>Weekly Limit</th>
+              <th>Monthly Limit</th>
+              <th>Session Limit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:#BE0F34;">GGPoker</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">&mdash;</td>
+            </tr>
+            <tr>
+              <td style="color:#1A1A6C;">888poker</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">&mdash;</td>
+            </tr>
+            <tr>
+              <td style="color:#C6A962;">BetMGM Poker</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+            </tr>
+            <tr>
+              <td style="color:#E41F23;">PokerStars</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">&mdash;</td>
+            </tr>
+            <tr>
+              <td style="color:#FF6B00;">PartyPoker</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">&mdash;</td>
+            </tr>
+            <tr>
+              <td style="color:#FFCC00;">Bwin</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">&mdash;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Tips Section -->
+      <h2 style="font-size:var(--text-lg);margin-bottom:var(--space-2);">Tips for Setting Responsible Deposit Limits</h2>
+      <div class="dlp-tips-grid">
+        <div class="dlp-tip-card">
+          <h4>Start Conservative</h4>
+          <p>Set your initial limits below what you think you need. You can always increase them later (after the cooling-off period). Starting low prevents impulsive over-spending during a bad session.</p>
+        </div>
+        <div class="dlp-tip-card">
+          <h4>Use Your Bankroll as a Guide</h4>
+          <p>Your total monthly deposit budget should be money you can afford to lose. A common rule is to never risk more than 5% of your savings on poker in any given month.</p>
+        </div>
+        <div class="dlp-tip-card">
+          <h4>Match Limits to Your Play Style</h4>
+          <p>If you mainly play cash games at one room, allocate more there. If you chase tournaments across rooms, spread your budget more evenly. Let the planner reflect how you actually play.</p>
+        </div>
+        <div class="dlp-tip-card">
+          <h4>Review Monthly</h4>
+          <p>Revisit this planner each month. Your poker habits and financial situation change over time. A budget that felt right in January may need adjusting by June.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How to Use Section -->
+<section class="section section--alt how-to-section">
+  <div class="container container--narrow">
+    <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-4);">How to Use This Planner</h2>
+    <div class="prose">
+      <ol style="padding-left:var(--space-5);display:flex;flex-direction:column;gap:var(--space-3);">
+        <li><strong>Enter your total monthly poker budget</strong> in CAD at the top. This is the maximum you want to deposit across all rooms combined in a calendar month.</li>
+        <li><strong>Adjust the allocation sliders</strong> for each room. Drag a slider to increase or decrease that room's share. You can also type a dollar amount directly. The progress bar updates in real time to show how much of your budget is allocated.</li>
+        <li><strong>Review the suggested limits.</strong> For each room, the planner calculates daily, weekly, and monthly deposit limit recommendations based on your allocation. These are the values you should enter in each room's responsible gambling settings.</li>
+        <li><strong>Export or print your plan.</strong> Click the "Export / Print Summary" button to get a printable version or save a text summary to your device. Use it as a reference when configuring limits at each room.</li>
+        <li><strong>Set your limits at each room.</strong> Log in to each poker room, go to Settings or Responsible Gambling, and enter the daily, weekly, and monthly limits from your plan.</li>
+      </ol>
+      <p style="margin-top:var(--space-4);">The default allocation weights GGPoker (9.4/10.0) highest based on our editorial rankings, but you should adjust to match your actual playing habits. All calculations happen in your browser and nothing is stored or sent anywhere.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="section faq-section" id="faq">
+  <div class="container container--narrow">
+    <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-6);">Frequently Asked Questions</h2>
+
+    <div class="faq-list" style="display:flex;flex-direction:column;gap:var(--space-3);">
+      <details class="card card--flat" style="padding:var(--space-4) var(--space-5);">
+        <summary style="font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          Are Ontario poker rooms required to offer deposit limits?
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-left:var(--space-3);transition:transform 0.2s;"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div style="margin-top:var(--space-3);color:var(--color-text-muted);font-size:var(--text-sm);line-height:1.7;">
+          Yes. Under AGCO regulations, all licensed Ontario poker operators must provide deposit limit tools. Players can set daily, weekly, or monthly deposit caps directly within each room's responsible gambling settings.
+        </div>
+      </details>
+
+      <details class="card card--flat" style="padding:var(--space-4) var(--space-5);">
+        <summary style="font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          Can I set different deposit limits at each Ontario poker room?
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-left:var(--space-3);transition:transform 0.2s;"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div style="margin-top:var(--space-3);color:var(--color-text-muted);font-size:var(--text-sm);line-height:1.7;">
+          Absolutely. Each room operates independently, so you can configure separate daily, weekly, and monthly deposit limits at GGPoker, 888poker, BetMGM Poker, PokerStars, PartyPoker, and Bwin. This planner helps you coordinate those limits within a single total budget.
+        </div>
+      </details>
+
+      <details class="card card--flat" style="padding:var(--space-4) var(--space-5);">
+        <summary style="font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          How do I change my deposit limit at an Ontario poker room?
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-left:var(--space-3);transition:transform 0.2s;"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div style="margin-top:var(--space-3);color:var(--color-text-muted);font-size:var(--text-sm);line-height:1.7;">
+          Log in to the room, navigate to Settings or Responsible Gambling, and adjust your deposit limit. Decreases take effect immediately. Increases typically require a 24-hour cooling-off period before they become active, as mandated by AGCO rules.
+        </div>
+      </details>
+
+      <details class="card card--flat" style="padding:var(--space-4) var(--space-5);">
+        <summary style="font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          What happens if I reach my deposit limit?
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-left:var(--space-3);transition:transform 0.2s;"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div style="margin-top:var(--space-3);color:var(--color-text-muted);font-size:var(--text-sm);line-height:1.7;">
+          Once you hit your deposit limit at a room, you cannot deposit additional funds until the limit period resets (daily, weekly, or monthly). You can still play with your existing balance. This is an important safeguard for responsible bankroll management.
+        </div>
+      </details>
+
+      <details class="card card--flat" style="padding:var(--space-4) var(--space-5);">
+        <summary style="font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          Should I spread my poker budget across multiple rooms?
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-left:var(--space-3);transition:transform 0.2s;"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div style="margin-top:var(--space-3);color:var(--color-text-muted);font-size:var(--text-sm);line-height:1.7;">
+          Playing at multiple rooms can give you access to different player pools, promotions, and game types. However, tracking your total spend becomes harder. This planner helps by letting you allocate a fixed monthly budget across rooms and set matching deposit limits at each one.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Internal Links Section -->
+<section class="section section--alt section--related">
+  <div class="container">
+    <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-6);">Related Resources</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-4);">
+      <a href="./responsible-gambling.html" class="card card--flat" style="padding:var(--space-5);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:var(--space-2);">
+        <strong style="font-size:var(--text-base);">Responsible Gambling Guide</strong>
+        <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Tools, resources, and advice for keeping your poker play safe and enjoyable in Ontario.</span>
+      </a>
+      <a href="./best-poker-sites-ontario.html" class="card card--flat" style="padding:var(--space-5);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:var(--space-2);">
+        <strong style="font-size:var(--text-base);">Best Poker Sites in Ontario</strong>
+        <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Our ranked list of all six regulated Ontario poker rooms with detailed ratings and reviews.</span>
+      </a>
+      <a href="./poker-bankroll-calculator.html" class="card card--flat" style="padding:var(--space-5);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:var(--space-2);">
+        <strong style="font-size:var(--text-base);">Bankroll Calculator</strong>
+        <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Figure out the right bankroll size for your stakes and playing style before setting deposit limits.</span>
+      </a>
+      <a href="./ggpoker/review.html" class="card card--flat" style="padding:var(--space-5);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:var(--space-2);">
+        <strong style="font-size:var(--text-base);">GGPoker Ontario Review</strong>
+        <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Our top-rated Ontario poker room (9.4/10.0). Full review covering games, deposits, and software.</span>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-rg">
+<svg fill="none" stroke="currentColor" stroke-width="2" style="width:32px;height:32px;flex-shrink:0;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<p>Poker is supposed to be fun. If it stops feeling that way, step away. Help is available at ConnexOntario: 1-866-531-2600.</p>
+<a class="btn btn--sm" href="./responsible-gambling.html" style="background:rgba(255,255,255,0.15);color:inherit;white-space:nowrap;">Responsible Gambling</a>
+</div>
+<div class="footer-brand">
+<a class="site-logo" href="./index.html" style="margin-bottom:var(--space-2);">
+<img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:26px;width:auto;">
+</a>
+<p>Your regulated Ontario poker resource online. Reviews, promotions, and guides for all six licensed poker rooms. Published by NWG PTY Limited.</p>
+<p style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-faint);">ontariopoker.com &middot; c/o WeWork, 240 Richmond St W, Toronto, ON M5V 1V6 &middot; <a href="mailto:help@ontariopoker.com" style="color:inherit;">help@ontariopoker.com</a></p>
+</div>
+<div class="footer-newsletter" style="margin-bottom:var(--space-6);padding:var(--space-5);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);">
+<h4 style="margin-bottom:var(--space-2);">Stay up to date</h4>
+<p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-3);">Ontario poker news, new room launches, and regulation updates. No spam, unsubscribe any time.</p>
+<form action="#" method="POST" style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+<input type="email" name="email" placeholder="you@example.com" required style="flex:1;min-width:180px;padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-sm);background:var(--color-surface);color:var(--color-text);">
+<button type="submit" class="btn btn--sm btn--primary">Subscribe</button>
+</form>
+<p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-2);">By subscribing you agree to our <a href="./privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a>. 19+ only.</p>
+</div>
+<div class="footer-columns">
+<div class="footer-col">
+<h4 class="footer-col-toggle">Poker Rooms<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ggpoker/index.html">GGPoker</a><a href="./888poker/index.html">888poker</a><a href="./betmgm-poker/index.html">BetMGM Poker</a><a href="./pokerstars/index.html">PokerStars Ontario</a><a href="./partypoker/index.html">PartyPoker Ontario</a><a href="./bwin/index.html">Bwin Ontario</a>
+<a href="./compare.html">Compare All Rooms</a>
+<a href="./best-poker-sites-ontario.html">Best Poker Sites</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Tools<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./room-finder.html">Room Finder Quiz</a>
+<a href="./which-room-quiz.html">Which Room Quiz</a>
+<a href="./head-to-head.html">Head-to-Head Compare</a>
+<a href="./rake-calculator.html">Rake Calculator</a>
+<a href="./poker-odds-calculator.html">Odds Calculator</a>
+<a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+<a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+<a href="./tournament-roi-calculator.html">Tournament ROI</a>
+<a href="./poker-tax-calculator.html">Tax Calculator</a>
+<a href="./session-tracker.html">Session Tracker</a>
+<a href="./room-status-dashboard.html">Room Status</a>
+<a href="./shared-liquidity-estimator.html">Liquidity Estimator</a>
+<a href="./ontario-poker-glossary.html">Ontario Glossary</a>
+<a href="./compare.html">Full Comparison</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Learn<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./strategy.html">Strategy Guides</a>
+<a href="./poker-glossary.html">Poker Glossary</a>
+<a href="./how-to-play-poker-ontario.html">How to Play Poker</a>
+<a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+<a href="./ontario-poker-tournament-schedule.html">Tournament Schedule</a>
+<a href="./news.html">News Hub</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Guides<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ontario-poker-promo-codes.html">Promo Codes</a>
+<a href="./ontario-poker-tournaments.html">Tournaments</a>
+<a href="./ontario-poker-beginners-guide.html">Beginners Guide</a>
+<a href="./ontario-poker-plo-omaha.html">PLO & Omaha</a>
+<a href="./ontario-poker-taxes.html">Poker Taxes Ontario</a>
+<a href="./wsop-online-ontario.html">WSOP Online Ontario</a>
+<a href="./ontario-poker-sit-and-go.html">Sit & Go Guide</a>
+<a href="./ontario-poker-bonuses.html">Bonuses & Offers</a>
+<a href="./ontario-poker-freerolls.html">Freerolls</a>
+<a href="./ontario-poker-apps.html">Poker Apps</a>
+<a href="./ontario-poker-withdrawal-times.html">Withdrawal Times</a>
+<a href="./ontario-poker-payment-methods.html">Payment Methods</a>
+<a href="./ontario-poker-rakeback-rewards.html">Rakeback &amp; Rewards</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Transparency<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./editorial-policy.html">Editorial Policy</a>
+<a href="./fact-checking.html">Fact Checking</a>
+<a href="./corrections-policy.html">Corrections Policy</a>
+<a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+<a href="./complaints-policy.html">Complaints Policy</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Responsible Gambling<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./responsible-gambling.html">Responsible Gambling</a>
+<a href="./self-exclusion-resources.html">Self-Exclusion Resources</a>
+<a href="./how-to-complain-about-an-ontario-poker-site.html">How to Complain</a>
+<a href="./contact.html">Contact &amp; Support</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Legal<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./about.html">About Us</a>
+<a href="./management-team.html">Our Authors</a>
+<a href="./privacy.html">Privacy Policy</a>
+<a href="./cookie-policy.html">Cookie Policy</a>
+<a href="./terms.html">Terms &amp; Conditions</a>
+<a href="./accessibility.html">Accessibility</a>
+</div>
+</div>
+</div>
+<div class="ftc-footer">
+<p><strong>Affiliate Disclosure:</strong> OntarioPoker.com is owned and operated by NWG PTY Limited. This site contains affiliate links. If you click through and register using our links, we may receive compensation at no additional cost to you. All editorial ratings are our own. See our <a href="./affiliate-disclosure.html" style="color:inherit;text-decoration:underline;">Affiliate Disclosure</a>.</p>
+<p><strong>Disclaimer:</strong> Online poker in Ontario is regulated by the Alcohol and Gaming Commission of Ontario (AGCO) and operated through iGaming Ontario. You must be 19+ and physically located in Ontario to play. If you or someone you know has a gambling problem, call ConnexOntario at 1-866-531-2600.</p>
+</div>
+<div class="footer-bottom">
+<span>&copy; 2026 NWG PTY Limited &middot; ontariopoker.com. All rights reserved.</span>
+</div>
+</div>
+</footer>
+<div id="searchOverlay" class="search-overlay">
+  <div class="search-box">
+    <div class="search-input-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" class="search-input" placeholder="Search reviews, guides, promotions..." autocomplete="off">
+      <button class="search-close" aria-label="Close search"><span aria-hidden="true">&#x2715;</span></button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+
+<script src="./app.min.js" defer></script>
+<script>
+(function() {
+  'use strict';
+
+  var rooms = [
+    { name: 'GGPoker', rating: '9.4/10.0', color: '#BE0F34', defaultPct: 40, link: 'https://click.ggpartners.com/?serial=886&creative_id=8509&anid=', review: './ggpoker/review.html' },
+    { name: '888poker', rating: '9.0/10.0', color: '#1A1A6C', defaultPct: 20, link: 'https://ic.aff-handler.com/C/48309?sr=2020537', review: './888poker/review.html' },
+    { name: 'BetMGM Poker', rating: '8.8/10.0', color: '#C6A962', defaultPct: 15, link: 'https://click.ggpartners.com/?serial=886&creative_id=69&anid=', review: './betmgm-poker/review.html' },
+    { name: 'PokerStars', rating: '8.7/10.0', color: '#E41F23', defaultPct: 12, link: '#', review: './pokerstars/review.html' },
+    { name: 'PartyPoker', rating: '7.8/10.0', color: '#FF6B00', defaultPct: 8, link: 'https://click.ggpartners.com/?serial=886&creative_id=69&anid=', review: './partypoker/review.html' },
+    { name: 'Bwin', rating: '7.2/10.0', color: '#FFCC00', defaultPct: 5, link: 'https://click.ggpartners.com/?serial=886&creative_id=69&anid=', review: './bwin/review.html' }
+  ];
+
+  var budgetInput = document.getElementById('dlpBudget');
+  var roomsContainer = document.getElementById('dlpRooms');
+  var progressBar = document.getElementById('dlpProgressBar');
+  var legendContainer = document.getElementById('dlpLegend');
+  var allocatedEl = document.getElementById('dlpAllocated');
+  var remainingEl = document.getElementById('dlpRemaining');
+  var progressPctEl = document.getElementById('dlpProgressPct');
+
+  // State: each room has a percentage
+  var allocations = rooms.map(function(r) { return r.defaultPct; });
+
+  function getBudget() {
+    var v = parseFloat(budgetInput.value);
+    return isNaN(v) || v < 0 ? 0 : v;
+  }
+
+  function formatCAD(num) {
+    return '$' + num.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function roundTo(num, dec) {
+    var f = Math.pow(10, dec);
+    return Math.round(num * f) / f;
+  }
+
+  function buildRoomCards() {
+    roomsContainer.innerHTML = '';
+    rooms.forEach(function(room, i) {
+      var card = document.createElement('div');
+      card.className = 'dlp-room-card';
+      card.id = 'dlpRoom' + i;
+      card.innerHTML =
+        '<div class="dlp-room-header">' +
+          '<span class="dlp-room-dot" style="background:' + room.color + ';"></span>' +
+          '<span class="dlp-room-name">' + room.name + '</span>' +
+          '<span class="dlp-room-rating">' + room.rating + '</span>' +
+        '</div>' +
+        '<div class="dlp-room-controls">' +
+          '<div class="dlp-slider-wrap">' +
+            '<input type="range" class="dlp-slider" id="dlpSlider' + i + '" min="0" max="100" step="1" value="' + allocations[i] + '" aria-label="' + room.name + ' allocation percentage">' +
+            '<span class="dlp-pct-label" id="dlpPct' + i + '">' + allocations[i] + '%</span>' +
+          '</div>' +
+          '<div style="display:flex;align-items:center;gap:var(--space-1);">' +
+            '<span style="font-size:var(--text-sm);color:var(--color-text-muted);">$</span>' +
+            '<input type="number" class="dlp-amount-input" id="dlpAmt' + i + '" min="0" step="5" value="' + roundTo(getBudget() * allocations[i] / 100, 2) + '" aria-label="' + room.name + ' dollar allocation">' +
+          '</div>' +
+        '</div>' +
+        '<div class="dlp-room-limits" id="dlpLimits' + i + '"></div>';
+      roomsContainer.appendChild(card);
+
+      // Slider event
+      var slider = document.getElementById('dlpSlider' + i);
+      slider.addEventListener('input', function() {
+        allocations[i] = parseInt(this.value, 10);
+        update();
+      });
+
+      // Amount input event
+      var amtInput = document.getElementById('dlpAmt' + i);
+      amtInput.addEventListener('input', function() {
+        var budget = getBudget();
+        var val = parseFloat(this.value);
+        if (isNaN(val) || val < 0) val = 0;
+        if (budget > 0) {
+          allocations[i] = Math.min(100, roundTo((val / budget) * 100, 1));
+        } else {
+          allocations[i] = 0;
+        }
+        update(true);
+      });
+    });
+  }
+
+  function updateLimits(index) {
+    var budget = getBudget();
+    var monthly = roundTo(budget * allocations[index] / 100, 2);
+    var weekly = roundTo(monthly / 4.33, 2);
+    var daily = roundTo(monthly / 30, 2);
+
+    var limitsEl = document.getElementById('dlpLimits' + index);
+    limitsEl.innerHTML =
+      '<div class="dlp-limit-item">' +
+        '<div class="dlp-limit-period">Daily</div>' +
+        '<div class="dlp-limit-value">' + formatCAD(daily) + '</div>' +
+      '</div>' +
+      '<div class="dlp-limit-item">' +
+        '<div class="dlp-limit-period">Weekly</div>' +
+        '<div class="dlp-limit-value">' + formatCAD(weekly) + '</div>' +
+      '</div>' +
+      '<div class="dlp-limit-item">' +
+        '<div class="dlp-limit-period">Monthly</div>' +
+        '<div class="dlp-limit-value">' + formatCAD(monthly) + '</div>' +
+      '</div>';
+  }
+
+  function update(skipAmtSync) {
+    var budget = getBudget();
+    var totalPct = 0;
+    var totalDollars = 0;
+
+    rooms.forEach(function(room, i) {
+      totalPct += allocations[i];
+      var amt = roundTo(budget * allocations[i] / 100, 2);
+      totalDollars += amt;
+
+      // Update slider
+      var slider = document.getElementById('dlpSlider' + i);
+      if (slider) slider.value = allocations[i];
+
+      // Update pct label
+      var pctLabel = document.getElementById('dlpPct' + i);
+      if (pctLabel) pctLabel.textContent = allocations[i] + '%';
+
+      // Update amount input (unless it triggered the update)
+      if (!skipAmtSync) {
+        var amtInput = document.getElementById('dlpAmt' + i);
+        if (amtInput) amtInput.value = roundTo(amt, 2);
+      }
+
+      // Update limits
+      updateLimits(i);
+    });
+
+    // Overview stats
+    allocatedEl.textContent = formatCAD(totalDollars);
+    var remaining = budget - totalDollars;
+    remainingEl.textContent = formatCAD(remaining);
+
+    if (remaining < -0.01) {
+      remainingEl.className = 'dlp-stat-value over';
+    } else if (remaining > 0.01) {
+      remainingEl.className = 'dlp-stat-value under';
+    } else {
+      remainingEl.className = 'dlp-stat-value';
+    }
+
+    // Progress bar
+    var pctUsed = budget > 0 ? Math.min(totalPct, 100) : 0;
+    progressPctEl.textContent = Math.round(totalPct) + '% allocated';
+    if (totalPct > 100) {
+      progressPctEl.style.color = 'var(--color-error)';
+    } else {
+      progressPctEl.style.color = '';
+    }
+
+    // Build segmented bar
+    var html = '';
+    rooms.forEach(function(room, i) {
+      var segPct = budget > 0 ? (allocations[i] / Math.max(totalPct, 100)) * 100 : 0;
+      if (allocations[i] > 0) {
+        html += '<div class="dlp-progress-segment" style="width:' + segPct + '%;background:' + room.color + ';" title="' + room.name + ': ' + allocations[i] + '%"></div>';
+      }
+    });
+    // Remaining gap
+    if (totalPct < 100 && budget > 0) {
+      var gapPct = ((100 - totalPct) / 100) * 100;
+      html += '<div class="dlp-progress-segment" style="width:' + gapPct + '%;background:transparent;"></div>';
+    }
+    progressBar.innerHTML = html;
+
+    // Legend
+    var legendHtml = '';
+    rooms.forEach(function(room, i) {
+      if (allocations[i] > 0) {
+        legendHtml += '<span class="dlp-legend-item"><span class="dlp-legend-dot" style="background:' + room.color + ';"></span>' + room.name + ' (' + allocations[i] + '%)</span>';
+      }
+    });
+    legendContainer.innerHTML = legendHtml;
+  }
+
+  // Budget change
+  budgetInput.addEventListener('input', function() {
+    update();
+  });
+
+  // Export
+  window.exportSummary = function() {
+    var budget = getBudget();
+    var lines = [];
+    lines.push('Ontario Deposit Limit Plan');
+    lines.push('Generated: ' + new Date().toLocaleDateString('en-CA'));
+    lines.push('Total Monthly Budget: ' + formatCAD(budget));
+    lines.push('');
+    lines.push('Room Allocations:');
+    lines.push('-'.repeat(60));
+
+    var totalAllocated = 0;
+    rooms.forEach(function(room, i) {
+      var monthly = roundTo(budget * allocations[i] / 100, 2);
+      var weekly = roundTo(monthly / 4.33, 2);
+      var daily = roundTo(monthly / 30, 2);
+      totalAllocated += monthly;
+
+      lines.push('');
+      lines.push(room.name + ' (' + room.rating + ')');
+      lines.push('  Allocation: ' + allocations[i] + '% = ' + formatCAD(monthly) + '/month');
+      lines.push('  Suggested Daily Limit:   ' + formatCAD(daily));
+      lines.push('  Suggested Weekly Limit:  ' + formatCAD(weekly));
+      lines.push('  Suggested Monthly Limit: ' + formatCAD(monthly));
+    });
+
+    lines.push('');
+    lines.push('-'.repeat(60));
+    lines.push('Total Allocated: ' + formatCAD(totalAllocated) + ' of ' + formatCAD(budget));
+    lines.push('Remaining: ' + formatCAD(budget - totalAllocated));
+    lines.push('');
+    lines.push('Remember: Set these limits in each room\'s Responsible Gambling settings.');
+    lines.push('Decreases take effect immediately. Increases require a 24-hour wait.');
+    lines.push('');
+    lines.push('Generated at OntarioPoker.com/deposit-limit-planner');
+
+    var text = lines.join('\n');
+
+    // Try to use the print dialog or fallback to download
+    if (window.matchMedia) {
+      var blob = new Blob([text], { type: 'text/plain' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'deposit-limit-plan.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  };
+
+  // Reset
+  window.resetAllocations = function() {
+    rooms.forEach(function(room, i) {
+      allocations[i] = room.defaultPct;
+    });
+    budgetInput.value = 500;
+    update();
+  };
+
+  // Init
+  buildRoomCards();
+  update();
+
+  // FAQ toggle chevron rotation
+  document.querySelectorAll('details').forEach(function(d) {
+    d.addEventListener('toggle', function() {
+      var svg = this.querySelector('summary svg');
+      if (svg) {
+        svg.style.transform = this.open ? 'rotate(180deg)' : '';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

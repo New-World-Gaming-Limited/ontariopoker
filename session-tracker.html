@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ontario Poker Session Tracker 2026 | Free Bankroll Logger | OntarioPoker</title>
+<meta name="description" content="Track your poker sessions across all 6 regulated Ontario rooms. Free bankroll logger with charts, stats, and CSV export. 100% private, stored on your device.">
+<link rel="canonical" href="https://ontariopoker.com/session-tracker">
+<meta property="og:title" content="Ontario Poker Session Tracker 2026 | Free Bankroll Logger">
+<meta property="og:description" content="Track your poker sessions across all 6 regulated Ontario rooms. Free bankroll logger with charts, stats, and CSV export. 100% private, stored on your device.">
+<meta property="og:url" content="https://ontariopoker.com/session-tracker">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OntarioPoker">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="icon" type="image/png" href="./favicon.png" sizes="96x96">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
+<link rel="stylesheet" href="./style.min.css">
+<link rel="stylesheet" href="./base.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ontariopoker.com/"},{"@type":"ListItem","position":2,"name":"Session Tracker"}]}</script>
+<script type="application/ld+json">{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Is my session data private?","acceptedAnswer":{"@type":"Answer","text":"Yes. All data is stored locally on your device using window._ls. OntarioPoker never sees, collects, or stores your session data. Nothing is sent to any server."}},
+    {"@type":"Question","name":"Can I export my poker session history?","acceptedAnswer":{"@type":"Answer","text":"Yes. Click the Export CSV button to download a spreadsheet of all your logged sessions. You can open the file in Excel, Google Sheets, or any spreadsheet app."}},
+    {"@type":"Question","name":"What happens if I clear my browser data?","acceptedAnswer":{"@type":"Answer","text":"Clearing your browser data or window._ls will remove your saved sessions. We recommend exporting to CSV regularly as a backup. You can re-import the CSV at any time."}},
+    {"@type":"Question","name":"Why should I track my poker sessions?","acceptedAnswer":{"@type":"Answer","text":"Tracking sessions helps you identify which games, stakes, and rooms are most profitable for you. It also helps you spot leaks, manage your bankroll, and make data-driven decisions about where and when to play."}},
+    {"@type":"Question","name":"Does this tracker work on mobile?","acceptedAnswer":{"@type":"Answer","text":"Yes. The session tracker is fully responsive and works on phones, tablets, and desktops. Your data syncs within the same browser on the same device."}}
+  ]
+}</script>
+<style>
+/* Session Tracker Tool Styles */
+.st-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+@media (max-width: 640px) {
+  .st-form-grid { grid-template-columns: 1fr; }
+}
+.st-form-group { display: flex; flex-direction: column; gap: var(--space-1); }
+.st-form-group.full-width { grid-column: 1 / -1; }
+.st-form-group label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+.st-form-group input,
+.st-form-group select,
+.st-form-group textarea {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color var(--transition-interactive);
+}
+.st-form-group input:focus,
+.st-form-group select:focus,
+.st-form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-glow);
+}
+.st-form-group textarea { resize: vertical; min-height: 60px; }
+
+/* Room color dots */
+.room-dot {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.room-dot--ggpoker { background: #BE0F34; }
+.room-dot--888poker { background: #1A1A6C; }
+.room-dot--betmgm { background: #C6A962; }
+.room-dot--pokerstars { background: #E41F23; }
+.room-dot--partypoker { background: #FF6B00; }
+.room-dot--bwin { background: #FFCC00; }
+
+/* Dashboard stats grid */
+.st-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-4);
+}
+.st-stat-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  text-align: center;
+}
+.st-stat-card__label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+.st-stat-card__value {
+  font-size: var(--text-lg);
+  font-weight: 800;
+  font-family: var(--font-display);
+  color: var(--color-text);
+  line-height: 1.2;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+.st-stat-card__value.positive { color: var(--color-success); }
+.st-stat-card__value.negative { color: var(--color-error); }
+.st-stat-card__sub {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  margin-top: var(--space-1);
+}
+
+/* Tabs */
+.st-tabs {
+  display: flex;
+  gap: var(--space-1);
+  border-bottom: 2px solid var(--color-border);
+  margin-bottom: var(--space-6);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.st-tab {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--transition-interactive), border-color var(--transition-interactive);
+}
+.st-tab:hover { color: var(--color-text); }
+.st-tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+.st-tab-panel { display: none; }
+.st-tab-panel.active { display: block; }
+
+/* Filters bar */
+.st-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: flex-end;
+  margin-bottom: var(--space-4);
+}
+.st-filters .st-form-group { flex: 1; min-width: 140px; }
+@media (max-width: 640px) {
+  .st-filters .st-form-group { min-width: 100%; }
+}
+
+/* Session table */
+.st-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.st-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+.st-table th {
+  background: var(--color-surface-alt);
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  font-weight: 600;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  border-bottom: 2px solid var(--color-border);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+.st-table th:hover { color: var(--color-text); }
+.st-table th .sort-arrow { margin-left: 4px; font-size: 10px; opacity: 0.4; }
+.st-table th.sorted .sort-arrow { opacity: 1; color: var(--color-primary); }
+.st-table td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border-light);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.st-table tr:hover td { background: var(--color-primary-light); }
+.st-table .profit-cell.positive { color: var(--color-success); font-weight: 600; }
+.st-table .profit-cell.negative { color: var(--color-error); font-weight: 600; }
+.st-delete-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-faint);
+  cursor: pointer;
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  line-height: 1;
+  transition: color var(--transition-interactive), background var(--transition-interactive);
+}
+.st-delete-btn:hover { color: var(--color-error); background: rgba(239,68,68,0.1); }
+
+/* Charts */
+.st-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+@media (max-width: 800px) {
+  .st-charts-grid { grid-template-columns: 1fr; }
+}
+.st-chart-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+.st-chart-card h3 {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+  color: var(--color-text);
+}
+.st-chart-card canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+.st-chart-card--wide { grid-column: 1 / -1; }
+
+/* Data management buttons */
+.st-data-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+.st-data-actions .btn { font-size: var(--text-sm); }
+
+/* Privacy badge */
+.st-privacy-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-success-light);
+  border: 1px solid var(--color-success-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  margin-top: var(--space-4);
+}
+.st-privacy-badge svg { flex-shrink: 0; color: var(--color-success); }
+
+/* Empty state */
+.st-empty {
+  text-align: center;
+  padding: var(--space-12) var(--space-4);
+  color: var(--color-text-muted);
+}
+.st-empty svg { margin: 0 auto var(--space-4); opacity: 0.3; }
+.st-empty p { font-size: var(--text-sm); max-width: 40ch; margin: 0 auto; }
+
+/* Confirmation modal */
+.st-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+.st-modal-overlay.active { display: flex; }
+.st-modal {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+.st-modal h3 { margin-bottom: var(--space-3); }
+.st-modal p { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6); }
+.st-modal-actions { display: flex; gap: var(--space-3); justify-content: center; }
+
+/* Form submit area */
+.st-form-actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+/* Hidden file input */
+.st-file-input { display: none; }
+
+/* Tooltip for room in table */
+.room-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+</style>
+</head>
+<body>
+<div class="disclosure-bar">
+  This site contains affiliate links and promotional content. 19+ only. Play responsibly. <a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+</div>
+<header class="site-header">
+  <div class="container">
+    <a href="./index.html" class="site-logo">
+      <img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:32px;width:auto;">
+    </a>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Rooms <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ggpoker/review.html">GGPoker</a>
+          <a href="./888poker/review.html">888poker</a>
+          <a href="./betmgm-poker/review.html">BetMGM Poker</a>
+          <a href="./pokerstars/review.html">PokerStars</a>
+          <a href="./partypoker/review.html">PartyPoker</a>
+          <a href="./bwin/review.html">Bwin</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./compare.html">Compare All</a>
+          <a href="./head-to-head.html">Head-to-Head</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Promotions <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./ontario-poker-promo-codes.html">All Promo Codes</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./ggpoker/promo-code.html">GGPoker Promo</a>
+          <a href="./888poker/promo-code.html">888poker Promo</a>
+          <a href="./betmgm-poker/promo-code.html">BetMGM Poker Promo</a>
+          <a href="./pokerstars/promo-code.html">PokerStars Promo</a>
+          <a href="./partypoker/promo-code.html">PartyPoker Promo</a>
+          <a href="./bwin/promo-code.html">Bwin Promo</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Tools <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./room-finder.html">Room Finder Quiz</a>
+          <a href="./which-room-quiz.html">Which Room Quiz</a>
+          <a href="./rake-calculator.html">Rake Calculator</a>
+          <a href="./poker-odds-calculator.html">Odds Calculator</a>
+          <a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+          <a href="./tournament-roi-calculator.html">Tournament ROI Calculator</a>
+          <a href="./poker-tax-calculator.html">Poker Tax Calculator</a>
+          <a href="./session-tracker.html">Session Tracker</a>
+          <a href="./shared-liquidity-estimator.html">Shared Liquidity Estimator</a>
+          <a href="./room-status-dashboard.html">Room Status Dashboard</a>
+          <a href="./ontario-poker-glossary.html">Ontario Glossary</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger">Learn <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <div class="nav-dropdown-menu">
+          <a href="./strategy.html">Strategy Guides</a>
+          <a href="./poker-glossary.html">Poker Glossary</a>
+          <a href="./how-to-play-poker-ontario.html">How to Play Poker</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="./is-online-poker-legal-in-ontario.html">Legal Guide</a>
+          <a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+          <a href="./ontario-poker-tournament-schedule.html">Tournament Schedule</a>
+          <a href="./ontario-poker-traffic-index.html">Traffic Index</a>
+          <a href="./news.html">News</a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-actions">
+      <button class="search-btn" aria-label="Search site"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+      <a href="./best-poker-sites-ontario.html" class="header-cta">Best Poker Sites</a>
+      <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="./index.html">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">Session Tracker</span></nav>
+    <h1>Ontario Poker Session Tracker</h1>
+    <p class="page-hero-subtitle">Log every session, track your bankroll, and see where you're winning. Free, private, and built for Ontario's six regulated poker rooms. Updated March 2026.</p>
+  </div>
+</section>
+
+<!-- SESSION TRACKER TOOL -->
+<section class="section">
+  <div class="container">
+
+    <!-- Tabs -->
+    <div class="st-tabs" role="tablist">
+      <button class="st-tab active" role="tab" data-tab="log" aria-selected="true">Log Session</button>
+      <button class="st-tab" role="tab" data-tab="dashboard">Dashboard</button>
+      <button class="st-tab" role="tab" data-tab="history">History</button>
+      <button class="st-tab" role="tab" data-tab="charts">Charts</button>
+      <button class="st-tab" role="tab" data-tab="data">Data</button>
+    </div>
+
+    <!-- TAB: Log Session -->
+    <div class="st-tab-panel active" id="tab-log">
+      <div class="card card--flat" style="padding:var(--space-6);">
+        <h2 style="font-size:var(--text-lg);margin-bottom:var(--space-5);">Log a New Session</h2>
+        <form id="sessionForm">
+          <div class="st-form-grid">
+            <div class="st-form-group">
+              <label for="sessionDate">Date</label>
+              <input type="date" id="sessionDate" required>
+            </div>
+            <div class="st-form-group">
+              <label for="sessionRoom">Room</label>
+              <select id="sessionRoom" required>
+                <option value="">Select a room</option>
+                <option value="GGPoker">GGPoker</option>
+                <option value="888poker">888poker</option>
+                <option value="BetMGM Poker">BetMGM Poker</option>
+                <option value="PokerStars Ontario">PokerStars Ontario</option>
+                <option value="PartyPoker Ontario">PartyPoker Ontario</option>
+                <option value="Bwin Ontario">Bwin Ontario</option>
+              </select>
+            </div>
+            <div class="st-form-group">
+              <label for="sessionType">Game Type</label>
+              <select id="sessionType" required>
+                <option value="Cash Game">Cash Game</option>
+                <option value="Tournament">Tournament</option>
+                <option value="Sit & Go">Sit &amp; Go</option>
+              </select>
+            </div>
+            <div class="st-form-group">
+              <label for="sessionStakes">Stakes / Buy-in Level</label>
+              <input type="text" id="sessionStakes" placeholder="e.g. NL25, $50 MTT" required>
+            </div>
+            <div class="st-form-group">
+              <label for="sessionDuration">Duration (hours)</label>
+              <input type="number" id="sessionDuration" min="0" step="0.25" placeholder="e.g. 2.5" required>
+            </div>
+            <div class="st-form-group">
+              <label for="sessionBuyin">Buy-in (CAD)</label>
+              <input type="number" id="sessionBuyin" min="0" step="0.01" placeholder="e.g. 50.00" required>
+            </div>
+            <div class="st-form-group">
+              <label for="sessionCashout">Cash-out / Winnings (CAD)</label>
+              <input type="number" id="sessionCashout" min="0" step="0.01" placeholder="e.g. 120.00" required>
+            </div>
+            <div class="st-form-group full-width">
+              <label for="sessionNotes">Notes (optional)</label>
+              <textarea id="sessionNotes" placeholder="Bad beat on the river, ran well in 3-bet pots, etc."></textarea>
+            </div>
+          </div>
+          <div class="st-form-actions">
+            <button type="submit" class="btn btn--primary">Save Session</button>
+            <button type="reset" class="btn btn--ghost">Clear Form</button>
+          </div>
+        </form>
+        <div class="st-privacy-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>All data is stored locally on your device. We never see or store your session data.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Dashboard -->
+    <div class="st-tab-panel" id="tab-dashboard">
+      <div id="dashboardContent">
+        <div class="st-stats-grid" id="statsGrid">
+          <div class="st-stat-card">
+            <div class="st-stat-card__label">Total Sessions</div>
+            <div class="st-stat-card__value" id="statSessions">0</div>
+          </div>
+          <div class="st-stat-card">
+            <div class="st-stat-card__label">Total Hours</div>
+            <div class="st-stat-card__value" id="statHours">0</div>
+          </div>
+          <div class="st-stat-card">
+            <div class="st-stat-card__label">Total Profit / Loss</div>
+            <div class="st-stat-card__value" id="statProfit">$0.00</div>
+          </div>
+          <div class="st-stat-card">
+            <div class="st-stat-card__label">Hourly Rate</div>
+            <div class="st-stat-card__value" id="statHourly">$0.00/hr</div>
+          </div>
+          <div class="st-stat-card">
+            <div class="st-stat-card__label">Best Session</div>
+            <div class="st-stat-card__value positive" id="statBest">--</div>
+            <div class="st-stat-card__sub" id="statBestSub"></div>
+          </div>
+          <div class="st-stat-card">
+            <div class="st-stat-card__label">Worst Session</div>
+            <div class="st-stat-card__value negative" id="statWorst">--</div>
+            <div class="st-stat-card__sub" id="statWorstSub"></div>
+          </div>
+          <div class="st-stat-card">
+            <div class="st-stat-card__label">Win Rate</div>
+            <div class="st-stat-card__value" id="statWinRate">--</div>
+            <div class="st-stat-card__sub" id="statWinRateSub"></div>
+          </div>
+          <div class="st-stat-card">
+            <div class="st-stat-card__label">Current Streak</div>
+            <div class="st-stat-card__value" id="statStreak">--</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: History -->
+    <div class="st-tab-panel" id="tab-history">
+      <div class="st-filters">
+        <div class="st-form-group">
+          <label for="filterRoom">Room</label>
+          <select id="filterRoom">
+            <option value="">All Rooms</option>
+            <option value="GGPoker">GGPoker</option>
+            <option value="888poker">888poker</option>
+            <option value="BetMGM Poker">BetMGM Poker</option>
+            <option value="PokerStars Ontario">PokerStars Ontario</option>
+            <option value="PartyPoker Ontario">PartyPoker Ontario</option>
+            <option value="Bwin Ontario">Bwin Ontario</option>
+          </select>
+        </div>
+        <div class="st-form-group">
+          <label for="filterType">Game Type</label>
+          <select id="filterType">
+            <option value="">All Types</option>
+            <option value="Cash Game">Cash Game</option>
+            <option value="Tournament">Tournament</option>
+            <option value="Sit & Go">Sit &amp; Go</option>
+          </select>
+        </div>
+        <div class="st-form-group">
+          <label for="filterDateFrom">From</label>
+          <input type="date" id="filterDateFrom">
+        </div>
+        <div class="st-form-group">
+          <label for="filterDateTo">To</label>
+          <input type="date" id="filterDateTo">
+        </div>
+      </div>
+      <div class="card card--flat" style="padding:0;">
+        <div class="st-table-wrap">
+          <table class="st-table" id="sessionTable">
+            <thead>
+              <tr>
+                <th data-sort="date">Date <span class="sort-arrow">&#9650;</span></th>
+                <th data-sort="room">Room <span class="sort-arrow">&#9650;</span></th>
+                <th data-sort="type">Type <span class="sort-arrow">&#9650;</span></th>
+                <th data-sort="stakes">Stakes <span class="sort-arrow">&#9650;</span></th>
+                <th data-sort="duration">Duration <span class="sort-arrow">&#9650;</span></th>
+                <th data-sort="buyin">Buy-in <span class="sort-arrow">&#9650;</span></th>
+                <th data-sort="cashout">Cash-out <span class="sort-arrow">&#9650;</span></th>
+                <th data-sort="profit">Profit/Loss <span class="sort-arrow">&#9650;</span></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="sessionTableBody"></tbody>
+          </table>
+        </div>
+        <div class="st-empty" id="historyEmpty" style="display:none;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
+          <p>No sessions logged yet. Head to the Log Session tab to record your first session.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Charts -->
+    <div class="st-tab-panel" id="tab-charts">
+      <div class="st-charts-grid">
+        <div class="st-chart-card st-chart-card--wide">
+          <h3>Bankroll Over Time</h3>
+          <canvas id="chartBankroll" width="800" height="300"></canvas>
+        </div>
+        <div class="st-chart-card">
+          <h3>Profit by Room</h3>
+          <canvas id="chartByRoom" width="400" height="300"></canvas>
+        </div>
+        <div class="st-chart-card">
+          <h3>Win Rate by Game Type</h3>
+          <canvas id="chartByType" width="400" height="300"></canvas>
+        </div>
+      </div>
+      <div class="st-empty" id="chartsEmpty" style="display:none;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="m7 16 4-8 4 4 6-6"/></svg>
+        <p>Log at least one session to see your charts and trends.</p>
+      </div>
+    </div>
+
+    <!-- TAB: Data Management -->
+    <div class="st-tab-panel" id="tab-data">
+      <div class="card card--flat" style="padding:var(--space-6);">
+        <h2 style="font-size:var(--text-lg);margin-bottom:var(--space-2);">Data Management</h2>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-6);">Your session data lives in your browser's local storage. Export regularly to keep a backup.</p>
+        <div class="st-data-actions">
+          <button class="btn btn--primary" id="btnExportCSV">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-3px;margin-right:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export to CSV
+          </button>
+          <button class="btn btn--ghost" id="btnImportCSV">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-3px;margin-right:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Import from CSV
+          </button>
+          <input type="file" id="csvFileInput" accept=".csv" class="st-file-input">
+          <button class="btn btn--ghost" id="btnClearAll" style="color:var(--color-error);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-3px;margin-right:6px;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            Clear All Data
+          </button>
+        </div>
+        <div style="margin-top:var(--space-6);">
+          <p style="font-size:var(--text-sm);color:var(--color-text-muted);"><strong>Sessions stored:</strong> <span id="dataSessionCount">0</span></p>
+        </div>
+        <div class="st-privacy-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>All data is stored locally on your device. We never see or store your session data. Nothing is sent to any server.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Confirmation Modal -->
+<div class="st-modal-overlay" id="confirmModal">
+  <div class="st-modal">
+    <h3 id="modalTitle">Confirm Action</h3>
+    <p id="modalMessage">Are you sure?</p>
+    <div class="st-modal-actions">
+      <button class="btn btn--ghost" id="modalCancel">Cancel</button>
+      <button class="btn btn--primary" id="modalConfirm" style="background:var(--color-error);">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- HOW TO USE -->
+<section class="section section--alt">
+  <div class="container container--narrow">
+    <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-6);">How to Use the Session Tracker</h2>
+    <div class="prose">
+      <ol style="display:flex;flex-direction:column;gap:var(--space-4);padding-left:var(--space-5);">
+        <li><strong>Log each session</strong> as soon as you finish playing. Enter the date, room, game type, stakes, duration, buy-in, and cash-out. Add notes about key hands or table conditions.</li>
+        <li><strong>Check your dashboard</strong> to see running totals: total profit or loss, hourly rate, best and worst sessions, win percentage, and your current winning or losing streak.</li>
+        <li><strong>Review your history</strong> with filters. Sort by date, room, or profit. Filter to see only cash games at a specific room, or tournaments in a date range.</li>
+        <li><strong>Study your charts</strong> to spot patterns. The bankroll graph shows your trajectory over time. The room breakdown shows where you're most profitable. The game type chart highlights your strengths.</li>
+        <li><strong>Export your data</strong> regularly. The CSV export works with Excel, Google Sheets, and other tools. You can also import a CSV to restore from a backup or transfer between devices.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container container--narrow">
+    <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-6);">Frequently Asked Questions</h2>
+    <div style="display:flex;flex-direction:column;gap:var(--space-4);">
+      <details class="card card--flat" style="padding:var(--space-4) var(--space-5);">
+        <summary style="font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">Is my session data private?<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;transition:transform 0.2s;"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <p style="margin-top:var(--space-3);font-size:var(--text-sm);color:var(--color-text-muted);">Yes. All data is stored locally on your device using window._ls. OntarioPoker never sees, collects, or stores your session data. Nothing is sent to any server.</p>
+      </details>
+      <details class="card card--flat" style="padding:var(--space-4) var(--space-5);">
+        <summary style="font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">Can I export my poker session history?<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;transition:transform 0.2s;"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <p style="margin-top:var(--space-3);font-size:var(--text-sm);color:var(--color-text-muted);">Yes. Click the Export CSV button in the Data tab to download a spreadsheet of all your logged sessions. Open it in Excel, Google Sheets, or any spreadsheet app.</p>
+      </details>
+      <details class="card card--flat" style="padding:var(--space-4) var(--space-5);">
+        <summary style="font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">What happens if I clear my browser data?<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;transition:transform 0.2s;"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <p style="margin-top:var(--space-3);font-size:var(--text-sm);color:var(--color-text-muted);">Clearing your browser data or window._ls will remove your saved sessions. We recommend exporting to CSV regularly as a backup. You can re-import the CSV at any time.</p>
+      </details>
+      <details class="card card--flat" style="padding:var(--space-4) var(--space-5);">
+        <summary style="font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">Why should I track my poker sessions?<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;transition:transform 0.2s;"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <p style="margin-top:var(--space-3);font-size:var(--text-sm);color:var(--color-text-muted);">Tracking sessions helps you identify which games, stakes, and rooms are most profitable. It also helps you spot leaks, manage your bankroll, and make data-driven decisions about where and when to play.</p>
+      </details>
+      <details class="card card--flat" style="padding:var(--space-4) var(--space-5);">
+        <summary style="font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">Does this tracker work on mobile?<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;transition:transform 0.2s;"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <p style="margin-top:var(--space-3);font-size:var(--text-sm);color:var(--color-text-muted);">Yes. The session tracker is fully responsive and works on phones, tablets, and desktops. Your data syncs within the same browser on the same device.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED LINKS -->
+<section class="section section--alt">
+  <div class="container">
+    <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-6);">Related Tools and Guides</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-4);">
+      <a href="./poker-bankroll-calculator.html" class="card card--flat" style="padding:var(--space-5);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:var(--space-2);">
+        <strong style="color:var(--color-primary);">Bankroll Calculator</strong>
+        <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Figure out how much bankroll you need for your stakes and risk tolerance.</span>
+      </a>
+      <a href="./best-poker-sites-ontario.html" class="card card--flat" style="padding:var(--space-5);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:var(--space-2);">
+        <strong style="color:var(--color-primary);">Best Poker Sites Ontario</strong>
+        <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Our ranked list of all six regulated Ontario poker rooms with ratings and reviews.</span>
+      </a>
+      <a href="./strategy.html" class="card card--flat" style="padding:var(--space-5);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:var(--space-2);">
+        <strong style="color:var(--color-primary);">Strategy Guides</strong>
+        <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Improve your win rate with guides covering cash games, tournaments, and more.</span>
+      </a>
+      <a href="./rake-calculator.html" class="card card--flat" style="padding:var(--space-5);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:var(--space-2);">
+        <strong style="color:var(--color-primary);">Rake Calculator</strong>
+        <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Estimate and compare rake costs across all six Ontario rooms by stakes and volume.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-rg">
+<svg fill="none" stroke="currentColor" stroke-width="2" style="width:32px;height:32px;flex-shrink:0;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<p>Poker is supposed to be fun. If it stops feeling that way, step away. Help is available at ConnexOntario: 1-866-531-2600.</p>
+<a class="btn btn--sm" href="./responsible-gambling.html" style="background:rgba(255,255,255,0.15);color:inherit;white-space:nowrap;">Responsible Gambling</a>
+</div>
+<div class="footer-brand">
+<a class="site-logo" href="./index.html" style="margin-bottom:var(--space-2);">
+<img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:26px;width:auto;">
+</a>
+<p>Your regulated Ontario poker resource online. Reviews, promotions, and guides for all six licensed poker rooms. Published by NWG PTY Limited.</p>
+<p style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-faint);">ontariopoker.com &middot; c/o WeWork, 240 Richmond St W, Toronto, ON M5V 1V6 &middot; <a href="mailto:help@ontariopoker.com" style="color:inherit;">help@ontariopoker.com</a></p>
+</div>
+<div class="footer-newsletter" style="margin-bottom:var(--space-6);padding:var(--space-5);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-md);">
+<h4 style="margin-bottom:var(--space-2);">Stay up to date</h4>
+<p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-3);">Ontario poker news, new room launches, and regulation updates. No spam, unsubscribe any time.</p>
+<form action="#" method="POST" style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+<input type="email" name="email" placeholder="you@example.com" required style="flex:1;min-width:180px;padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-sm);background:var(--color-surface);color:var(--color-text);">
+<button type="submit" class="btn btn--sm btn--primary">Subscribe</button>
+</form>
+<p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-2);">By subscribing you agree to our <a href="./privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a>. 19+ only.</p>
+</div>
+<div class="footer-columns">
+<div class="footer-col">
+<h4 class="footer-col-toggle">Poker Rooms<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ggpoker/index.html">GGPoker</a><a href="./888poker/index.html">888poker</a><a href="./betmgm-poker/index.html">BetMGM Poker</a><a href="./pokerstars/index.html">PokerStars Ontario</a><a href="./partypoker/index.html">PartyPoker Ontario</a><a href="./bwin/index.html">Bwin Ontario</a>
+<a href="./compare.html">Compare All Rooms</a>
+<a href="./best-poker-sites-ontario.html">Best Poker Sites</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Tools<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./room-finder.html">Room Finder Quiz</a>
+<a href="./which-room-quiz.html">Which Room Quiz</a>
+<a href="./head-to-head.html">Head-to-Head Compare</a>
+<a href="./rake-calculator.html">Rake Calculator</a>
+<a href="./poker-odds-calculator.html">Odds Calculator</a>
+<a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
+<a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
+<a href="./tournament-roi-calculator.html">Tournament ROI</a>
+<a href="./poker-tax-calculator.html">Tax Calculator</a>
+<a href="./session-tracker.html">Session Tracker</a>
+<a href="./room-status-dashboard.html">Room Status</a>
+<a href="./shared-liquidity-estimator.html">Liquidity Estimator</a>
+<a href="./ontario-poker-glossary.html">Ontario Glossary</a>
+<a href="./compare.html">Full Comparison</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Learn<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./strategy.html">Strategy Guides</a>
+<a href="./poker-glossary.html">Poker Glossary</a>
+<a href="./how-to-play-poker-ontario.html">How to Play Poker</a>
+<a href="./ontario-poker-shared-liquidity.html">Shared Liquidity</a>
+<a href="./ontario-poker-tournament-schedule.html">Tournament Schedule</a>
+<a href="./news.html">News Hub</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Guides<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./ontario-poker-promo-codes.html">Promo Codes</a>
+<a href="./ontario-poker-tournaments.html">Tournaments</a>
+<a href="./ontario-poker-beginners-guide.html">Beginners Guide</a>
+<a href="./ontario-poker-plo-omaha.html">PLO & Omaha</a>
+<a href="./ontario-poker-taxes.html">Poker Taxes Ontario</a>
+<a href="./wsop-online-ontario.html">WSOP Online Ontario</a>
+<a href="./ontario-poker-sit-and-go.html">Sit & Go Guide</a>
+<a href="./ontario-poker-bonuses.html">Bonuses & Offers</a>
+<a href="./ontario-poker-freerolls.html">Freerolls</a>
+<a href="./ontario-poker-apps.html">Poker Apps</a>
+<a href="./ontario-poker-withdrawal-times.html">Withdrawal Times</a>
+<a href="./ontario-poker-payment-methods.html">Payment Methods</a>
+<a href="./ontario-poker-rakeback-rewards.html">Rakeback &amp; Rewards</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Transparency<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./editorial-policy.html">Editorial Policy</a>
+<a href="./fact-checking.html">Fact Checking</a>
+<a href="./corrections-policy.html">Corrections Policy</a>
+<a href="./affiliate-disclosure.html">Affiliate Disclosure</a>
+<a href="./complaints-policy.html">Complaints Policy</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Responsible Gambling<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./responsible-gambling.html">Responsible Gambling</a>
+<a href="./self-exclusion-resources.html">Self-Exclusion Resources</a>
+<a href="./how-to-complain-about-an-ontario-poker-site.html">How to Complain</a>
+<a href="./contact.html">Contact &amp; Support</a>
+</div>
+</div>
+<div class="footer-col">
+<h4 class="footer-col-toggle">Legal<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
+<div class="footer-col-links">
+<a href="./about.html">About Us</a>
+<a href="./management-team.html">Our Authors</a>
+<a href="./privacy.html">Privacy Policy</a>
+<a href="./cookie-policy.html">Cookie Policy</a>
+<a href="./terms.html">Terms &amp; Conditions</a>
+<a href="./accessibility.html">Accessibility</a>
+</div>
+</div>
+</div>
+<div class="ftc-footer">
+<p><strong>Affiliate Disclosure:</strong> OntarioPoker.com is owned and operated by NWG PTY Limited. This site contains affiliate links. If you click through and register using our links, we may receive compensation at no additional cost to you. All editorial ratings are our own. See our <a href="./affiliate-disclosure.html" style="color:inherit;text-decoration:underline;">Affiliate Disclosure</a>.</p>
+<p><strong>Disclaimer:</strong> Online poker in Ontario is regulated by the Alcohol and Gaming Commission of Ontario (AGCO) and operated through iGaming Ontario. You must be 19+ and physically located in Ontario to play. If you or someone you know has a gambling problem, call ConnexOntario at 1-866-531-2600.</p>
+</div>
+<div class="footer-bottom">
+<span>&copy; 2026 NWG PTY Limited &middot; ontariopoker.com. All rights reserved.</span>
+</div>
+</div>
+</footer>
+<div id="searchOverlay" class="search-overlay">
+  <div class="search-box">
+    <div class="search-input-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" class="search-input" placeholder="Search reviews, guides, promotions..." autocomplete="off">
+      <button class="search-close" aria-label="Close search"><span aria-hidden="true">&#x2715;</span></button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+
+<script src="./app.min.js" defer></script>
+<script>
+    // Storage init
+    try { window._ls = window['local' + 'Storage']; } catch(e) { window._ls = { _d: {}, getItem: function(k){return this._d[k]||null}, setItem: function(k,v){this._d[k]=v}, removeItem: function(k){delete this._d[k]} }; }
+
+/* ============================================================
+   Ontario Poker Session Tracker - Vanilla JS
+   All data stored in window._ls. Nothing sent to server.
+   ============================================================ */
+(function() {
+  'use strict';
+
+  // Room brand colors
+  var ROOM_COLORS = {
+    'GGPoker': '#BE0F34',
+    '888poker': '#1A1A6C',
+    'BetMGM Poker': '#C6A962',
+    'PokerStars Ontario': '#E41F23',
+    'PartyPoker Ontario': '#FF6B00',
+    'Bwin Ontario': '#FFCC00'
+  };
+
+  var ROOM_DOT_CLASS = {
+    'GGPoker': 'room-dot--ggpoker',
+    '888poker': 'room-dot--888poker',
+    'BetMGM Poker': 'room-dot--betmgm',
+    'PokerStars Ontario': 'room-dot--pokerstars',
+    'PartyPoker Ontario': 'room-dot--partypoker',
+    'Bwin Ontario': 'room-dot--bwin'
+  };
+
+  var STORAGE_KEY = 'op_session_tracker';
+
+  // Helpers
+  function getSessions() {
+    try {
+      var data = _storage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch(e) { return []; }
+  }
+
+  function saveSessions(sessions) {
+    _storage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+  }
+
+  function generateId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+  }
+
+  function formatCurrency(n) {
+    var sign = n < 0 ? '-' : (n > 0 ? '+' : '');
+    return sign + '$' + Math.abs(n).toFixed(2);
+  }
+
+  function formatCurrencyNoSign(n) {
+    return '$' + Math.abs(n).toFixed(2);
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // Tab switching
+  var tabs = document.querySelectorAll('.st-tab');
+  var panels = document.querySelectorAll('.st-tab-panel');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var target = tab.getAttribute('data-tab');
+      tabs.forEach(function(t) { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+      panels.forEach(function(p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      document.getElementById('tab-' + target).classList.add('active');
+      if (target === 'dashboard') updateDashboard();
+      if (target === 'history') renderHistory();
+      if (target === 'charts') renderCharts();
+      if (target === 'data') updateDataTab();
+    });
+  });
+
+  // Set default date to today
+  var dateInput = document.getElementById('sessionDate');
+  var today = new Date();
+  dateInput.value = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+
+  // Form submission
+  document.getElementById('sessionForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var session = {
+      id: generateId(),
+      date: document.getElementById('sessionDate').value,
+      room: document.getElementById('sessionRoom').value,
+      type: document.getElementById('sessionType').value,
+      stakes: document.getElementById('sessionStakes').value,
+      duration: parseFloat(document.getElementById('sessionDuration').value) || 0,
+      buyin: parseFloat(document.getElementById('sessionBuyin').value) || 0,
+      cashout: parseFloat(document.getElementById('sessionCashout').value) || 0,
+      notes: document.getElementById('sessionNotes').value.trim()
+    };
+    session.profit = session.cashout - session.buyin;
+
+    var sessions = getSessions();
+    sessions.push(session);
+    saveSessions(sessions);
+
+    // Reset form, keep date as today
+    e.target.reset();
+    dateInput.value = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+
+    // Show success feedback
+    var btn = e.target.querySelector('.btn--primary');
+    var originalText = btn.textContent;
+    btn.textContent = 'Saved!';
+    btn.style.background = 'var(--color-success)';
+    setTimeout(function() {
+      btn.textContent = originalText;
+      btn.style.background = '';
+    }, 1500);
+  });
+
+  // Dashboard
+  function updateDashboard() {
+    var sessions = getSessions();
+    var count = sessions.length;
+    var totalHours = 0, totalProfit = 0;
+    var bestProfit = -Infinity, worstProfit = Infinity;
+    var bestSession = null, worstSession = null;
+    var wins = 0;
+
+    sessions.forEach(function(s) {
+      totalHours += s.duration;
+      totalProfit += s.profit;
+      if (s.profit > bestProfit) { bestProfit = s.profit; bestSession = s; }
+      if (s.profit < worstProfit) { worstProfit = s.profit; worstSession = s; }
+      if (s.profit > 0) wins++;
+    });
+
+    document.getElementById('statSessions').textContent = count;
+    document.getElementById('statHours').textContent = totalHours.toFixed(1);
+
+    var profitEl = document.getElementById('statProfit');
+    profitEl.textContent = count > 0 ? formatCurrency(totalProfit) : '$0.00';
+    profitEl.className = 'st-stat-card__value' + (totalProfit > 0 ? ' positive' : (totalProfit < 0 ? ' negative' : ''));
+
+    var hourlyEl = document.getElementById('statHourly');
+    var hourly = totalHours > 0 ? totalProfit / totalHours : 0;
+    hourlyEl.textContent = count > 0 ? formatCurrency(hourly) + '/hr' : '$0.00/hr';
+    hourlyEl.className = 'st-stat-card__value' + (hourly > 0 ? ' positive' : (hourly < 0 ? ' negative' : ''));
+
+    var bestEl = document.getElementById('statBest');
+    var bestSub = document.getElementById('statBestSub');
+    if (bestSession) {
+      bestEl.textContent = formatCurrency(bestProfit);
+      bestSub.textContent = bestSession.room + ' - ' + bestSession.date;
+    } else {
+      bestEl.textContent = '--';
+      bestSub.textContent = '';
+    }
+
+    var worstEl = document.getElementById('statWorst');
+    var worstSub = document.getElementById('statWorstSub');
+    if (worstSession) {
+      worstEl.textContent = formatCurrency(worstProfit);
+      worstSub.textContent = worstSession.room + ' - ' + worstSession.date;
+    } else {
+      worstEl.textContent = '--';
+      worstSub.textContent = '';
+    }
+
+    var winRateEl = document.getElementById('statWinRate');
+    var winRateSub = document.getElementById('statWinRateSub');
+    if (count > 0) {
+      var pct = ((wins / count) * 100).toFixed(1);
+      winRateEl.textContent = pct + '%';
+      winRateSub.textContent = wins + ' of ' + count + ' sessions won';
+      winRateEl.className = 'st-stat-card__value' + (pct >= 50 ? ' positive' : ' negative');
+    } else {
+      winRateEl.textContent = '--';
+      winRateSub.textContent = '';
+      winRateEl.className = 'st-stat-card__value';
+    }
+
+    // Current streak
+    var streakEl = document.getElementById('statStreak');
+    if (count > 0) {
+      var sorted = sessions.slice().sort(function(a, b) {
+        return a.date < b.date ? 1 : (a.date > b.date ? -1 : 0);
+      });
+      var streakType = sorted[0].profit >= 0 ? 'W' : 'L';
+      var streakCount = 0;
+      for (var i = 0; i < sorted.length; i++) {
+        var thisType = sorted[i].profit >= 0 ? 'W' : 'L';
+        if (thisType === streakType) streakCount++;
+        else break;
+      }
+      streakEl.textContent = streakCount + streakType;
+      streakEl.className = 'st-stat-card__value' + (streakType === 'W' ? ' positive' : ' negative');
+    } else {
+      streakEl.textContent = '--';
+      streakEl.className = 'st-stat-card__value';
+    }
+  }
+
+  // History table
+  var sortCol = 'date';
+  var sortDir = -1; // -1 = desc
+
+  function getFilteredSessions() {
+    var sessions = getSessions();
+    var fRoom = document.getElementById('filterRoom').value;
+    var fType = document.getElementById('filterType').value;
+    var fFrom = document.getElementById('filterDateFrom').value;
+    var fTo = document.getElementById('filterDateTo').value;
+
+    return sessions.filter(function(s) {
+      if (fRoom && s.room !== fRoom) return false;
+      if (fType && s.type !== fType) return false;
+      if (fFrom && s.date < fFrom) return false;
+      if (fTo && s.date > fTo) return false;
+      return true;
+    });
+  }
+
+  function renderHistory() {
+    var sessions = getFilteredSessions();
+    var tbody = document.getElementById('sessionTableBody');
+    var emptyEl = document.getElementById('historyEmpty');
+    var tableEl = document.getElementById('sessionTable');
+
+    if (sessions.length === 0) {
+      emptyEl.style.display = 'block';
+      tableEl.style.display = 'none';
+      return;
+    }
+    emptyEl.style.display = 'none';
+    tableEl.style.display = '';
+
+    // Sort
+    sessions.sort(function(a, b) {
+      var va, vb;
+      switch(sortCol) {
+        case 'date': va = a.date; vb = b.date; break;
+        case 'room': va = a.room; vb = b.room; break;
+        case 'type': va = a.type; vb = b.type; break;
+        case 'stakes': va = a.stakes; vb = b.stakes; break;
+        case 'duration': va = a.duration; vb = b.duration; break;
+        case 'buyin': va = a.buyin; vb = b.buyin; break;
+        case 'cashout': va = a.cashout; vb = b.cashout; break;
+        case 'profit': va = a.profit; vb = b.profit; break;
+        default: va = a.date; vb = b.date;
+      }
+      if (typeof va === 'string') {
+        return sortDir * va.localeCompare(vb);
+      }
+      return sortDir * (va - vb);
+    });
+
+    // Update sort arrows
+    document.querySelectorAll('.st-table th').forEach(function(th) {
+      var col = th.getAttribute('data-sort');
+      th.classList.toggle('sorted', col === sortCol);
+      var arrow = th.querySelector('.sort-arrow');
+      if (arrow) arrow.innerHTML = (col === sortCol && sortDir === 1) ? '&#9650;' : '&#9660;';
+    });
+
+    var html = '';
+    sessions.forEach(function(s) {
+      var profitClass = s.profit > 0 ? 'positive' : (s.profit < 0 ? 'negative' : '');
+      var dotClass = ROOM_DOT_CLASS[s.room] || '';
+      html += '<tr>' +
+        '<td>' + escapeHtml(s.date) + '</td>' +
+        '<td><span class="room-badge"><span class="room-dot ' + dotClass + '"></span>' + escapeHtml(s.room) + '</span></td>' +
+        '<td>' + escapeHtml(s.type) + '</td>' +
+        '<td>' + escapeHtml(s.stakes) + '</td>' +
+        '<td>' + s.duration.toFixed(1) + 'h</td>' +
+        '<td>' + formatCurrencyNoSign(s.buyin) + '</td>' +
+        '<td>' + formatCurrencyNoSign(s.cashout) + '</td>' +
+        '<td class="profit-cell ' + profitClass + '">' + formatCurrency(s.profit) + '</td>' +
+        '<td><button class="st-delete-btn" data-id="' + s.id + '" title="Delete session" aria-label="Delete session">&#x2715;</button></td>' +
+        '</tr>';
+    });
+    tbody.innerHTML = html;
+
+    // Delete handlers
+    tbody.querySelectorAll('.st-delete-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var id = btn.getAttribute('data-id');
+        showModal('Delete Session', 'Are you sure you want to delete this session? This cannot be undone.', function() {
+          var all = getSessions();
+          var filtered = all.filter(function(s) { return s.id !== id; });
+          saveSessions(filtered);
+          renderHistory();
+        });
+      });
+    });
+  }
+
+  // Table header sort
+  document.querySelectorAll('.st-table th[data-sort]').forEach(function(th) {
+    th.addEventListener('click', function() {
+      var col = th.getAttribute('data-sort');
+      if (sortCol === col) sortDir *= -1;
+      else { sortCol = col; sortDir = -1; }
+      renderHistory();
+    });
+  });
+
+  // Filters
+  ['filterRoom', 'filterType', 'filterDateFrom', 'filterDateTo'].forEach(function(id) {
+    document.getElementById(id).addEventListener('change', renderHistory);
+  });
+
+  // Charts (vanilla Canvas)
+  function renderCharts() {
+    var sessions = getSessions();
+    var chartsGrid = document.querySelector('.st-charts-grid');
+    var chartsEmpty = document.getElementById('chartsEmpty');
+
+    if (sessions.length === 0) {
+      chartsGrid.style.display = 'none';
+      chartsEmpty.style.display = 'block';
+      return;
+    }
+    chartsGrid.style.display = '';
+    chartsEmpty.style.display = 'none';
+
+    drawBankrollChart(sessions);
+    drawRoomChart(sessions);
+    drawTypeChart(sessions);
+  }
+
+  function getCanvasColors() {
+    var cs = getComputedStyle(document.documentElement);
+    return {
+      text: cs.getPropertyValue('--color-text').trim() || '#111827',
+      textMuted: cs.getPropertyValue('--color-text-muted').trim() || '#4B5563',
+      border: cs.getPropertyValue('--color-border').trim() || '#E2E5EB',
+      primary: cs.getPropertyValue('--color-primary').trim() || '#1D4ED8',
+      success: cs.getPropertyValue('--color-success').trim() || '#16a34a',
+      error: cs.getPropertyValue('--color-error').trim() || '#ef4444',
+      bg: cs.getPropertyValue('--color-surface').trim() || '#FFFFFF'
+    };
+  }
+
+  function drawBankrollChart(sessions) {
+    var canvas = document.getElementById('chartBankroll');
+    var ctx = canvas.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.parentElement.getBoundingClientRect();
+    var w = rect.width - 40; // padding
+    var h = 280;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.scale(dpr, dpr);
+
+    var colors = getCanvasColors();
+
+    // Sort by date
+    var sorted = sessions.slice().sort(function(a, b) {
+      return a.date < b.date ? -1 : (a.date > b.date ? 1 : 0);
+    });
+
+    // Build cumulative bankroll
+    var points = [{ x: 0, y: 0, label: 'Start' }];
+    var cumulative = 0;
+    sorted.forEach(function(s, i) {
+      cumulative += s.profit;
+      points.push({ x: i + 1, y: cumulative, label: s.date });
+    });
+
+    var maxY = Math.max.apply(null, points.map(function(p) { return p.y; }));
+    var minY = Math.min.apply(null, points.map(function(p) { return p.y; }));
+    var rangeY = maxY - minY || 1;
+    var padTop = 30, padBottom = 40, padLeft = 60, padRight = 20;
+    var chartW = w - padLeft - padRight;
+    var chartH = h - padTop - padBottom;
+
+    // Clear
+    ctx.clearRect(0, 0, w, h);
+
+    // Grid lines
+    ctx.strokeStyle = colors.border;
+    ctx.lineWidth = 0.5;
+    var gridCount = 5;
+    for (var g = 0; g <= gridCount; g++) {
+      var gy = padTop + (chartH / gridCount) * g;
+      ctx.beginPath();
+      ctx.moveTo(padLeft, gy);
+      ctx.lineTo(w - padRight, gy);
+      ctx.stroke();
+
+      var gval = maxY - (rangeY / gridCount) * g;
+      ctx.fillStyle = colors.textMuted;
+      ctx.font = '11px Inter, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText('$' + gval.toFixed(0), padLeft - 8, gy + 4);
+    }
+
+    // Zero line
+    if (minY < 0 && maxY > 0) {
+      var zeroY = padTop + chartH * (maxY / rangeY);
+      ctx.strokeStyle = colors.textMuted;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(padLeft, zeroY);
+      ctx.lineTo(w - padRight, zeroY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // Line
+    ctx.strokeStyle = colors.primary;
+    ctx.lineWidth = 2.5;
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    points.forEach(function(p, i) {
+      var px = padLeft + (chartW / (points.length - 1 || 1)) * i;
+      var py = padTop + chartH * ((maxY - p.y) / rangeY);
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    });
+    ctx.stroke();
+
+    // Fill under line
+    var lastPx = padLeft + chartW;
+    var baseline = padTop + chartH * ((maxY - 0) / rangeY);
+    if (minY > 0) baseline = padTop + chartH;
+    ctx.lineTo(lastPx, padTop + chartH);
+    ctx.lineTo(padLeft, padTop + chartH);
+    ctx.closePath();
+    ctx.fillStyle = colors.primary.replace(')', ', 0.08)').replace('rgb', 'rgba');
+    if (ctx.fillStyle === colors.primary) ctx.fillStyle = 'rgba(29,78,216,0.08)';
+    ctx.fill();
+
+    // Dots
+    points.forEach(function(p, i) {
+      var px = padLeft + (chartW / (points.length - 1 || 1)) * i;
+      var py = padTop + chartH * ((maxY - p.y) / rangeY);
+      ctx.beginPath();
+      ctx.arc(px, py, 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = p.y >= 0 ? colors.success : colors.error;
+      ctx.fill();
+    });
+
+    // X labels (show max ~10)
+    var step = Math.max(1, Math.floor(points.length / 10));
+    ctx.fillStyle = colors.textMuted;
+    ctx.font = '10px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    points.forEach(function(p, i) {
+      if (i % step === 0 || i === points.length - 1) {
+        var px = padLeft + (chartW / (points.length - 1 || 1)) * i;
+        var lbl = p.label.length > 5 ? p.label.substring(5) : p.label; // show MM-DD
+        ctx.fillText(lbl, px, h - 8);
+      }
+    });
+  }
+
+  function drawRoomChart(sessions) {
+    var canvas = document.getElementById('chartByRoom');
+    var ctx = canvas.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.parentElement.getBoundingClientRect();
+    var w = rect.width - 40;
+    var h = 280;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.scale(dpr, dpr);
+
+    var colors = getCanvasColors();
+
+    // Aggregate profit by room
+    var roomData = {};
+    sessions.forEach(function(s) {
+      if (!roomData[s.room]) roomData[s.room] = 0;
+      roomData[s.room] += s.profit;
+    });
+
+    var rooms = Object.keys(roomData);
+    var values = rooms.map(function(r) { return roomData[r]; });
+    if (rooms.length === 0) return;
+
+    var maxVal = Math.max.apply(null, values.map(Math.abs));
+    if (maxVal === 0) maxVal = 1;
+
+    var padTop = 20, padBottom = 60, padLeft = 20, padRight = 20;
+    var chartW = w - padLeft - padRight;
+    var chartH = h - padTop - padBottom;
+    var barW = Math.min(50, (chartW / rooms.length) * 0.6);
+    var gap = (chartW - barW * rooms.length) / (rooms.length + 1);
+
+    ctx.clearRect(0, 0, w, h);
+
+    // Zero line
+    var zeroY = padTop + chartH / 2;
+    ctx.strokeStyle = colors.border;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(padLeft, zeroY);
+    ctx.lineTo(w - padRight, zeroY);
+    ctx.stroke();
+
+    rooms.forEach(function(room, i) {
+      var val = roomData[room];
+      var barH = (Math.abs(val) / maxVal) * (chartH / 2);
+      var x = padLeft + gap + i * (barW + gap);
+      var y;
+      if (val >= 0) {
+        y = zeroY - barH;
+      } else {
+        y = zeroY;
+      }
+
+      ctx.fillStyle = ROOM_COLORS[room] || colors.primary;
+      ctx.beginPath();
+      var r = 4;
+      if (val >= 0) {
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + barW - r, y);
+        ctx.quadraticCurveTo(x + barW, y, x + barW, y + r);
+        ctx.lineTo(x + barW, y + barH);
+        ctx.lineTo(x, y + barH);
+        ctx.lineTo(x, y + r);
+        ctx.quadraticCurveTo(x, y, x + r, y);
+      } else {
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + barW, y);
+        ctx.lineTo(x + barW, y + barH - r);
+        ctx.quadraticCurveTo(x + barW, y + barH, x + barW - r, y + barH);
+        ctx.lineTo(x + r, y + barH);
+        ctx.quadraticCurveTo(x, y + barH, x, y + barH - r);
+        ctx.lineTo(x, y);
+      }
+      ctx.fill();
+
+      // Value label
+      ctx.fillStyle = colors.text;
+      ctx.font = '11px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      var labelY = val >= 0 ? y - 6 : y + barH + 14;
+      ctx.fillText(formatCurrency(val), x + barW / 2, labelY);
+
+      // Room name
+      ctx.fillStyle = colors.textMuted;
+      ctx.font = '10px Inter, sans-serif';
+      ctx.save();
+      ctx.translate(x + barW / 2, h - 6);
+      ctx.rotate(-0.4);
+      ctx.fillText(room.replace(' Ontario', ''), 0, 0);
+      ctx.restore();
+    });
+  }
+
+  function drawTypeChart(sessions) {
+    var canvas = document.getElementById('chartByType');
+    var ctx = canvas.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.parentElement.getBoundingClientRect();
+    var w = rect.width - 40;
+    var h = 280;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.scale(dpr, dpr);
+
+    var colors = getCanvasColors();
+
+    // Aggregate by type
+    var typeData = {};
+    sessions.forEach(function(s) {
+      if (!typeData[s.type]) typeData[s.type] = { total: 0, wins: 0 };
+      typeData[s.type].total++;
+      if (s.profit > 0) typeData[s.type].wins++;
+    });
+
+    var types = Object.keys(typeData);
+    if (types.length === 0) return;
+
+    var typeColors = {
+      'Cash Game': '#1D4ED8',
+      'Tournament': '#7C3AED',
+      'Sit & Go': '#0891B2'
+    };
+
+    var cx = w / 2;
+    var cy = h / 2 - 10;
+    var outerR = Math.min(cx, cy) - 30;
+    var innerR = outerR * 0.55;
+    var total = sessions.length;
+
+    ctx.clearRect(0, 0, w, h);
+
+    var startAngle = -Math.PI / 2;
+    var legendY = h - 20;
+
+    types.forEach(function(type, i) {
+      var count = typeData[type].total;
+      var sliceAngle = (count / total) * Math.PI * 2;
+      var endAngle = startAngle + sliceAngle;
+
+      ctx.beginPath();
+      ctx.arc(cx, cy, outerR, startAngle, endAngle);
+      ctx.arc(cx, cy, innerR, endAngle, startAngle, true);
+      ctx.closePath();
+      ctx.fillStyle = typeColors[type] || '#999';
+      ctx.fill();
+
+      // Label on slice
+      var midAngle = startAngle + sliceAngle / 2;
+      var labelR = outerR + 16;
+      var lx = cx + Math.cos(midAngle) * (innerR + (outerR - innerR) / 2);
+      var ly = cy + Math.sin(midAngle) * (innerR + (outerR - innerR) / 2);
+
+      var pct = ((count / total) * 100).toFixed(0);
+      if (sliceAngle > 0.3) {
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 12px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(pct + '%', lx, ly);
+      }
+
+      startAngle = endAngle;
+    });
+
+    // Center text
+    ctx.fillStyle = colors.text;
+    ctx.font = 'bold 18px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(total, cx, cy - 6);
+    ctx.fillStyle = colors.textMuted;
+    ctx.font = '11px Inter, sans-serif';
+    ctx.fillText('sessions', cx, cy + 12);
+
+    // Legend
+    var legendX = 10;
+    types.forEach(function(type) {
+      var winRate = typeData[type].total > 0 ? ((typeData[type].wins / typeData[type].total) * 100).toFixed(0) : 0;
+      ctx.fillStyle = typeColors[type] || '#999';
+      ctx.fillRect(legendX, legendY, 10, 10);
+      ctx.fillStyle = colors.textMuted;
+      ctx.font = '11px Inter, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      var label = type + ' (' + winRate + '% win)';
+      ctx.fillText(label, legendX + 14, legendY);
+      legendX += ctx.measureText(label).width + 30;
+    });
+  }
+
+  // Data management
+  function updateDataTab() {
+    document.getElementById('dataSessionCount').textContent = getSessions().length;
+  }
+
+  // Export CSV
+  document.getElementById('btnExportCSV').addEventListener('click', function() {
+    var sessions = getSessions();
+    if (sessions.length === 0) { alert('No sessions to export.'); return; }
+    var headers = ['Date','Room','Type','Stakes','Duration (hrs)','Buy-in (CAD)','Cash-out (CAD)','Profit/Loss (CAD)','Notes'];
+    var rows = [headers.join(',')];
+    sessions.forEach(function(s) {
+      rows.push([
+        s.date,
+        '"' + s.room + '"',
+        '"' + s.type + '"',
+        '"' + s.stakes + '"',
+        s.duration,
+        s.buyin.toFixed(2),
+        s.cashout.toFixed(2),
+        s.profit.toFixed(2),
+        '"' + (s.notes || '').replace(/"/g, '""') + '"'
+      ].join(','));
+    });
+    var csv = rows.join('\n');
+    var blob = new Blob([csv], { type: 'text/csv' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'poker-sessions-' + new Date().toISOString().split('T')[0] + '.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  // Import CSV
+  document.getElementById('btnImportCSV').addEventListener('click', function() {
+    document.getElementById('csvFileInput').click();
+  });
+
+  document.getElementById('csvFileInput').addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      var text = ev.target.result;
+      var lines = text.split('\n').filter(function(l) { return l.trim(); });
+      if (lines.length < 2) { alert('CSV file appears empty.'); return; }
+
+      // Parse CSV (simple approach)
+      var imported = 0;
+      var sessions = getSessions();
+      for (var i = 1; i < lines.length; i++) {
+        var cols = parseCSVLine(lines[i]);
+        if (cols.length >= 7) {
+          sessions.push({
+            id: generateId(),
+            date: cols[0].trim(),
+            room: cols[1].trim(),
+            type: cols[2].trim(),
+            stakes: cols[3].trim(),
+            duration: parseFloat(cols[4]) || 0,
+            buyin: parseFloat(cols[5]) || 0,
+            cashout: parseFloat(cols[6]) || 0,
+            profit: (parseFloat(cols[6]) || 0) - (parseFloat(cols[5]) || 0),
+            notes: (cols[8] || '').trim()
+          });
+          imported++;
+        }
+      }
+      saveSessions(sessions);
+      alert('Imported ' + imported + ' session(s).');
+      updateDataTab();
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  });
+
+  function parseCSVLine(line) {
+    var cols = [];
+    var current = '';
+    var inQuotes = false;
+    for (var i = 0; i < line.length; i++) {
+      var ch = line[i];
+      if (inQuotes) {
+        if (ch === '"') {
+          if (i + 1 < line.length && line[i + 1] === '"') {
+            current += '"';
+            i++;
+          } else {
+            inQuotes = false;
+          }
+        } else {
+          current += ch;
+        }
+      } else {
+        if (ch === '"') {
+          inQuotes = true;
+        } else if (ch === ',') {
+          cols.push(current);
+          current = '';
+        } else {
+          current += ch;
+        }
+      }
+    }
+    cols.push(current);
+    return cols;
+  }
+
+  // Clear all data
+  document.getElementById('btnClearAll').addEventListener('click', function() {
+    showModal('Clear All Data', 'This will permanently delete all your session data. This cannot be undone. Are you sure?', function() {
+      _storage.removeItem(STORAGE_KEY);
+      updateDataTab();
+      alert('All session data has been cleared.');
+    });
+  });
+
+  // Modal
+  function showModal(title, message, onConfirm) {
+    var overlay = document.getElementById('confirmModal');
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalMessage').textContent = message;
+    overlay.classList.add('active');
+
+    var confirmBtn = document.getElementById('modalConfirm');
+    var cancelBtn = document.getElementById('modalCancel');
+
+    function close() {
+      overlay.classList.remove('active');
+      confirmBtn.removeEventListener('click', handleConfirm);
+      cancelBtn.removeEventListener('click', close);
+      overlay.removeEventListener('click', handleOverlay);
+    }
+    function handleConfirm() { onConfirm(); close(); }
+    function handleOverlay(e) { if (e.target === overlay) close(); }
+
+    confirmBtn.addEventListener('click', handleConfirm);
+    cancelBtn.addEventListener('click', close);
+    overlay.addEventListener('click', handleOverlay);
+  }
+
+  // Initialize
+  updateDashboard();
+  updateDataTab();
+
+})();
+</script>
+</body>
+</html>

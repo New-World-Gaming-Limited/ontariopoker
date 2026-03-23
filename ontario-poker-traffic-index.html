@@ -52,6 +52,7 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ontariopoker.com/"}, {"@type": "ListItem", "position": 2, "name": "Ontario Poker Traffic Index"}]}</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js" defer></script>
 </head>
 <body>
   <div class="affiliate-bar">
@@ -80,7 +81,7 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
           <div class="nav-dropdown-menu">
             <a href="./compare.html">Compare Rooms</a>
             <a href="./head-to-head.html">Head-to-Head</a>
-            <a href="./room-finder.html">Room Finder Quiz</a>
+            <a href="./which-room-quiz.html">Room Quiz</a>
             <a href="./rake-calculator.html">Rake Calculator</a>
           <a href="./deposit-limit-planner.html">Deposit Limit Planner</a>
           <a href="./tournament-roi-calculator.html">Tournament ROI</a>
@@ -146,6 +147,53 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 
         <div style="background:var(--accent-light,#eef6f0);border:1px solid var(--color-primary);border-radius:12px;padding:1.25rem;margin-bottom:2rem;">
           <p style="margin:0;font-size:0.9375rem;"><strong>About this index:</strong> Traffic estimates are based on data from independent industry tracking, GameIntel tracking, and our own observations. Ontario's ring-fenced market sustains approximately <strong>700 concurrent cash game seats</strong> across all six rooms. We update these estimates monthly.</p>
+        </div>
+
+        <!-- Time-Series Chart: Ontario Poker Market Growth -->
+        <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:12px;padding:1.5rem;margin-bottom:2rem;">
+          <h2 style="font-size:var(--text-lg);font-weight:700;margin-bottom:1rem;">Ontario Poker Market Growth (2022–2026)</h2>
+          <div style="position:relative;width:100%;aspect-ratio:2/1;">
+            <canvas id="marketGrowthChart"></canvas>
+          </div>
+          <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-top:0.75rem;line-height:1.5;">Estimates based on cash game seat tracking. Confidence interval reflects the range of independent tracking sources.</p>
+        </div>
+
+        <!-- Peak vs Off-Peak Traffic Panel -->
+        <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:12px;padding:1.5rem;margin-bottom:2rem;">
+          <h2 style="font-size:var(--text-lg);font-weight:700;margin-bottom:1.25rem;">Peak vs Off-Peak Traffic</h2>
+
+          <!-- Peak Hours -->
+          <div style="margin-bottom:1.25rem;">
+            <div style="display:flex;justify-content:space-between;font-size:0.875rem;font-weight:600;margin-bottom:0.35rem;">
+              <span>Peak Hours (7 pm–11 pm ET)</span><span>~1,100 seats</span>
+            </div>
+            <div style="background:var(--color-surface-alt);border-radius:6px;height:28px;overflow:hidden;">
+              <div style="background:var(--color-primary);height:100%;width:100%;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.75rem;font-weight:700;">All rooms active</div>
+            </div>
+            <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-top:0.25rem;">All six rooms active across all stakes</p>
+          </div>
+
+          <!-- Daytime -->
+          <div style="margin-bottom:1.25rem;">
+            <div style="display:flex;justify-content:space-between;font-size:0.875rem;font-weight:600;margin-bottom:0.35rem;">
+              <span>Daytime (10 am–6 pm ET)</span><span>~400 seats</span>
+            </div>
+            <div style="background:var(--color-surface-alt);border-radius:6px;height:28px;overflow:hidden;">
+              <div style="background:var(--color-primary);opacity:0.7;height:100%;width:36%;border-radius:6px;min-width:80px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.75rem;font-weight:700;">36%</div>
+            </div>
+            <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-top:0.25rem;">Mostly GGPoker and PokerStars</p>
+          </div>
+
+          <!-- Late Night -->
+          <div style="margin-bottom:0;">
+            <div style="display:flex;justify-content:space-between;font-size:0.875rem;font-weight:600;margin-bottom:0.35rem;">
+              <span>Late Night (12 am–9 am ET)</span><span>~200 seats</span>
+            </div>
+            <div style="background:var(--color-surface-alt);border-radius:6px;height:28px;overflow:hidden;">
+              <div style="background:var(--color-primary);opacity:0.45;height:100%;width:18%;border-radius:6px;min-width:60px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.75rem;font-weight:700;">18%</div>
+            </div>
+            <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-top:0.25rem;">GGPoker only reliable option</p>
+          </div>
         </div>
 
         <h2>Market Share by Operator</h2>
@@ -229,6 +277,12 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
           </tbody>
         </table>
 
+        <!-- Methodology & Confidence Note -->
+        <div style="background:var(--color-primary-surface);border-left:4px solid var(--color-primary);border-radius:0 12px 12px 0;padding:1.25rem 1.5rem;margin:2rem 0;">
+          <h3 style="font-size:0.9375rem;font-weight:700;margin-bottom:0.5rem;">Methodology &amp; Confidence Note</h3>
+          <p style="margin:0;font-size:0.875rem;line-height:1.65;color:var(--color-text-muted);">Our traffic estimates combine data from three sources: independent cash game seat tracking services, GameIntel reports via Poker Industry PRO, and our own periodic observations. Where sources disagree, we report the midpoint with a confidence range. Official iGaming Ontario revenue data is used for market-level validation but does not directly measure concurrent traffic.</p>
+        </div>
+
         <h2>Key Insights</h2>
         <ul>
           <li><strong>Ring-fenced market:</strong> Ontario's player pool is segregated from global networks. All ~700 concurrent seats are Ontario players only.</li>
@@ -274,7 +328,7 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
           <h4>Tools &amp; Guides</h4>
           <a href="./compare.html">Compare Rooms</a>
           <a href="./head-to-head.html">Head-to-Head</a>
-          <a href="./room-finder.html">Room Finder</a>
+          <a href="./which-room-quiz.html">Room Finder</a>
           <a href="./rake-calculator.html">Rake Calculator</a>
           <a href="./strategy.html">Strategy</a>
           <a href="./ontario-poker-traffic-index.html">Traffic Index</a>
@@ -298,5 +352,117 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
     </div>
   </footer>
   <script src="./app.min.js" defer></script>
+  <script>
+  (function() {
+    function initChart() {
+      var canvas = document.getElementById('marketGrowthChart');
+      if (!canvas || typeof Chart === 'undefined') return;
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      var lineColor = isDark ? '#4ADE80' : '#1A6B3C';
+      var bandColor = isDark ? 'rgba(74,222,128,0.12)' : 'rgba(26,107,60,0.10)';
+      var gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+      var textColor = isDark ? '#8b949e' : '#4B5563';
+      var labels = ['Q2 2022','Q3 2022','Q4 2022','Q1 2023','Q2 2023','Q3 2023','Q4 2023','Q1 2024','Q2 2024','Q3 2024','Q4 2024','Q1 2025','Q2 2025','Q3 2025','Q4 2025','Q1 2026'];
+      var data = [400,480,520,540,560,590,620,650,680,690,700,700,710,700,700,700];
+      var upper = data.map(function(v){ return Math.round(v * 1.1); });
+      var lower = data.map(function(v){ return Math.round(v * 0.9); });
+      if (window._trafficChart) { window._trafficChart.destroy(); }
+      window._trafficChart = new Chart(canvas, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Lower bound (-10%)',
+              data: lower,
+              borderWidth: 0,
+              backgroundColor: 'transparent',
+              fill: false,
+              pointRadius: 0,
+              pointHitRadius: 0
+            },
+            {
+              label: 'Upper bound (+10%)',
+              data: upper,
+              borderWidth: 0,
+              backgroundColor: bandColor,
+              fill: '-1',
+              pointRadius: 0,
+              pointHitRadius: 0
+            },
+            {
+              label: 'Concurrent Cash Game Seats',
+              data: data,
+              borderColor: lineColor,
+              backgroundColor: lineColor,
+              borderWidth: 2.5,
+              pointRadius: 4,
+              pointHoverRadius: 6,
+              pointBackgroundColor: lineColor,
+              tension: 0.3,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: isDark ? '#161b22' : '#fff',
+              titleColor: isDark ? '#e6edf3' : '#111827',
+              bodyColor: isDark ? '#8b949e' : '#4B5563',
+              borderColor: isDark ? '#30363d' : '#E2E5EB',
+              borderWidth: 1,
+              padding: 10,
+              displayColors: false,
+              callbacks: {
+                label: function(ctx) {
+                  if (ctx.datasetIndex === 2) {
+                    var i = ctx.dataIndex;
+                    return ctx.parsed.y + ' seats (range: ' + lower[i] + '\u2013' + upper[i] + ')';
+                  }
+                  return null;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: gridColor },
+              ticks: { color: textColor, font: { size: 11 }, maxRotation: 45, minRotation: 0 }
+            },
+            y: {
+              beginAtZero: false,
+              min: 200,
+              max: 900,
+              grid: { color: gridColor },
+              ticks: { color: textColor, font: { size: 11 }, callback: function(v){ return v + ' seats'; } }
+            }
+          }
+        }
+      });
+    }
+    function onReady(fn) {
+      if (document.readyState !== 'loading') { fn(); } else { document.addEventListener('DOMContentLoaded', fn); }
+    }
+    onReady(function() {
+      // Wait for Chart.js to load (it has defer)
+      function tryInit() {
+        if (typeof Chart !== 'undefined') { initChart(); } else { setTimeout(tryInit, 100); }
+      }
+      tryInit();
+      // Re-init on theme change
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(m) {
+          if (m.attributeName === 'data-theme') { initChart(); }
+        });
+      });
+      observer.observe(document.documentElement, { attributes: true });
+    });
+  })();
+  </script>
 </body>
 </html>

@@ -230,8 +230,7 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
       <div class="nav-dropdown">
         <button class="nav-dropdown-trigger">Tools <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
         <div class="nav-dropdown-menu">
-          <a href="./room-finder.html">Room Finder Quiz</a>
-          <a href="./which-room-quiz.html">Which Room Quiz</a>
+          <a href="./which-room-quiz.html">Room Quiz</a>
           <a href="./rake-calculator.html">Rake Calculator</a>
           <a href="./poker-odds-calculator.html">Odds Calculator</a>
           <a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
@@ -293,8 +292,7 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
   </div>
   <div class="mobile-nav-section">
     <span class="mobile-nav-heading">Tools</span>
-    <a href="./room-finder.html">Room Finder Quiz</a>
-    <a href="./which-room-quiz.html">Which Room Quiz</a>
+    <a href="./which-room-quiz.html">Room Quiz</a>
     <a href="./rake-calculator.html">Rake Calculator</a>
     <a href="./poker-odds-calculator.html">Odds Calculator</a>
     <a href="./poker-bankroll-calculator.html">Bankroll Calculator</a>
@@ -328,18 +326,30 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 </section>
 <section class="section">
   <div class="container container--default">
-    <div class="prose"><p>OntarioPoker.com is committed to making our site accessible to all users.</p>
+    <div class="prose"><p>OntarioPoker.com is committed to making our site accessible to all users. We target <strong>WCAG 2.2 Level AA</strong> conformance across all pages.</p>
+<h2>Conformance Target</h2>
+<p>Our target standard is the <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener noreferrer">Web Content Accessibility Guidelines (WCAG) 2.2</a> at Level AA. This means we aim to meet all Level A and Level AA success criteria. Our last internal accessibility review was conducted in <strong>March 2026</strong>.</p>
 <h2>Accessibility Features</h2>
 <ul>
-<li>Semantic HTML structure with proper heading hierarchy</li>
-<li>Keyboard navigation support throughout the site</li>
-<li>Dark and light theme options for visual comfort</li>
-<li>Alt text on all meaningful images</li>
-<li>Sufficient color contrast ratios</li>
-<li>Focus indicators on interactive elements</li>
+<li>Semantic HTML structure with proper heading hierarchy (h1 through h4)</li>
+<li>Full keyboard navigation support including skip-to-content links</li>
+<li>Dark and light theme options for visual comfort, with user preference persisted</li>
+<li>Descriptive alt text on all meaningful images; decorative images marked with empty alt</li>
+<li>Color contrast ratios meeting WCAG AA minimums (4.5:1 for normal text, 3:1 for large text)</li>
+<li>Visible focus indicators on all interactive elements</li>
+<li>Responsive layout that works across screen sizes and orientations</li>
+<li>No content that flashes more than three times per second</li>
+<li>Form inputs with associated labels where applicable</li>
+</ul>
+<h2>Known Limitations</h2>
+<p>We are aware of the following areas where accessibility could be improved:</p>
+<ul>
+<li><strong>Interactive tools:</strong> Some JavaScript-powered tools (Compare, Room Finder, calculators) rely on client-side rendering. We provide static HTML summaries where possible, but the full interactive experience requires JavaScript.</li>
+<li><strong>Third-party content:</strong> Embedded operator logos and external links point to sites outside our control. We cannot guarantee the accessibility of those destinations.</li>
+<li><strong>PDF/document downloads:</strong> Currently none are offered, but if added in future they will target PDF/UA conformance.</li>
 </ul>
 <h2>Feedback</h2>
-<p>If you encounter accessibility barriers on this site, please contact us at <a href="mailto:help@ontariopoker.com">help@ontariopoker.com</a>. We take all feedback seriously and will work to address issues promptly.</p></div>
+<p>If you encounter accessibility barriers on this site, please contact us at <a href="mailto:help@ontariopoker.com">help&#64;ontariopoker.com</a>. Include the page URL and a description of the issue. We take all feedback seriously and will work to address reported barriers within 10 business days.</p></div>
   </div>
 </section>
 
@@ -380,8 +390,7 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 <div class="footer-col">
 <h4 class="footer-col-toggle">Tools<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
 <div class="footer-col-links">
-<a href="./room-finder.html">Room Finder Quiz</a>
-<a href="./which-room-quiz.html">Which Room Quiz</a>
+<a href="./which-room-quiz.html">Room Quiz</a>
 <a href="./head-to-head.html">Head-to-Head Compare</a>
 <a href="./rake-calculator.html">Rake Calculator</a>
 <a href="./poker-odds-calculator.html">Odds Calculator</a>

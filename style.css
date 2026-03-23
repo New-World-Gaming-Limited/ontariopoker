@@ -1166,6 +1166,10 @@ table tbody tr:nth-child(even) {
   color: var(--color-primary);
   text-decoration: none;
 }
+.breadcrumb img {
+  display: inline;
+  vertical-align: middle;
+}
 .page-hero .breadcrumb a:hover { text-decoration: underline; }
 
 /* --- BRAND WATERMARK (page-hero embossed) --- */
@@ -1868,6 +1872,10 @@ a .code-badge:hover {
 .breadcrumb a {
   color: var(--color-primary);
   text-decoration: none;
+}
+.breadcrumb img {
+  display: inline;
+  vertical-align: middle;
 }
 .breadcrumb a:hover {
   text-decoration: underline;

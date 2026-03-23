@@ -2949,10 +2949,13 @@ a .code-badge:hover {
 }
 
 .ss-card-logo {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   flex-shrink: 0;
+  background: #1a1a2e;
+  padding: 4px;
+  object-fit: contain;
 }
 
 .ss-card-name {
@@ -3398,6 +3401,9 @@ a .code-badge:hover {
 .ppc-logo {
   border-radius: var(--radius-md);
   flex-shrink: 0;
+  background: #1a1a2e;
+  padding: 6px;
+  object-fit: contain;
 }
 .ppc-brand-name {
   font-size: var(--text-lg);
@@ -3623,4 +3629,34 @@ a .code-badge:hover {
     gap: var(--space-2);
     justify-content: flex-start;
   }
+}
+
+/* Brand logo utility: dark pill background for white-fill SVGs */
+.brand-logo-pill {
+  background: #1a1a2e;
+  border-radius: 8px;
+  padding: 4px 8px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.brand-logo-pill img {
+  display: block;
+  object-fit: contain;
+}
+
+/* Logo images in comparison tables need dark bg too */
+th img[src*="logos/"], td img[src*="logos/"] {
+  background: #1a1a2e;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+/* Dark mode: logos already white on dark, reduce bg intensity */
+[data-theme="dark"] .ss-card-logo,
+[data-theme="dark"] .ppc-logo {
+  background: #111827;
+}
+[data-theme="dark"] th img[src*="logos/"],
+[data-theme="dark"] td img[src*="logos/"] {
+  background: #111827;
 }

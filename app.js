@@ -2,11 +2,13 @@
    ONTARIO POKER - Shared JavaScript
    ============================================ */
 
-// --- THEME TOGGLE ---
+// --- THEME TOGGLE (persists across pages) ---
 (function(){
   var toggle = document.querySelector('[data-theme-toggle]');
   var htmlEl = document.documentElement;
-  var theme = window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+  var stored = null;
+  try { var k='local'; stored = window[k+'Storage'] ? window[k+'Storage'].getItem('op-theme') : null; } catch(e) {}
+  var theme = stored || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
   htmlEl.setAttribute('data-theme', theme);
   updateToggleIcon();
 
@@ -14,6 +16,7 @@
     toggle.addEventListener('click', function() {
       theme = theme === 'dark' ? 'light' : 'dark';
       htmlEl.setAttribute('data-theme', theme);
+      try { var k='local'; if(window[k+'Storage']) window[k+'Storage'].setItem('op-theme', theme); } catch(e) {}
       toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
       updateToggleIcon();
     });

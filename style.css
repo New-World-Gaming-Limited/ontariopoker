@@ -2284,8 +2284,17 @@ a .code-badge:hover {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--color-text-faint);
+  color: var(--color-text-muted);
   padding: var(--space-2) var(--space-4) var(--space-1);
+}
+[data-theme="dark"] .mobile-nav-heading {
+  color: var(--color-text-muted);
+}
+[data-theme="dark"] .mobile-nav-section {
+  border-bottom-color: var(--color-border);
+}
+[data-theme="dark"] .mobile-nav a {
+  border-bottom-color: var(--color-border-light);
 }
 
 /* Prevent dropdown clipping */

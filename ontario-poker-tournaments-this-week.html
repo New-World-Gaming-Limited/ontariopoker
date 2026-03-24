@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html lang="en-CA">
+<html lang="en-CA" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preload" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,600,700&display=swap" as="style">
-<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,600,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<title>Accessibility Statement | OntarioPoker</title>
-<meta name="description" content="OntarioPoker.com accessibility commitment and features.">
-<link rel="canonical" href="https://ontariopoker.com/accessibility">
+<title>Ontario Poker Tournaments This Week (Updated) | OntarioPoker</title>
+<meta name="description" content="Find Ontario poker tournaments running this week. Day-by-day schedule across all 6 regulated rooms. Sunday Majors, dailies, freerolls, and satellites.">
+<link rel="canonical" href="https://ontariopoker.com/ontario-poker-tournaments-this-week.html">
+<meta property="og:title" content="Ontario Poker Tournaments This Week (Updated) | OntarioPoker">
+<meta property="og:description" content="Find Ontario poker tournaments running this week. Day-by-day schedule across all 6 regulated rooms. Sunday Majors, dailies, freerolls, and satellites.">
+<meta property="og:url" content="https://ontariopoker.com/ontario-poker-tournaments-this-week.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OntarioPoker">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="icon" type="image/png" href="./favicon.png" sizes="96x96">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"></noscript>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ontariopoker.com/"},{"@type":"ListItem","position":2,"name":"Tournaments This Week"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"OntarioPoker.com","url":"https://ontariopoker.com","logo":"https://ontariopoker.com/images/ontariopoker-logo.svg","description":"Independent reviews and guides for AGCO-regulated Ontario poker rooms. Published by NWG PTY Limited.","address":{"@type":"PostalAddress","streetAddress":"c/o WeWork, 240 Richmond St W","addressLocality":"Toronto","addressRegion":"ON","postalCode":"M5V 1V6","addressCountry":"CA"},"contactPoint":{"@type":"ContactPoint","email":"help@ontariopoker.com","contactType":"customer service"},"publishingPrinciples":"https://ontariopoker.com/editorial-policy"}</script>
 <style>/* Critical CSS - inlined for fast FCP/LCP */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:none;text-size-adjust:none;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth;scroll-padding-top:80px}
@@ -38,158 +47,10 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 .section{padding:var(--space-12) 0}
 .section--alt{background:var(--section-alt-bg)}
 @media(max-width:899px){.nav-desktop{display:none}.mobile-menu-btn{display:flex}}
-@media(min-width:900px){.mobile-menu-btn{display:none}}/* ── Hero Card Grid & Cards ──────────────────────────────────────── */
-
-.hero-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-  gap: var(--space-4);
-  margin-top: var(--space-6);
-}
-
-.hero-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-left: 4px solid var(--card-accent, var(--color-primary));
-  border-radius: var(--radius-md);
-  padding: var(--space-5);
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 200ms ease, transform 200ms ease;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.hero-card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
-.hero-card-rank {
-  position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-full);
-  background: var(--color-surface-2);
-  border: 2px solid var(--card-accent, var(--color-primary));
-  color: var(--color-text);
-  font-weight: 700;
-  font-size: var(--text-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-}
-
-.hero-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
-  padding-right: var(--space-10);
-}
-
-.hero-card-header h3 {
-  font-size: var(--text-lg);
-  font-weight: 700;
-  margin: 0;
-  line-height: 1.2;
-}
-
-.hero-card-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-full);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  white-space: nowrap;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.hero-card-bonus {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: var(--space-3);
-}
-
-.hero-card-code {
-  margin-bottom: var(--space-3);
-}
-
-.hero-card-features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 var(--space-4) 0;
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  flex-grow: 1;
-}
-
-.hero-card-features li {
-  padding: var(--space-1) 0;
-  padding-left: var(--space-4);
-  position: relative;
-}
-
-.hero-card-features li::before {
-  content: "\2713";
-  position: absolute;
-  left: 0;
-  color: var(--color-success, var(--card-accent, #1A6B3C));
-  font-weight: 700;
-  font-size: var(--text-xs);
-}
-
-.hero-card .btn {
-  margin-bottom: var(--space-2);
-}
-
-.hero-card-review-link {
-  display: block;
-  text-align: center;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-text-muted);
-  text-decoration: none;
-  transition: color 150ms ease;
-}
-
-.hero-card-review-link:hover {
-  color: var(--color-text);
-  text-decoration: underline;
-}
-
-/* Responsive: stack to single column on narrow screens */
-@media (max-width: 640px) {
-  .hero-cards-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
-<script>(function(){var k='local',s={};try{s=window[k+'Storage']||s}catch(e){}window._ls=s;try{var t=s.getItem?s.getItem('op-theme'):s['op-theme'];if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})()</script>
-<link href="./style.min.css" rel="stylesheet">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ontariopoker.com/"}, {"@type": "ListItem", "position": 2, "name": "Accessibility Statement"}]}</script>
-<meta property="og:title" content="Accessibility Statement | OntarioPoker">
-<meta property="og:description" content="OntarioPoker.com accessibility commitment and features.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ontariopoker.com/accessibility">
-<meta property="og:site_name" content="OntarioPoker">
-<meta property="og:image" content="https://ontariopoker.com/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/svg+xml" href="./favicon.svg">
-<link rel="icon" type="image/png" href="./favicon.png" sizes="32x32">
-<link rel="apple-touch-icon" href="./apple-touch-icon.png">
-
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"OntarioPoker.com","url":"https://ontariopoker.com","logo":"https://ontariopoker.com/images/ontariopoker-logo.svg","description":"Independent reviews and guides for AGCO-regulated Ontario poker rooms. Published by NWG PTY Limited.","address":{"@type":"PostalAddress","streetAddress":"c/o WeWork, 240 Richmond St W","addressLocality":"Toronto","addressRegion":"ON","postalCode":"M5V 1V6","addressCountry":"CA"},"contactPoint":{"@type":"ContactPoint","email":"help@ontariopoker.com","contactType":"customer service"},"publishingPrinciples":"https://ontariopoker.com/editorial-policy"}</script>
+@media(min-width:900px){.mobile-menu-btn{display:none}}</style>
+<link rel="stylesheet" href="./style.min.css">
+<link rel="stylesheet" href="./base.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I find Ontario poker tournaments happening this week?","acceptedAnswer":{"@type":"Answer","text":"Check the tournament lobbies in each regulated poker app. GGPoker, 888poker, BetMGM, PokerStars, PartyPoker, and Bwin all display upcoming tournaments with start times, buy-ins, and guaranteed prize pools. Our tournament schedule page also tracks weekly events across all rooms."}},{"@type":"Question","name":"What days have the biggest Ontario poker tournaments?","acceptedAnswer":{"@type":"Answer","text":"Sundays feature the largest guaranteed tournaments across all Ontario rooms. GGPoker and PokerStars run their flagship weekly events on Sunday afternoons and evenings. Saturdays also offer larger-than-average guarantees."}},{"@type":"Question","name":"Are there freeroll tournaments in Ontario this week?","acceptedAnswer":{"@type":"Answer","text":"Yes. All six regulated Ontario poker rooms run daily or weekly freerolls. GGPoker and 888poker tend to offer the most frequent freeroll schedules. Check each room's tournament lobby for current freeroll listings."}},{"@type":"Question","name":"Can I play Ontario poker tournaments on mobile?","acceptedAnswer":{"@type":"Answer","text":"Yes. All regulated Ontario rooms allow tournament registration and play through their mobile apps. GGPoker and PokerStars offer the smoothest mobile tournament experience, including late registration from your phone."}}]}</script>
 </head>
 <body>
 <div class="disclosure-bar">
@@ -321,39 +182,136 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 
 <section class="page-hero">
   <div class="container">
-    <div class="breadcrumb"><a href="./index.html">Home</a> <span>/</span> <span>Accessibility Statement</span></div>
-    <h1>Accessibility Statement</h1>
-  </div>
-</section>
-<section class="section">
-  <div class="container container--default">
-    <div class="prose"><p>OntarioPoker.com is committed to making our site accessible to all users. We target <strong>WCAG 2.2 Level AA</strong> conformance across all pages.</p>
-<h2>Conformance Target</h2>
-<p>Our target standard is the <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener noreferrer">Web Content Accessibility Guidelines (WCAG) 2.2</a> at Level AA. This means we aim to meet all Level A and Level AA success criteria. Our last internal accessibility review was conducted in <strong>March 2026</strong>.</p>
-<h2>Accessibility Features</h2>
-<ul>
-<li>Semantic HTML structure with proper heading hierarchy (h1 through h4)</li>
-<li>Full keyboard navigation support including skip-to-content links</li>
-<li>Dark and light theme options for visual comfort, with user preference persisted</li>
-<li>Descriptive alt text on all meaningful images; decorative images marked with empty alt</li>
-<li>Color contrast ratios meeting WCAG AA minimums (4.5:1 for normal text, 3:1 for large text)</li>
-<li>Visible focus indicators on all interactive elements</li>
-<li>Responsive layout that works across screen sizes and orientations</li>
-<li>No content that flashes more than three times per second</li>
-<li>Form inputs with associated labels where applicable</li>
-</ul>
-<h2>Known Limitations</h2>
-<p>We are aware of the following areas where accessibility could be improved:</p>
-<ul>
-<li><strong>Interactive tools:</strong> Some JavaScript-powered tools (Compare, Room Finder, calculators) rely on client-side rendering. We provide static HTML summaries where possible, but the full interactive experience requires JavaScript.</li>
-<li><strong>Third-party content:</strong> Embedded operator logos and external links point to sites outside our control. We cannot guarantee the accessibility of those destinations.</li>
-<li><strong>PDF/document downloads:</strong> Currently none are offered, but if added in future they will target PDF/UA conformance.</li>
-</ul>
-<h2>Feedback</h2>
-<p>If you encounter accessibility barriers on this site, please contact us at <a href="mailto:help@ontariopoker.com">help&#64;ontariopoker.com</a>. Include the page URL and a description of the issue. We take all feedback seriously and will work to address reported barriers within 10 business days.</p></div>
+    <div class="breadcrumb"><a href="./index.html">Home</a> <span>/</span> <span>Ontario Poker Tournaments This Week</span></div>
+    <h1>Ontario Poker Tournaments This Week</h1>
+    <p style="color:var(--color-text-muted);margin-top:var(--space-2);font-size:var(--text-sm);">Last updated March 2026</p>
   </div>
 </section>
 
+<section class="section">
+  <div class="container container--default">
+    <div class="prose">
+
+<p>Ontario's six regulated poker rooms run hundreds of tournaments every week, from low buy-in dailies to high-guarantee Sunday majors. This guide explains the regular weekly schedules so you always know where the action is, no matter what day it is.</p>
+
+<p>For a complete, room-by-room breakdown of every regular tournament, visit our <a href="./ontario-poker-tournament-schedule.html">full Ontario poker tournament schedule</a>.</p>
+
+<h2>Weekly Tournament Overview by Day</h2>
+
+<div class="card card--flat" style="margin:var(--space-4) 0;overflow-x:auto;">
+<table class="promos-table" style="width:100%;min-width:640px;">
+<thead><tr style="background:var(--color-surface-alt);"><th style="padding:var(--space-3);text-align:left;">Day</th><th style="padding:var(--space-3);text-align:left;">Theme</th><th style="padding:var(--space-3);text-align:left;">Best Rooms</th><th style="padding:var(--space-3);text-align:left;">What to Expect</th></tr></thead>
+<tbody>
+<tr><td style="padding:var(--space-3);font-weight:600;">Monday</td><td style="padding:var(--space-3);">Value Events</td><td style="padding:var(--space-3);"><a href="./ggpoker/review.html">GGPoker</a>, <a href="./888poker/review.html">888poker</a></td><td style="padding:var(--space-3);">Low buy-in events with soft fields. Good overlay potential early in the week.</td></tr>
+<tr><td style="padding:var(--space-3);font-weight:600;">Tuesday</td><td style="padding:var(--space-3);">Turbo &amp; Fast-Fold</td><td style="padding:var(--space-3);"><a href="./ggpoker/review.html">GGPoker</a>, <a href="./pokerstars/review.html">PokerStars</a></td><td style="padding:var(--space-3);">Faster structures for quicker sessions. Turbo and hyper-turbo formats.</td></tr>
+<tr><td style="padding:var(--space-3);font-weight:600;">Wednesday</td><td style="padding:var(--space-3);">PLO &amp; Mixed Games</td><td style="padding:var(--space-3);"><a href="./ggpoker/review.html">GGPoker</a>, <a href="./pokerstars/review.html">PokerStars</a></td><td style="padding:var(--space-3);">Pot-Limit Omaha and mixed-game tournaments for variety seekers.</td></tr>
+<tr><td style="padding:var(--space-3);font-weight:600;">Thursday</td><td style="padding:var(--space-3);">Bounty &amp; PKO</td><td style="padding:var(--space-3);"><a href="./ggpoker/review.html">GGPoker</a>, <a href="./betmgm-poker/review.html">BetMGM</a></td><td style="padding:var(--space-3);">Progressive knockout tournaments where you earn cash for each elimination.</td></tr>
+<tr><td style="padding:var(--space-3);font-weight:600;">Friday</td><td style="padding:var(--space-3);">Weekend Warm-Up</td><td style="padding:var(--space-3);"><a href="./ggpoker/review.html">GGPoker</a>, <a href="./888poker/review.html">888poker</a></td><td style="padding:var(--space-3);">Medium-guarantee events as player traffic ramps up for the weekend.</td></tr>
+<tr><td style="padding:var(--space-3);font-weight:600;">Saturday</td><td style="padding:var(--space-3);">High Guarantee</td><td style="padding:var(--space-3);"><a href="./ggpoker/review.html">GGPoker</a>, <a href="./pokerstars/review.html">PokerStars</a></td><td style="padding:var(--space-3);">Bigger prize pools. Special Saturday editions of popular series.</td></tr>
+<tr style="background:var(--color-primary-surface);"><td style="padding:var(--space-3);font-weight:700;">Sunday</td><td style="padding:var(--space-3);font-weight:600;">Major Events</td><td style="padding:var(--space-3);"><a href="./ggpoker/review.html">GGPoker</a>, <a href="./pokerstars/review.html">PokerStars</a>, <a href="./888poker/review.html">888poker</a></td><td style="padding:var(--space-3);">The biggest guaranteed tournaments of the week across all rooms. Flagship Sunday Majors.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Where to Find This Week's Tournaments</h2>
+
+<p>Tournament schedules change as rooms add special events, festival series, and seasonal promotions. The most reliable way to find exactly what's running this week is to check the tournament lobby in each app. Here's how:</p>
+
+<ul>
+<li><strong>GGPoker:</strong> Open the app and tap "Tournaments." Use the filter to select specific days, buy-in ranges, or formats. GGPoker runs the most tournaments of any Ontario room, typically 50+ events daily. <a href="./ggpoker/review.html">Full GGPoker review</a>.</li>
+<li><strong>888poker:</strong> Navigate to "Tournament" in the lobby. Filter by game type and buy-in. Their BLAST and Made To Play events run on fixed schedules. <a href="./888poker/review.html">Full 888poker review</a>.</li>
+<li><strong>BetMGM Poker:</strong> Check the "Tournaments" tab. BetMGM shares its network with PartyPoker and Bwin, so the same events appear across all three rooms. <a href="./betmgm-poker/review.html">Full BetMGM review</a>.</li>
+<li><strong>PokerStars:</strong> The "Tourney" lobby offers the most detailed filtering options. You can search by name, buy-in range, start time, and format. <a href="./pokerstars/review.html">Full PokerStars review</a>.</li>
+<li><strong>PartyPoker:</strong> Shares the BetMGM/Bwin network. Check "Tournaments" for the same schedule available on all three skins. <a href="./partypoker/review.html">Full PartyPoker review</a>.</li>
+<li><strong>Bwin:</strong> Same shared network as PartyPoker and BetMGM. Tournament lobby accessible via desktop client or mobile browser. <a href="./bwin/review.html">Full Bwin review</a>.</li>
+</ul>
+
+<h2>GGPoker: Largest Weekly Tournament Schedule</h2>
+
+<p>GGPoker consistently offers the most tournament variety in Ontario. Their weekly schedule includes progressive knockouts, Spin &amp; Gold satellites, bounty events, and a full Sunday Major lineup. The GGPoker app makes it easy to set tournament reminders and register in advance, even from mobile. For players who prioritize tournaments, GGPoker is the clear first choice.</p>
+
+<p style="margin-top:var(--space-3);"><a href="https://click.ggpartners.com/?serial=886&amp;creative_id=8509&amp;anid=" target="_blank" rel="sponsored noopener noreferrer" class="btn btn--primary" style="display:inline-block;">Visit GGPoker Tournaments</a></p>
+
+<h2>Sunday Majors: The Biggest Events Each Week</h2>
+
+<p>Sunday is the most important day in the Ontario tournament calendar. Every room puts its best guarantees forward. GGPoker's Sunday Main Event and PokerStars' Sunday Special typically draw the largest fields. If you can only play one day a week, Sunday gives you the most action and the biggest potential payouts.</p>
+
+<p>Satellites for Sunday Majors often run throughout the week, giving you a chance to win your seat at a fraction of the direct buy-in. Check each room's satellite schedule starting Monday.</p>
+
+<h2>Special Series and Festival Events</h2>
+
+<p>Beyond the regular weekly schedule, Ontario rooms frequently run multi-day tournament series with larger prize pools. GGPoker hosts several festival series throughout the year, featuring dozens of events over a one or two-week span. PokerStars and 888poker also run seasonal series tied to their global brands. These series are typically announced a few weeks in advance and include satellites in the days leading up to the main events.</p>
+
+<p>Keep an eye on our <a href="./news.html">news hub</a> for announcements about upcoming series. Festival events often overlay at the lower buy-in levels, creating extra value for players who enter directly rather than through satellites.</p>
+
+<h2>Tips for Choosing Tournaments This Week</h2>
+
+<ul>
+<li><strong>Check for overlay:</strong> Early-week events (Monday, Tuesday) often don't reach their guarantee, meaning the prize pool exceeds the total buy-ins collected. This is free money for the field.</li>
+<li><strong>Time your sessions:</strong> Evening tournaments (7pm-10pm ET) draw the biggest fields. Afternoon events tend to be softer.</li>
+<li><strong>Mix formats:</strong> Don't just play freezeouts. PKO (progressive knockout) tournaments let you lock in value with each bounty, reducing variance.</li>
+<li><strong>Use satellites:</strong> If a buy-in is outside your bankroll, look for satellites running 1-3 days before the target event.</li>
+<li><strong>Bankroll management:</strong> A general rule is to keep 50-100 buy-ins for your regular tournament level. Our <a href="./poker-bankroll-calculator.html">Bankroll Calculator</a> can help you work out what makes sense for your play volume.</li>
+</ul>
+
+<h2>How Late Registration Works</h2>
+
+<p>Most Ontario poker tournaments allow late registration, meaning you can enter after the event has started. Late registration windows vary by room and event. GGPoker typically offers generous late reg periods, sometimes extending well into the tournament. This is useful if you miss the start time or want to see how the field shapes up before committing your buy-in. All rooms display the late registration deadline in the tournament lobby.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<div class="faq-list" style="margin:var(--space-4) 0;">
+<details style="border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4);margin-bottom:var(--space-3);">
+<summary style="font-weight:700;cursor:pointer;">How do I find Ontario poker tournaments happening this week?</summary>
+<p style="margin-top:var(--space-3);color:var(--color-text-muted);">Check the tournament lobbies in each regulated poker app. GGPoker, 888poker, BetMGM, PokerStars, PartyPoker, and Bwin all display upcoming tournaments with start times, buy-ins, and guaranteed prize pools. Our <a href="./ontario-poker-tournament-schedule.html">tournament schedule page</a> also tracks weekly events across all rooms.</p>
+</details>
+<details style="border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4);margin-bottom:var(--space-3);">
+<summary style="font-weight:700;cursor:pointer;">What days have the biggest Ontario poker tournaments?</summary>
+<p style="margin-top:var(--space-3);color:var(--color-text-muted);">Sundays feature the largest guaranteed tournaments across all Ontario rooms. GGPoker and PokerStars run their flagship weekly events on Sunday afternoons and evenings. Saturdays also offer larger-than-average guarantees.</p>
+</details>
+<details style="border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4);margin-bottom:var(--space-3);">
+<summary style="font-weight:700;cursor:pointer;">Are there freeroll tournaments in Ontario this week?</summary>
+<p style="margin-top:var(--space-3);color:var(--color-text-muted);">Yes. All six regulated Ontario poker rooms run daily or weekly freerolls. GGPoker and 888poker tend to offer the most frequent freeroll schedules. Check each room's tournament lobby for current freeroll listings. See our <a href="./ontario-poker-freerolls.html">Ontario freerolls guide</a> for more.</p>
+</details>
+<details style="border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4);margin-bottom:var(--space-3);">
+<summary style="font-weight:700;cursor:pointer;">Can I play Ontario poker tournaments on mobile?</summary>
+<p style="margin-top:var(--space-3);color:var(--color-text-muted);">Yes. All regulated Ontario rooms allow tournament registration and play through their mobile apps. GGPoker and PokerStars offer the smoothest mobile tournament experience, including late registration from your phone. See our <a href="./best-poker-app-ontario.html">best poker app guide</a>.</p>
+</details>
+</div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container container--default">
+    <div class="section-header"><h2>Related Guides</h2></div>
+    <div style="display:grid;gap:var(--space-3);grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));margin:var(--space-5) 0;">
+      <a href="./ontario-poker-tournament-schedule.html" class="card" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid var(--color-primary);">
+        <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">Full Tournament Schedule</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">Complete daily schedules for every regulated Ontario poker room.</p>
+      </a>
+      <a href="./ontario-poker-freerolls.html" class="card" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid var(--color-primary);">
+        <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">Ontario Poker Freerolls</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">Free-entry tournaments across all six rooms.</p>
+      </a>
+      <a href="./best-poker-sites-ontario.html" class="card" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid var(--color-primary);">
+        <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">Best Poker Sites in Ontario</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">All 6 regulated rooms ranked with ratings and mini-reviews.</p>
+      </a>
+      <a href="./best-poker-app-ontario.html" class="card" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid var(--color-primary);">
+        <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">Best Poker App Ontario</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">Compare mobile apps from all 6 regulated Ontario rooms.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="pillar-cta" style="max-width:800px;margin:var(--space-8) auto;padding:var(--space-5);background:var(--color-primary-surface, #f0f4ff);border:1px solid var(--color-border, #e5e5e5);border-radius:12px;text-align:center;">
+  <p style="font-weight:700;font-size:1.1rem;margin-bottom:var(--space-2);">Find your next tournament</p>
+  <p style="font-size:0.9rem;color:var(--text-secondary, #555);margin-bottom:var(--space-3);">GGPoker runs the most tournaments of any Ontario room, with 50+ events daily.</p>
+  <a href="./best-poker-sites-ontario.html" style="display:inline-block;padding:10px 28px;background:var(--color-primary, #1641B4);color:#fff;border-radius:999px;font-weight:700;text-decoration:none;font-size:0.9rem;">Best Poker Sites Ontario 2026 &rarr;</a>
+</section>
 
 </main>
 <footer class="site-footer">
@@ -365,7 +323,7 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 </div>
 <div class="footer-brand">
 <a class="site-logo" href="./index.html" style="margin-bottom:var(--space-2);">
-<img decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:26px;width:auto;">
+<img loading="lazy" decoding="async" src="./images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:26px;width:auto;">
 </a>
 <p>Your regulated Ontario poker resource online. Reviews, promotions, and guides for all six licensed poker rooms. Published by NWG PTY Limited.</p>
 <p style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-faint);">ontariopoker.com &middot; c/o WeWork, 240 Richmond St W, Toronto, ON M5V 1V6 &middot; <a href="mailto:help@ontariopoker.com" style="color:inherit;">help@ontariopoker.com</a></p>
@@ -431,10 +389,6 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 <a href="./ontario-poker-withdrawal-times.html">Withdrawal Times</a>
 <a href="./ontario-poker-payment-methods.html">Payment Methods</a>
 <a href="./ontario-poker-rakeback-rewards.html">Rakeback &amp; Rewards</a>
-<a href="./best-poker-app-ontario.html">Best Poker Apps</a>
-<a href="./fastest-withdrawal-poker-ontario.html">Fastest Withdrawals</a>
-<a href="./low-stakes-poker-ontario.html">Low Stakes Guide</a>
-<a href="./ontario-poker-rakeback.html">Rakeback Guide</a>
 </div>
 </div>
 <div class="footer-col">
@@ -477,16 +431,6 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 </div>
 </div>
 </footer>
-<div id="searchOverlay" class="search-overlay">
-  <div class="search-box">
-    <div class="search-input-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <input type="text" class="search-input" placeholder="Search reviews, guides, promotions..." autocomplete="off">
-      <button class="search-close" aria-label="Close search"><span aria-hidden="true">&#x2715;</span></button>
-    </div>
-    <div class="search-results"></div>
-  </div>
-</div>
-
 <script src="./app.min.js" defer></script>
 </body>
 </html>

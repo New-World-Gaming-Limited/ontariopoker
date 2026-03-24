@@ -111,14 +111,19 @@
 /* ===== FILTER PILLS ===== */
 .op-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
 .op-pill { padding: 0.4rem 0.85rem; border-radius: 999px; font-size: 0.8125rem; font-weight: 600; border: 1.5px solid var(--color-border, #d4d4d4); background: var(--color-surface, #fff); color: var(--color-text-muted, #666); transition: all 0.2s ease; user-select: none; }
-.op-pill:hover { border-color: var(--color-primary, #1b6d3d); color: var(--color-primary, #1b6d3d); }
-.op-pill--active { background: var(--color-primary, #1b6d3d); color: #fff; border-color: var(--color-primary, #1b6d3d); }
-.op-pill--active:hover { background: var(--color-primary, #1b6d3d); color: #fff; }
+.op-pill:hover { border-color: var(--color-primary, #1b6d3d); color: var(--color-primary, #1b6d3d); background: var(--color-surface, #fff); }
+.op-pill--active { background: var(--color-primary, #1b6d3d) !important; color: #fff !important; border-color: var(--color-primary, #1b6d3d) !important; }
+.op-pill--active:hover { background: var(--color-primary-hover, #145A32) !important; color: #fff !important; border-color: var(--color-primary-hover, #145A32) !important; }
+[data-theme="dark"] .op-pill { background: var(--color-surface-alt, #1c2333); color: var(--color-text-muted, #8b949e); border-color: var(--color-border, #30363d); }
+[data-theme="dark"] .op-pill:hover { border-color: var(--color-primary, #4ADE80); color: var(--color-primary, #4ADE80); background: var(--color-surface-alt, #1c2333); }
+[data-theme="dark"] .op-pill--active { background: var(--color-primary, #4ADE80) !important; color: #0d1117 !important; border-color: var(--color-primary, #4ADE80) !important; }
+[data-theme="dark"] .op-pill--active:hover { background: var(--color-primary-hover, #22C55E) !important; color: #0d1117 !important; border-color: var(--color-primary-hover, #22C55E) !important; }
 
 /* ===== SORT ===== */
 .op-sort-bar { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
 .op-sort-bar label { font-size: 0.8125rem; font-weight: 600; color: var(--color-text-muted, #666); }
 .op-sort-select { padding: 0.4rem 0.65rem; border-radius: 0.375rem; border: 1.5px solid var(--color-border, #d4d4d4); background: var(--color-surface, #fff); color: var(--color-text, #1a1a1a); font-size: 0.8125rem; font-weight: 500; }
+[data-theme="dark"] .op-sort-select { background: var(--color-surface-alt, #1c2333); color: var(--color-text, #e6edf3); border-color: var(--color-border, #30363d); }
 
 /* ===== CARDS ===== */
 .op-card-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem; }
@@ -299,7 +304,6 @@
       { key: "fastFold", label: "Fast-Fold Available", test: function (b) { return b.hasFastFold; } },
       { key: "paypal", label: "PayPal Accepted", test: function (b) { return b.hasPayPal; } },
       { key: "applePay", label: "Apple Pay", test: function (b) { return b.hasApplePay; } },
-      { key: "verifiedPromo", label: "Verified Promo Code", test: function (b) { return b.promoStatus === "verified_public"; } },
       { key: "phoneSupport", label: "Phone Support", test: function (b) { return b.support.toLowerCase().includes("phone"); } }
     ];
 

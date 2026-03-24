@@ -1201,8 +1201,8 @@ table tbody tr:nth-child(even) {
   user-select: none;
 }
 [data-theme="dark"] .page-hero[data-brand]::after {
-  color: rgba(255,255,255,0.03);
-  text-shadow: -1px -1px 0 rgba(0,0,0,0.4);
+  color: rgba(255,255,255,0.025);
+  text-shadow: none;
 }
 @media (max-width: 899px) {
   .page-hero[data-brand]::after {
@@ -2543,6 +2543,15 @@ a .code-badge:hover {
   color: var(--color-text);
   border-color: var(--color-text-muted);
 }
+[data-theme="dark"] .btn--ghost {
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+[data-theme="dark"] .btn--ghost:hover {
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+  border-color: var(--color-text-muted);
+}
 
 /* --- ENHANCED CARD INTERACTIONS --- */
 .card:hover {
@@ -2710,6 +2719,9 @@ a .code-badge:hover {
   font-size: var(--text-sm);
   padding: var(--space-1) 0;
   border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+[data-theme="dark"] .pros-card li, [data-theme="dark"] .cons-card li {
+  border-bottom-color: rgba(255,255,255,0.08);
 }
 .pros-card li:last-child, .cons-card li:last-child { border-bottom: none; }
 
@@ -3659,6 +3671,9 @@ a .code-badge:hover {
   display: inline-block;
   vertical-align: middle;
 }
+[data-theme="dark"] .brand-logo-pill {
+  background: #111827;
+}
 .brand-logo-pill img {
   display: block;
   object-fit: contain;
@@ -3679,4 +3694,17 @@ th img[src*="logos/"], td img[src*="logos/"] {
 [data-theme="dark"] th img[src*="logos/"],
 [data-theme="dark"] td img[src*="logos/"] {
   background: #111827;
+}
+
+/* --- Dark mode figcaption --- */
+[data-theme="dark"] figcaption {
+  background: var(--color-surface-alt) !important;
+  color: var(--color-text-muted) !important;
+  border-top-color: var(--color-border) !important;
+}
+
+/* --- Dark mode card--flat --- */
+[data-theme="dark"] .card--flat {
+  background: var(--color-surface);
+  border-color: var(--color-border);
 }

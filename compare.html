@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en-CA">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-17BPYWWHV8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-17BPYWWHV8');
+</script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Compare All Ontario Poker Rooms 2026 | OntarioPoker</title>
@@ -144,7 +153,65 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 
 <section class="section">
   <div class="container">
-    <div id="comparison-app"></div>
+    <div id="comparison-app">
+<p style="font-size:12px;font-weight:600;color:#4B5563;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">Filter by Feature</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;padding:16px 0;" id="filter-pills-container">
+  <button style="display:inline-flex;align-items:center;padding:6px 14px;border-radius:9999px;border:1.5px solid #E2E5EB;background:#FFFFFF;color:#4B5563;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:inherit;" data-filter-id="fast-fold" onclick="toggleFilter(this,'fast-fold')">Fast-Fold Available</button>
+  <button style="display:inline-flex;align-items:center;padding:6px 14px;border-radius:9999px;border:1.5px solid #E2E5EB;background:#FFFFFF;color:#4B5563;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:inherit;" data-filter-id="mobile-app" onclick="toggleFilter(this,'mobile-app')">Mobile App</button>
+  <button style="display:inline-flex;align-items:center;padding:6px 14px;border-radius:9999px;border:1.5px solid #E2E5EB;background:#FFFFFF;color:#4B5563;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:inherit;" data-filter-id="cash-games" onclick="toggleFilter(this,'cash-games')">Cash Games</button>
+  <button style="display:inline-flex;align-items:center;padding:6px 14px;border-radius:9999px;border:1.5px solid #E2E5EB;background:#FFFFFF;color:#4B5563;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:inherit;" data-filter-id="tournaments" onclick="toggleFilter(this,'tournaments')">Tournaments Available</button>
+  <button style="display:inline-flex;align-items:center;padding:6px 14px;border-radius:9999px;border:1.5px solid #E2E5EB;background:#FFFFFF;color:#4B5563;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:inherit;" data-filter-id="poker-variants" onclick="toggleFilter(this,'poker-variants')">Multiple Poker Variants</button>
+</div>
+<div id="compare-table-container"></div>
+</div>
+<style>
+.filter-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:var(--space-6);padding:var(--space-4) 0;}
+.filter-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--radius-full);border:1.5px solid var(--color-border);background:var(--color-surface);color:var(--color-text-muted);font-size:var(--text-sm);font-weight:500;cursor:pointer;transition:all 200ms cubic-bezier(.16,1,.3,1);white-space:nowrap;}
+.filter-pill:hover{border-color:var(--color-primary);color:var(--color-primary);background:var(--color-primary-surface);}
+.filter-pill.active{background:var(--color-primary);color:#fff;border-color:var(--color-primary);}
+[data-theme="dark"] .filter-pill.active{color:#0d1117;}
+.filter-section-label{font-size:var(--text-sm);font-weight:600;color:var(--color-text-muted);margin-bottom:var(--space-2);text-transform:uppercase;letter-spacing:0.05em;}
+.compare-table-wrap{overflow-x:auto;border-radius:var(--radius-lg);border:1px solid var(--color-border);margin-top:var(--space-4);}
+.compare-table{width:100%;border-collapse:collapse;font-size:var(--text-sm);background:var(--color-surface);}
+.compare-table th{background:var(--color-surface-alt);padding:10px 16px;text-align:left;font-weight:600;border-bottom:2px solid var(--color-border);color:var(--color-text);white-space:nowrap;}
+.compare-table td{padding:10px 16px;border-bottom:1px solid var(--color-border-light);color:var(--color-text);}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table .check{color:var(--color-success);font-weight:700;}
+.compare-table .cross{color:var(--color-danger);font-weight:700;}
+.compare-table th.feature-col{min-width:180px;}
+.compare-table th.room-col{text-align:center;min-width:110px;}
+.compare-table td:not(:first-child){text-align:center;}
+</style>
+<script>
+var _activeFilters={};
+function toggleFilter(btn,id){
+  if(_activeFilters[id]){
+    delete _activeFilters[id];
+    btn.style.background='#FFFFFF';
+    btn.style.color='#4B5563';
+    btn.style.borderColor='#E2E5EB';
+  } else {
+    _activeFilters[id]=true;
+    var isDark=document.documentElement.getAttribute('data-theme')==='dark';
+    btn.style.background=isDark?'#4ADE80':'#1A6B3C';
+    btn.style.color=isDark?'#0d1117':'#FFFFFF';
+    btn.style.borderColor=isDark?'#4ADE80':'#1A6B3C';
+  }
+  _renderCompareTable();
+}
+function _renderCompareTable(){
+  var container=document.getElementById('compare-table-container');
+  if(!container)return;
+  var rooms=[{n:'GGPoker',ff:true,ma:true,cg:true,t:true,v:true},{n:'888poker',ff:false,ma:true,cg:true,t:true,v:true},{n:'BetMGM',ff:false,ma:true,cg:true,t:false,v:false},{n:'PokerStars',ff:true,ma:true,cg:true,t:true,v:true},{n:'PartyPoker',ff:false,ma:true,cg:true,t:true,v:false},{n:'Bwin',ff:false,ma:true,cg:true,t:false,v:false}];
+  function gv(r,id){if(id==='fast-fold')return r.ff;if(id==='mobile-app')return r.ma;if(id==='cash-games')return r.cg;if(id==='tournaments')return r.t;if(id==='poker-variants')return r.v;return true;}
+  var vr=rooms.filter(function(r){return Object.keys(_activeFilters).every(function(id){return !_activeFilters[id]||gv(r,id);});});
+  var cols=vr.map(function(r){return '<th style="text-align:center;min-width:110px">'+r.n+'</th>';}).join('');
+  var rowDefs=[['Fast-Fold',function(r){return r.ff;}],['Mobile App',function(r){return r.ma;}],['Cash Games',function(r){return r.cg;}],['Tournaments',function(r){return r.t;}],['Variants',function(r){return r.v;}]];
+  var rows=rowDefs.map(function(row){var cells=vr.map(function(r){var v=row[1](r);return '<td>'+(v?'<span style="color:#16a34a;font-weight:700">&#x2713;</span>':'<span style="color:#dc2626;font-weight:700">&#x2717;</span>')+'</td>';}).join('');return '<tr><td style="min-width:180px">'+row[0]+'</td>'+cells+'</tr>';}).join('');
+  container.innerHTML='<div class="compare-table-wrap"><table class="compare-table"><thead><tr><th style="min-width:180px">Feature</th>'+cols+'</tr></thead><tbody>'+rows+'</tbody></table></div>';
+}
+document.addEventListener('DOMContentLoaded',_renderCompareTable);
+</script>
     
     <div class="prose" style="margin-top:var(--space-8);">
       <h2>How to Read This Comparison</h2>
@@ -288,9 +355,3 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 </div>
 
 <script src="./app.min.js" defer></script>
-</body>
-</html>
-<script src="./app.js"></script>
-<script src="./interactive-tools.js"></script>
-</body>
-</html>

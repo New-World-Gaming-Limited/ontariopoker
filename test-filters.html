@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { font-family: sans-serif; padding: 20px; background: #F9FAFC; }
+</style>
+</head>
+<body>
+<h2>Filter Test</h2>
+<p style="font-size:12px;font-weight:600;color:#4B5563;margin-bottom:8px;">Filter by Feature</p>
+<div id="container" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;">
+  <button id="btn-ff" style="display:inline-flex;align-items:center;padding:6px 14px;border-radius:9999px;border:1.5px solid #E2E5EB;background:#FFFFFF;color:#4B5563;font-size:14px;font-weight:500;cursor:pointer;" onclick="toggleFilter(this,'fast-fold')">Fast-Fold Available</button>
+  <button style="display:inline-flex;align-items:center;padding:6px 14px;border-radius:9999px;border:1.5px solid #E2E5EB;background:#FFFFFF;color:#4B5563;font-size:14px;font-weight:500;cursor:pointer;" onclick="toggleFilter(this,'mobile-app')">Mobile App</button>
+  <button style="display:inline-flex;align-items:center;padding:6px 14px;border-radius:9999px;border:1.5px solid #E2E5EB;background:#FFFFFF;color:#4B5563;font-size:14px;font-weight:500;cursor:pointer;" onclick="toggleFilter(this,'cash-games')">Cash Games</button>
+  <button style="display:inline-flex;align-items:center;padding:6px 14px;border-radius:9999px;border:1.5px solid #E2E5EB;background:#FFFFFF;color:#4B5563;font-size:14px;font-weight:500;cursor:pointer;" onclick="toggleFilter(this,'tournaments')">Tournaments Available</button>
+  <button style="display:inline-flex;align-items:center;padding:6px 14px;border-radius:9999px;border:1.5px solid #E2E5EB;background:#FFFFFF;color:#4B5563;font-size:14px;font-weight:500;cursor:pointer;" onclick="toggleFilter(this,'poker-variants')">Multiple Poker Variants</button>
+</div>
+<div id="table-container"></div>
+<script>
+var _activeFilters={};
+function toggleFilter(btn,id){
+  if(_activeFilters[id]){
+    delete _activeFilters[id];
+    btn.style.background='#FFFFFF';btn.style.color='#4B5563';btn.style.borderColor='#E2E5EB';
+  } else {
+    _activeFilters[id]=true;
+    btn.style.background='#1A6B3C';btn.style.color='#FFFFFF';btn.style.borderColor='#1A6B3C';
+  }
+}
+</script>
+</body>
+</html>

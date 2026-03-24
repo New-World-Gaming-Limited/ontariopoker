@@ -13,12 +13,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ontario Tournament ROI Calculator | OntarioPoker</title>
-<meta name="description" content="Calculate your tournament ROI and hourly rate in Ontario ring-fenced fields. Compare earnings against Ontario minimum wage.">
+<meta name="description" content="Calculate your tournament ROI and hourly rate in Ontario ring-fenced fields. Analyze your profitability in Ontario's ring-fenced fields.">
 <link rel="canonical" href="https://ontariopoker.com/tournament-roi-calculator">
 <link rel="alternate" hreflang="en-CA" href="https://ontariopoker.com/tournament-roi-calculator">
 <link rel="alternate" hreflang="x-default" href="https://ontariopoker.com/tournament-roi-calculator">
 <meta property="og:title" content="Ontario Tournament ROI Calculator | OntarioPoker">
-<meta property="og:description" content="Calculate your tournament ROI and hourly rate in Ontario ring-fenced fields. Compare earnings against Ontario minimum wage.">
+<meta property="og:description" content="Calculate your tournament ROI and hourly rate in Ontario ring-fenced fields. Analyze your profitability in Ontario's ring-fenced fields.">
 <meta property="og:url" content="https://ontariopoker.com/tournament-roi-calculator">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="OntarioPoker">
@@ -297,16 +297,17 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
         </div>
       </div>
       <div class="nav-dropdown">
-        <button class="nav-dropdown-trigger">Promotions <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
+        <button class="nav-dropdown-trigger">Guides <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 3 3-3"/></svg></button>
         <div class="nav-dropdown-menu">
-          <a href="./ontario-poker-promo-codes.html">All Promo Codes</a>
+          <a href="./ontario-poker-beginners-guide.html">Beginner's Guide</a>
+          <a href="./ontario-poker-bonuses.html">Offers &amp; Rewards</a>
+          <a href="./ontario-poker-payment-methods.html">Payment Methods</a>
+          <a href="./ontario-poker-withdrawal-times.html">Withdrawal Times</a>
           <div class="nav-dropdown-divider"></div>
-          <a href="./ggpoker/promo-code.html">GGPoker Promo</a>
-          <a href="./888poker/promo-code.html">888poker Promo</a>
-          <a href="./betmgm-poker/promo-code.html">BetMGM Poker Promo</a>
-          <a href="./pokerstars/promo-code.html">PokerStars Promo</a>
-          <a href="./partypoker/promo-code.html">PartyPoker Promo</a>
-          <a href="./bwin/promo-code.html">Bwin Promo</a>
+          <a href="./ontario-poker-tournaments.html">Tournament Guide</a>
+          <a href="./ontario-poker-cash-games.html">Cash Games</a>
+          <a href="./ontario-poker-rakeback-rewards.html">Rakeback &amp; Rewards</a>
+          <a href="./ontario-poker-apps.html">Poker Apps</a>
         </div>
       </div>
       <div class="nav-dropdown">
@@ -679,7 +680,7 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 <div class="footer-col">
 <h4 class="footer-col-toggle">Guides<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
 <div class="footer-col-links">
-<a href="./ontario-poker-promo-codes.html">Promo Codes</a>
+<a href="./ontario-poker-promo-codes.html">Offer Status</a>
 <a href="./ontario-poker-tournaments.html">Tournaments</a>
 <a href="./ontario-poker-beginners-guide.html">Beginners Guide</a>
 <a href="./ontario-poker-plo-omaha.html">PLO & Omaha</a>
@@ -733,6 +734,9 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 <p><strong>Affiliate Disclosure:</strong> OntarioPoker.com is owned and operated by NWG Limited. This site contains affiliate links. If you click through and register using our links, we may receive compensation at no additional cost to you. All editorial ratings are our own. See our <a href="./affiliate-disclosure.html" style="color:inherit;text-decoration:underline;">Affiliate Disclosure</a>.</p>
 <p><strong>Disclaimer:</strong> Online poker in Ontario is regulated by the Alcohol and Gaming Commission of Ontario (AGCO) and operated through iGaming Ontario. You must be 19+ and physically located in Ontario to play. If you or someone you know has a gambling problem, call ConnexOntario at 1-866-531-2600.</p>
 </div>
+<div style="text-align:center;padding:var(--space-3) 0;border-top:1px solid var(--color-border-light);margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-muted);">
+<span>Ontario's regulated online gaming market is operated by <a href="https://igamingontario.ca/en" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">iGaming Ontario</a>, a subsidiary of the AGCO. 19+ only. Ontario residents only.</span>
+</div>
 <div class="footer-bottom">
 <span>&copy; 2026 NWG Limited &middot; ontariopoker.com. All rights reserved.</span>
 </div>
@@ -769,7 +773,7 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
     300: 'large'
   };
 
-  var MIN_WAGE = 17.20;
+  
 
   // Cache DOM elements
   var elRoom = document.getElementById('roiRoom');
@@ -874,19 +878,17 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
     elYearly.className = 'roi-stat-value ' + (profitYear >= 0 ? 'positive' : 'negative');
 
     // Comparison bars
-    var maxRate = Math.max(Math.abs(hourlyRate), MIN_WAGE) * 1.2;
+    
     var yourPct = Math.min(100, (Math.abs(hourlyRate) / maxRate) * 100);
-    var wagePct = Math.min(100, (MIN_WAGE / maxRate) * 100);
+    
 
     elBarYourRate.textContent = formatCurrency(hourlyRate) + '/hr';
     elBarYour.style.width = yourPct + '%';
-    elBarYour.style.background = hourlyRate >= MIN_WAGE ? 'var(--color-success)' : (hourlyRate >= 0 ? 'var(--color-primary)' : 'var(--color-danger)');
-    elBarWage.style.width = wagePct + '%';
+    elBarYour.style.background = hourlyRate >= 0 ? 'var(--color-success)' : 'var(--color-danger)';
+    
 
-    if (hourlyRate >= MIN_WAGE) {
-      elWageVerdict.textContent = 'Your tournament hourly rate exceeds Ontario minimum wage by ' + formatCurrency(hourlyRate - MIN_WAGE) + '/hr.';
-    } else if (hourlyRate >= 0) {
-      elWageVerdict.textContent = 'You are profitable but earning below Ontario minimum wage. Consider increasing volume or moving to higher buy-ins if your bankroll supports it.';
+     else if (hourlyRate >= 0) {
+      elWageVerdict.textContent = 'You are profitable. Remember that tournament results vary significantly due to variance. Maintain proper bankroll management.';
     } else {
       elWageVerdict.textContent = 'You are currently losing money. Review your game selection, study strategy, or consider lower buy-in levels to reduce variance.';
     }

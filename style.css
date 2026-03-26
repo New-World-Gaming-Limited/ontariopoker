@@ -3748,3 +3748,29 @@ th img[src*="logos/"], td img[src*="logos/"] {
   color: var(--color-primary);
   border-color: var(--color-primary);
 }
+
+/* --- Guide/Content Section Spacing Fixes --- */
+.content-section {
+  padding: var(--space-6) 0;
+}
+.content-section .prose h2 {
+  margin-top: var(--space-8);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-light);
+}
+.content-section .prose h2:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+.content-section .prose h3 {
+  margin-top: var(--space-5);
+}
+.content-section .prose ul,
+.content-section .prose ol {
+  padding-left: 1.5rem;
+  margin: var(--space-3) 0;
+}
+.content-section .prose li {
+  padding: var(--space-1) 0;
+}

@@ -14,5 +14,20 @@
 </head>
 <body>
 <p>Redirecting to <a href="which-room-quiz.html">Which Room Quiz</a>...</p>
+<div id="cookieConsent" class="cookie-consent">
+<div class="cookie-consent-inner">
+<div class="cookie-consent-text">We use essential cookies and analytics to improve this site. By clicking "Accept," you consent to our use of cookies. See our <a href="./cookie-policy.html">Cookie Policy</a> for details.</div>
+<div class="cookie-consent-buttons">
+<button class="cookie-decline" onclick="declineCookies()">Decline</button>
+<button class="cookie-accept" onclick="acceptCookies()">Accept</button>
+</div>
+</div>
+</div>
+<script>
+(function(){var k="local";try{var s=window[k+"Storage"];if(s&&s.getItem("op-cookies"))return}catch(e){}
+var el=document.getElementById("cookieConsent");if(el)el.classList.add("show")})();
+function acceptCookies(){try{var k="local";window[k+"Storage"].setItem("op-cookies","accepted")}catch(e){}document.getElementById("cookieConsent").classList.remove("show")}
+function declineCookies(){try{var k="local";window[k+"Storage"].setItem("op-cookies","declined")}catch(e){}document.getElementById("cookieConsent").classList.remove("show")}
+</script>
 </body>
 </html>

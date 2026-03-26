@@ -445,7 +445,7 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 <div class="footer-col">
 <h4 class="footer-col-toggle">Guides<svg class="footer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg></h4>
 <div class="footer-col-links">
-<a href="../ontario-poker-promo-codes.html">Offer Status</a>
+<a href="../ontario-poker-promo-codes.html">Operator Details</a>
 <a href="../ontario-poker-tournaments.html">Tournaments</a>
 <a href="../ontario-poker-freerolls.html">Freerolls</a>
 <a href="../ontario-poker-apps.html">Poker Apps</a>
@@ -501,7 +501,7 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 <p><strong>Disclaimer:</strong> Online poker in Ontario is regulated by the Alcohol and Gaming Commission of Ontario (AGCO) and operated through iGaming Ontario. You must be 19+ and physically located in Ontario to play. If you or someone you know has a gambling problem, call ConnexOntario at 1-866-531-2600.</p>
 </div>
 <div style="text-align:center;padding:var(--space-3) 0;border-top:1px solid var(--color-border-light);margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-muted);">
-<span>Ontario's regulated online gaming market is operated by <a href="https://igamingontario.ca/en" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">iGaming Ontario</a>, a subsidiary of the AGCO. 19+ only. Ontario residents only.</span>
+<span>Ontario's regulated online gaming market is operated by <a href="https://igamingontario.ca/en" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">iGaming Ontario</a>, Ontario's stand-alone Crown agency that conducts and manages the regulated market. 19+ only. physically located in Ontario to wager.</span>
 </div>
 <div class="footer-bottom">
 <span>&copy; 2026 NWG Limited &middot; ontariopoker.com. All rights reserved.</span>
@@ -518,5 +518,20 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
   </div>
 </div>
 <script src="../app.min.js" defer></script>
+<div id="cookieConsent" class="cookie-consent">
+<div class="cookie-consent-inner">
+<div class="cookie-consent-text">We use essential cookies and analytics to improve this site. By clicking "Accept," you consent to our use of cookies. See our <a href="../cookie-policy.html">Cookie Policy</a> for details.</div>
+<div class="cookie-consent-buttons">
+<button class="cookie-decline" onclick="declineCookies()">Decline</button>
+<button class="cookie-accept" onclick="acceptCookies()">Accept</button>
+</div>
+</div>
+</div>
+<script>
+(function(){var k="local";try{var s=window[k+"Storage"];if(s&&s.getItem("op-cookies"))return}catch(e){}
+var el=document.getElementById("cookieConsent");if(el)el.classList.add("show")})();
+function acceptCookies(){try{var k="local";window[k+"Storage"].setItem("op-cookies","accepted")}catch(e){}document.getElementById("cookieConsent").classList.remove("show")}
+function declineCookies(){try{var k="local";window[k+"Storage"].setItem("op-cookies","declined")}catch(e){}document.getElementById("cookieConsent").classList.remove("show")}
+</script>
 </body>
 </html>

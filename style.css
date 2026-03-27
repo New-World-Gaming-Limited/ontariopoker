@@ -3835,3 +3835,11 @@ th img[src*="logos/"], td img[src*="logos/"] {
 [data-theme="dark"] .cookie-consent {
   box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
 }
+
+/* --- News Scroller --- */
+.news-scroller::-webkit-scrollbar { height: 4px; }
+.news-scroller::-webkit-scrollbar-track { background: transparent; }
+.news-scroller::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 4px; }
+.news-scroller::-webkit-scrollbar-thumb:hover { background: var(--color-text-faint); }
+.news-scroller > a { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.news-scroller > a:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }

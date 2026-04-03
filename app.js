@@ -519,3 +519,15 @@ function resetQuiz(quizId) {
   });
   widget.querySelector('.review-quiz-result').style.display = 'none';
 }
+
+// --- AUTO-UPDATE MONTH/YEAR ---
+(function(){
+  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var now = new Date();
+  var current = months[now.getMonth()] + ' ' + now.getFullYear();
+  var currentUpper = current.toUpperCase();
+  document.querySelectorAll('[data-auto-date]').forEach(function(el){
+    var isUpper = el.textContent === el.textContent.toUpperCase();
+    el.textContent = isUpper ? currentUpper : current;
+  });
+})();

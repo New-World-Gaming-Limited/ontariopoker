@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,600,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<title>GGPoker Ontario Guide 2026 | OntarioPoker</title>
-<meta name="description" content="Complete GGPoker Ontario guide: review, operator details status, bonus terms, and features. Regulated by iGaming Ontario.">
+<title>GGPoker Ontario 2026 — #1 Rated Room | OntarioPoker</title>
+<meta name="description" content="Everything about GGPoker in Ontario. 4.7/5 rated, WSOP qualifier platform, Smart HUD, tournament schedule, and how to get started.">
 <link rel="canonical" href="https://ontariopoker.com/ggpoker/">
 <link rel="alternate" hreflang="en-CA" href="https://ontariopoker.com/ggpoker/">
 <link rel="alternate" hreflang="x-default" href="https://ontariopoker.com/ggpoker/">
@@ -41,147 +41,70 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 .section{padding:var(--space-6) 0}
 .section--alt{background:var(--section-alt-bg)}
 @media(max-width:899px){.nav-desktop{display:none}.mobile-menu-btn{display:flex}}
-@media(min-width:900px){.mobile-menu-btn{display:none}}/* ── Hero Card Grid & Cards ──────────────────────────────────────── */
+@media(min-width:900px){.mobile-menu-btn{display:none}}
 
-.hero-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-  gap: var(--space-4);
-  margin-top: var(--space-6);
-}
+/* Page layout */
+.content-with-sidebar{display:grid;grid-template-columns:1fr 300px;gap:var(--space-8);align-items:start;}
+@media(max-width:899px){.content-with-sidebar{grid-template-columns:1fr;}}
+.sidebar{position:sticky;top:80px;}
+.sidebar-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5);margin-bottom:var(--space-4);}
+.sidebar-card h3{font-size:var(--text-sm);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-text-muted);margin-bottom:var(--space-3);}
+.sidebar-card a{display:block;padding:var(--space-2) 0;color:var(--color-text);text-decoration:none;font-size:var(--text-sm);border-bottom:1px solid var(--color-border-light);}
+.sidebar-card a:last-child{border-bottom:none;}
+.sidebar-card a:hover{color:var(--color-primary);}
+.sidebar-cta{background:var(--color-primary);color:#fff;padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);text-decoration:none;display:block;text-align:center;font-weight:700;font-size:var(--text-sm);margin-top:var(--space-3);}
+.sidebar-cta:hover{background:var(--color-primary-hover);color:#fff;}
 
-.hero-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-left: 4px solid var(--card-accent, var(--color-primary));
-  border-radius: var(--radius-md);
-  padding: var(--space-5);
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 200ms ease, transform 200ms ease;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
+/* Quick facts box */
+.quick-facts{background:var(--color-surface);border:1px solid var(--color-border);border-left:4px solid var(--color-primary);border-radius:var(--radius-lg);padding:var(--space-5);margin-bottom:var(--space-6);}
+.quick-facts h2{font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-4);color:var(--color-text);}
+.quick-facts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--space-3);}
+.quick-fact{display:flex;flex-direction:column;gap:2px;}
+.quick-fact-label{font-size:var(--text-xs);color:var(--color-text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.04em;}
+.quick-fact-value{font-size:var(--text-sm);font-weight:700;color:var(--color-text);}
+.rating-stars{color:#f59e0b;}
 
-.hero-card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
+/* Prose */
+.prose h2{font-size:var(--text-lg);font-weight:700;margin-top:var(--space-8);margin-bottom:var(--space-3);color:var(--color-text);}
+.prose h3{font-size:var(--text-base);font-weight:700;margin-top:var(--space-5);margin-bottom:var(--space-2);color:var(--color-text);}
+.prose p{margin-bottom:var(--space-4);color:var(--color-text);}
+.prose ul,.prose ol{margin-bottom:var(--space-4);padding-left:var(--space-6);}
+.prose li{margin-bottom:var(--space-1);}
+.prose strong{font-weight:700;}
 
-.hero-card-rank {
-  position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-full);
-  background: var(--color-surface-2);
-  border: 2px solid var(--card-accent, var(--color-primary));
-  color: var(--color-text);
-  font-weight: 700;
-  font-size: var(--text-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-}
+/* Author byline */
+.author-byline{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-4) 0;border-top:1px solid var(--color-border-light);border-bottom:1px solid var(--color-border-light);margin-bottom:var(--space-6);font-size:var(--text-sm);color:var(--color-text-muted);}
+.author-byline a{color:var(--color-primary);text-decoration:none;}
 
-.hero-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
-  padding-right: var(--space-10);
-}
+/* FAQ */
+.faq-item{border-bottom:1px solid var(--color-border-light);padding:var(--space-4) 0;}
+.faq-item:last-child{border-bottom:none;}
+.faq-question{font-weight:700;font-size:var(--text-base);margin-bottom:var(--space-2);color:var(--color-text);}
+.faq-answer{color:var(--color-text-muted);font-size:var(--text-sm);}
+.faq-answer a{color:var(--color-primary);}
 
-.hero-card-header h3 {
-  font-size: var(--text-lg);
-  font-weight: 700;
-  margin: 0;
-  line-height: 1.2;
-}
+/* Info box */
+.info-box{background:var(--color-primary-surface);border:1px solid var(--color-primary);border-radius:var(--radius-md);padding:var(--space-4);margin:var(--space-4) 0;font-size:var(--text-sm);color:var(--color-text);}
 
-.hero-card-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-full);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  white-space: nowrap;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.hero-card-bonus {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: var(--space-3);
-}
-
-.hero-card-code {
-  margin-bottom: var(--space-3);
-}
-
-.hero-card-features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 var(--space-4) 0;
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  flex-grow: 1;
-}
-
-.hero-card-features li {
-  padding: var(--space-1) 0;
-  padding-left: var(--space-4);
-  position: relative;
-}
-
-.hero-card-features li::before {
-  content: "\2713";
-  position: absolute;
-  left: 0;
-  color: var(--color-success, var(--card-accent, #1A6B3C));
-  font-weight: 700;
-  font-size: var(--text-xs);
-}
-
-.hero-card .btn {
-  margin-bottom: var(--space-2);
-}
-
-.hero-card-review-link {
-  display: block;
-  text-align: center;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-text-muted);
-  text-decoration: none;
-  transition: color 150ms ease;
-}
-
-.hero-card-review-link:hover {
-  color: var(--color-text);
-  text-decoration: underline;
-}
-
-/* Responsive: stack to single column on narrow screens */
-@media (max-width: 640px) {
-  .hero-cards-grid {
-    grid-template-columns: 1fr;
-  }
-}
+/* Feature table */
+.feature-table{width:100%;border-collapse:collapse;margin:var(--space-4) 0;}
+.feature-table th{text-align:left;font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--color-text-muted);padding:var(--space-2) var(--space-3);background:var(--color-surface-alt);border-bottom:1px solid var(--color-border);}
+.feature-table td{padding:var(--space-3);border-bottom:1px solid var(--color-border-light);font-size:var(--text-sm);}
+.feature-table tr:last-child td{border-bottom:none;}
+.check{color:var(--color-success);font-weight:700;}
 </style>
 <script>(function(){var k='local',s={};try{s=window[k+'Storage']||s}catch(e){}window._ls=s;try{var t=s.getItem?s.getItem('op-theme'):s['op-theme'];if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})()</script>
 <link rel="preload" href="../style.min.css" as="style">
 <link href="../style.min.css" rel="stylesheet">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ontariopoker.com/"}, {"@type": "ListItem", "position": 2, "name": "GGPoker"}]}</script>
-<meta property="og:title" content="GGPoker Ontario Guide 2026 | OntarioPoker">
-<meta property="og:description" content="Complete GGPoker Ontario guide: review, operator details status, bonus terms, and features. Regulated by iGaming Ontario.">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ontariopoker.com/"},{"@type":"ListItem","position":2,"name":"GGPoker Ontario","item":"https://ontariopoker.com/ggpoker/"}]}</script>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"OntarioPoker.com","url":"https://ontariopoker.com","logo":"https://ontariopoker.com/images/ontariopoker-logo.svg","description":"Independent reviews and guides for AGCO-regulated Ontario poker rooms. Published by NWG Limited.","address":{"@type":"PostalAddress","streetAddress":"c/o WeWork, 240 Richmond St W","addressLocality":"Toronto","addressRegion":"ON","postalCode":"M5V 1V6","addressCountry":"CA"},"contactPoint":{"@type":"ContactPoint","email":"help@ontariopoker.com","contactType":"customer service"},"publishingPrinciples":"https://ontariopoker.com/editorial-policy"}</script>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is GGPoker legal in Ontario?","acceptedAnswer":{"@type":"Answer","text":"Yes. GGPoker Ontario is operated by NSUS Limited under a licence from iGaming Ontario, the stand-alone Crown agency that conducts and manages the regulated online poker market. You must be 19+ and physically located in Ontario to play."}},{"@type":"Question","name":"What makes GGPoker different from other Ontario rooms?","acceptedAnswer":{"@type":"Answer","text":"GGPoker runs the most feature-rich software stack of any Ontario room, including Smart HUD, PokerCraft hand history analytics, Rush and Cash fast-fold, and Spin and Gold jackpot sit-and-gos. It is also the exclusive WSOP Circuit qualifier platform in Ontario."}},{"@type":"Question","name":"What is the Bounty Hunters Series (BHS) Ontario?","acceptedAnswer":{"@type":"Answer","text":"BHS Ontario is a recurring progressive bounty tournament series run exclusively on GGPoker Ontario. Each event features bounty targets on certain players, and knocking them out adds a cash bounty to your stack. The series runs seasonally with guaranteed prize pools."}},{"@type":"Question","name":"Can I use a HUD on GGPoker Ontario?","acceptedAnswer":{"@type":"Answer","text":"Third-party HUDs are not permitted on GGPoker under iGaming Ontario's shared liquidity rules. GGPoker instead offers its own built-in Smart HUD, which displays relevant opponent stats without requiring external software."}},{"@type":"Question","name":"How does the Ontario MILLION$ tournament work?","acceptedAnswer":{"@type":"Answer","text":"The Ontario MILLION$ is a monthly guaranteed tournament exclusive to players physically located in Ontario. It runs on GGPoker Ontario with a large guaranteed prize pool. Satellites and steps are available to qualify at lower buy-ins. Visit the GGPoker Ontario lobby for current schedules and guarantee amounts."}}]}</script>
+
+<meta property="og:title" content="GGPoker Ontario 2026 — #1 Rated Room | OntarioPoker">
+<meta property="og:description" content="Everything about GGPoker in Ontario. 4.7/5 rated, WSOP qualifier platform, Smart HUD, tournament schedule, and how to get started.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ontariopoker.com/ggpoker/">
 <meta property="og:site_name" content="OntarioPoker">
@@ -192,8 +115,6 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png" sizes="32x32">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"OntarioPoker.com","url":"https://ontariopoker.com","logo":"https://ontariopoker.com/images/ontariopoker-logo.svg","description":"Independent reviews and guides for AGCO-regulated Ontario poker rooms. Published by NWG Limited.","address":{"@type":"PostalAddress","streetAddress":"c/o WeWork, 240 Richmond St W","addressLocality":"Toronto","addressRegion":"ON","postalCode":"M5V 1V6","addressCountry":"CA"},"contactPoint":{"@type":"ContactPoint","email":"help@ontariopoker.com","contactType":"customer service"},"publishingPrinciples":"https://ontariopoker.com/editorial-policy"}</script>
 </head>
 <body>
 <div class="disclosure-bar">
@@ -260,8 +181,8 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
           <a href="../is-online-poker-legal-in-ontario.html">Legal Guide</a>
           <a href="../ontario-poker-shared-liquidity.html">Shared Liquidity</a>
           <a href="../ontario-poker-tournament-schedule.html">Tournament Schedule</a>
-<a href="../ontario-poker-tournaments-this-week.html">Tournaments This Week</a>
-<a href="../live-poker-ontario.html">Live Poker Ontario</a>
+          <a href="../ontario-poker-tournaments-this-week.html">Tournaments This Week</a>
+          <a href="../live-poker-ontario.html">Live Poker Ontario</a>
           <a href="../ontario-poker-traffic-index.html">Traffic Index</a>
           <a href="../news.html">News</a>
         </div>
@@ -314,8 +235,8 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
     <a href="../is-online-poker-legal-in-ontario.html">Legal Guide</a>
     <a href="../ontario-poker-shared-liquidity.html">Shared Liquidity</a>
     <a href="../ontario-poker-tournament-schedule.html">Tournament Schedule</a>
-<a href="../ontario-poker-tournaments-this-week.html">Tournaments This Week</a>
-<a href="../live-poker-ontario.html">Live Poker Ontario</a>
+    <a href="../ontario-poker-tournaments-this-week.html">Tournaments This Week</a>
+    <a href="../live-poker-ontario.html">Live Poker Ontario</a>
     <a href="../ontario-poker-traffic-index.html">Traffic Index</a>
     <a href="../news.html">News</a>
   </div>
@@ -324,40 +245,199 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 
 <section class="page-hero" data-brand="GGPoker">
   <div class="container">
-    <div class="breadcrumb"><a href="../">Home</a> <span>/</span> <span>GGPoker</span></div>
-    <h1>GGPoker: Ontario Poker Guide</h1>
-    <p class="page-hero-subtitle">Feature-rich software, tournament festivals, Ontario-only promos</p>
+    <div class="breadcrumb"><a href="../">Home</a> <span>/</span> <span>GGPoker Ontario</span></div>
+    <h1>GGPoker Ontario</h1>
+    <p class="page-hero-subtitle">Ontario's #1 rated poker room - WSOP qualifier platform, Smart HUD, and the deepest tournament schedule in the province</p>
   </div>
 </section>
 
 <section class="section">
-  <div class="container container--default">
-    <div class="prose">
-      <p>GGPoker is operated by NSUS Limited and is a fully regulated Ontario poker room. It scores 4.7/5.0 in our review. Best for: feature-rich software, tournament festivals, ontario-only promos.</p>
+  <div class="container">
+    <div class="content-with-sidebar">
 
-      <h2>Key Features</h2>
-      <ul><li>Award-winning software with Smart HUD and PokerCraft</li><li>WSOP Super Circuit Ontario events</li><li>Spin & Gold jackpot sit-and-gos</li><li>Maple Rewards exclusive Ontario promos</li><li>microFestival series for micro-stakes players</li></ul>
+      <!-- Main content -->
+      <div class="prose">
 
-      <h2>Operator Offer Information</h2>
-      <p><span class="badge badge--warning" data-nosnippet><span data-nosnippet>Visit operator site for current offers</span></span></p>
-      <p>No registration code is needed. <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Under AGCO rules, specific bonus amounts cannot be advertised outside the operator's own site. Visit the operator directly for current offer details.</span></p>
+        <div class="author-byline">
+          <span>By <a href="../alex-drummond.html">Alex Drummond</a>, Senior Editor</span>
+          <span style="color:var(--color-border);margin:0 var(--space-2);">|</span>
+          <span>Updated January 2026</span>
+          <span style="color:var(--color-border);margin:0 var(--space-2);">|</span>
+          <span>Fact-checked by OntarioPoker editorial team</span>
+        </div>
 
-      <h2>Explore GGPoker</h2>
-      <div style="display:grid;gap:var(--space-3);grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));">
-        <a href="review" class="card" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid var(--color-primary);">
-          <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">Full Review</h3>
-          <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">Detailed scoring, pros, cons, and feature breakdown.</p>
-        </a>
-        <a href="promo-code" class="card" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid var(--color-primary);">
-          <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">Offer Registration Details</h3>
-          <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">Verified bonus terms and code status.</p>
-        </a>
-      </div>
-    </div>
+        <!-- Quick Facts -->
+        <div class="quick-facts">
+          <h2>GGPoker Ontario - Quick Facts</h2>
+          <div class="quick-facts-grid">
+            <div class="quick-fact">
+              <span class="quick-fact-label">Our Rating</span>
+              <span class="quick-fact-value"><span class="rating-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.7/5.0</span>
+            </div>
+            <div class="quick-fact">
+              <span class="quick-fact-label">Licensed Entity</span>
+              <span class="quick-fact-value">NSUS Limited</span>
+            </div>
+            <div class="quick-fact">
+              <span class="quick-fact-label">Regulator</span>
+              <span class="quick-fact-value">iGaming Ontario / AGCO</span>
+            </div>
+            <div class="quick-fact">
+              <span class="quick-fact-label">Ontario Launch</span>
+              <span class="quick-fact-value">April 2022</span>
+            </div>
+            <div class="quick-fact">
+              <span class="quick-fact-label">Best For</span>
+              <span class="quick-fact-value">Overall / Tournaments</span>
+            </div>
+            <div class="quick-fact">
+              <span class="quick-fact-label">Ontario Traffic Share</span>
+              <span class="quick-fact-value">~52%</span>
+            </div>
+          </div>
+        </div>
+
+        <h2>Overview</h2>
+        <p>GGPoker is the largest poker room operating in Ontario's regulated market. Operated by NSUS Limited under an iGaming Ontario licence, it holds roughly 52% of Ontario's online poker traffic - the clearest measure of its dominance. The room launched in Ontario in April 2022 when the province opened its stand-alone regulated market, and has consistently topped our rankings since.</p>
+        <p>What sets GGPoker apart isn't just volume. The software stack is the most feature-rich available to Ontario players: a built-in Smart HUD, PokerCraft analytics suite, and game formats unavailable elsewhere in the province. For tournament players in particular, no other Ontario room comes close on schedule depth or guaranteed prize pools.</p>
+        <p>The current operator offer is available on the GGPoker Ontario site. Under AGCO rules, specific amounts cannot be published here, but visit <a href="https://click.ggpartners.com/?serial=886&creative_id=8509&anid=" rel="sponsored noopener noreferrer" target="_blank">GGPoker Ontario</a> for current details. No promo code is required at registration.</p>
+
+        <h2>Software and Features</h2>
+        <p>GGPoker's client runs on desktop (Windows, Mac) and mobile (iOS, Android). The interface is polished and loads quickly. A few features worth knowing:</p>
+
+        <h3>Smart HUD</h3>
+        <p>Third-party HUDs are banned across all Ontario rooms under iGaming Ontario's fair-play standards. GGPoker replaces them with Smart HUD, a built-in display showing key opponent stats - voluntarily put in pot percentage, aggression frequency, and call rates - sourced from hands played at the current session. It's less granular than a full multi-table HUD but works within the rules and gives you more information than any other Ontario room provides natively.</p>
+
+        <h3>PokerCraft Analytics</h3>
+        <p>PokerCraft is GGPoker's hand history and analysis tool. After each session you can review hand replays, filter by street, and see net profit charts broken down by position. It's integrated directly into the client rather than requiring a separate export. Serious players use it as a lightweight substitute for third-party tracking software.</p>
+
+        <h3>Rush and Cash</h3>
+        <p>Rush and Cash is GGPoker's fast-fold cash game format. When you fold a hand, you're immediately moved to a new table with a new hand dealt. This eliminates the wait between hands and lets you accumulate many more hands per hour than a regular cash game. Stakes range from micro to mid-level, making it accessible for most bankrolls.</p>
+
+        <h3>Spin and Gold</h3>
+        <p>Spin and Gold is a three-player jackpot sit-and-go. A random multiplier is drawn before each game that determines the prize pool. Most games are at low multipliers, but larger draws are possible. These are fast, self-contained games with no late registration and no complex ICM decisions, which suits players who want a defined session length.</p>
+
+        <h3>Table Features</h3>
+        <p>GGPoker's tables offer rabbit hunting (seeing what would have come on the next street), a time bank that can be conserved across hands, and an all-in equity display that shows your percentage chance of winning after all chips are in the middle. These are quality-of-life features that have become standard on the platform.</p>
+
+        <table class="feature-table">
+          <thead>
+            <tr><th>Feature</th><th>Available</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Smart HUD</td><td class="check">Yes</td><td>Built-in, session-based stats</td></tr>
+            <tr><td>PokerCraft Analytics</td><td class="check">Yes</td><td>Hand history, charts, replayer</td></tr>
+            <tr><td>Rush and Cash</td><td class="check">Yes</td><td>Fast-fold cash games</td></tr>
+            <tr><td>Spin and Gold</td><td class="check">Yes</td><td>Jackpot sit-and-gos</td></tr>
+            <tr><td>Mobile App</td><td class="check">Yes</td><td>iOS and Android</td></tr>
+            <tr><td>Multi-tabling</td><td class="check">Yes</td><td>Up to 4 tables on mobile</td></tr>
+            <tr><td>All-in Equity Display</td><td class="check">Yes</td><td>Run-it-once or twice</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Tournaments: BHS Ontario, WSOP Circuit, and Ontario MILLION$</h2>
+        <p>GGPoker runs the most substantial tournament schedule of any Ontario room, with three major recurring series alongside a deep daily and weekly MTT schedule.</p>
+
+        <h3>Bounty Hunters Series (BHS) Ontario</h3>
+        <p>The <a href="../ggpoker-bounty-hunters-series-ontario.html">Bounty Hunters Series Ontario</a> is a progressive knockout tournament series that runs seasonally on GGPoker Ontario. Each player carries a bounty on their head worth a portion of their buy-in. When you eliminate someone, you win their bounty immediately in cash, and your own bounty grows. This PKO format changes the strategic calculus compared to standard MTTs - chip equity and bounty equity have to be balanced. The series spans multiple buy-in levels, from micro-stakes entries to higher guaranteed events.</p>
+
+        <h3>WSOP Super Circuit Ontario</h3>
+        <p>GGPoker Ontario is the exclusive host of <a href="../ggpoker-wsop-super-circuit-ontario.html">WSOP Super Circuit Ontario</a> events. These are ring events carrying the WSOP Circuit brand and awarding coveted WSOP Circuit rings to winners. The series typically runs once or twice a year with a schedule covering multiple buy-ins and variants. Ontario players can compete for WSOP Circuit hardware without leaving the province.</p>
+        <p>GGPoker also runs <a href="../wsop-ontario-satellites-qualify.html">WSOP Ontario satellites</a> throughout the year, giving players a structured path to qualify for larger WSOP events at reduced cost.</p>
+
+        <h3>Ontario MILLION$</h3>
+        <p>The Ontario MILLION$ is a monthly guaranteed tournament exclusive to players physically located in Ontario. It runs on GGPoker Ontario with a large guaranteed prize pool. Satellites and steps are available most weeks to qualify at lower buy-ins. The tournament runs as a standard progressive knockout event, combining the appeal of a large guarantee with the bounty format. Check the GGPoker Ontario lobby for current schedules and guarantee figures.</p>
+
+        <h3>microFestival</h3>
+        <p>microFestival is a recurring series aimed at micro-stakes players. Buy-ins are intentionally low, making this a good entry point for newer players who want series-style tournament poker without a large bankroll commitment. Events mirror the structure of larger GGPoker series but at accessible price points.</p>
+
+        <h2>Cash Games</h2>
+        <p>GGPoker runs the busiest cash game tables in Ontario. Texas Hold'em is the primary game, with tables spread from NL2 through to higher stakes. Pot-limit Omaha (PLO) is also available with reasonable traffic at mid-stakes. Short Deck (6+ Hold'em) tables run at certain stakes, though traffic can be thinner outside peak hours.</p>
+        <p>The Rush and Cash format is available at most Hold'em stakes and represents a significant proportion of overall cash game volume. Regular ring tables see solid traffic at NL5 through NL50, with traffic thinning above NL100 during off-peak hours. Weekend evenings consistently show the deepest table selection.</p>
+        <p>Rake at GGPoker Ontario follows a standard schedule, generally 5% up to a cap that varies by stake. Use our <a href="../rake-calculator.html">rake calculator</a> to estimate your rake contribution at your preferred stake level.</p>
+
+        <h2>Traffic and Player Pool</h2>
+        <p>GGPoker holds approximately 52% of Ontario's regulated online poker traffic, making it the dominant room by a significant margin. Ontario operates a ring-fenced market - players must be physically located in Ontario to play - so GGPoker Ontario's player pool does not share liquidity with GGPoker's global network.</p>
+        <p>Despite the ring-fence, the Ontario player pool is large enough to support a full cash game and tournament schedule. Table selection at common stakes is rarely a problem during standard hours. For a detailed breakdown of traffic by room, see our <a href="../ontario-poker-traffic-index.html">Ontario poker traffic index</a>.</p>
+        <p>The combination of traffic dominance and the broadest tournament schedule in the market is what drives GGPoker's position at the top of our rankings. Players who want the most game selection at any given time will almost always find more options here than anywhere else.</p>
+
+        <h2>Getting Started on GGPoker Ontario</h2>
+        <p>To play on GGPoker Ontario, you must be 19 years of age or older and physically located in Ontario at the time of play. iGaming Ontario uses geolocation to verify your location when you launch the client.</p>
+        <p>Registration is straightforward:</p>
+        <ol>
+          <li>Visit <a href="https://click.ggpartners.com/?serial=886&creative_id=8509&anid=" rel="sponsored noopener noreferrer" target="_blank">GGPoker Ontario</a> and click "Register."</li>
+          <li>Enter your name, date of birth, address, and email address.</li>
+          <li>Verify your identity with a government-issued photo ID (a standard AGCO requirement for all Ontario operators).</li>
+          <li>Make a deposit using your preferred payment method. Common options include Interac e-Transfer, Visa, Mastercard, and online banking through various processors.</li>
+          <li>Download the GGPoker client for desktop or mobile, or play in-browser via the web client.</li>
+        </ol>
+
+        <div class="info-box">
+          <strong>AGCO compliance note:</strong> The current new-player offer details are available on the GGPoker Ontario site. Specific bonus amounts cannot be published on third-party sites under AGCO advertising rules. No registration promo code is required - simply register through the operator's site.
+        </div>
+
+        <p>If you're new to online poker in Ontario, the <a href="../ontario-poker-beginners-guide.html">beginner's guide</a> covers everything from account setup to your first tournament entry. For a head-to-head comparison of GGPoker against other rooms, use the <a href="../head-to-head.html">head-to-head tool</a> or the full <a href="../compare.html">room comparison page</a>.</p>
+
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+          <div class="faq-question">Is GGPoker legal in Ontario?</div>
+          <div class="faq-answer">Yes. GGPoker Ontario is operated by NSUS Limited under a licence from iGaming Ontario, the stand-alone Crown agency that conducts and manages the regulated online poker market. You must be 19+ and physically located in Ontario to play.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What makes GGPoker different from other Ontario rooms?</div>
+          <div class="faq-answer">GGPoker runs the most feature-rich software of any Ontario room - Smart HUD, PokerCraft analytics, Rush and Cash fast-fold, and Spin and Gold jackpot games. It's also the exclusive WSOP Circuit qualifier platform in Ontario and holds around 52% of the province's online poker traffic.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What is the Bounty Hunters Series Ontario?</div>
+          <div class="faq-answer">BHS Ontario is a recurring progressive knockout tournament series on GGPoker Ontario. Each player carries a bounty, and knocking someone out awards their bounty in cash while growing your own. The series runs seasonally across multiple buy-in levels. See our <a href="../ggpoker-bounty-hunters-series-ontario.html">BHS Ontario guide</a> for schedule details.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I use a HUD on GGPoker Ontario?</div>
+          <div class="faq-answer">Third-party HUDs are not permitted under iGaming Ontario's fair-play standards. GGPoker offers its own built-in Smart HUD instead, showing session-based opponent stats without requiring external software.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How does the Ontario MILLION$ tournament work?</div>
+          <div class="faq-answer">The Ontario MILLION$ is a monthly guaranteed tournament exclusive to Ontario-located players. It runs as a progressive knockout event on GGPoker Ontario. Satellites and step tournaments are available to qualify at lower buy-ins. Visit the GGPoker Ontario lobby for current schedules and guarantees.</div>
+        </div>
+
+      </div><!-- end .prose -->
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <h3>GGPoker Ontario</h3>
+          <a href="./review.html">Full Review (4.7/5)</a>
+          <a href="./promo-code.html">Offer &amp; Registration Details</a>
+          <a href="../compare.html">Compare All Rooms</a>
+          <a href="https://click.ggpartners.com/?serial=886&creative_id=8509&anid=" rel="sponsored noopener noreferrer" target="_blank" class="sidebar-cta">Visit GGPoker Ontario</a>
+        </div>
+        <div class="sidebar-card">
+          <h3>GGPoker Guides</h3>
+          <a href="../ggpoker-bounty-hunters-series-ontario.html">Bounty Hunters Series</a>
+          <a href="../ggpoker-wsop-super-circuit-ontario.html">WSOP Super Circuit</a>
+          <a href="../wsop-ontario-satellites-qualify.html">WSOP Satellites</a>
+        </div>
+        <div class="sidebar-card">
+          <h3>Quick Facts</h3>
+          <a href="../ontario-poker-traffic-index.html">Traffic Index (~52%)</a>
+          <a href="../ontario-poker-tournaments.html">Tournament Guide</a>
+          <a href="../ontario-poker-cash-games.html">Cash Games Guide</a>
+          <a href="../rake-calculator.html">Rake Calculator</a>
+        </div>
+        <div class="sidebar-card">
+          <h3>Compare GGPoker</h3>
+          <a href="../ggpoker-vs-pokerstars-ontario.html">GGPoker vs PokerStars</a>
+          <a href="../ggpoker-vs-888poker-ontario.html">GGPoker vs 888poker</a>
+          <a href="../ggpoker-vs-betmgm-poker-ontario.html">GGPoker vs BetMGM</a>
+          <a href="../ggpoker-vs-partypoker-ontario.html">GGPoker vs PartyPoker</a>
+        </div>
+      </aside>
+
+    </div><!-- end .content-with-sidebar -->
   </div>
 </section>
 
-<p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-top:var(--space-4);">See also: <a href="./promo-code.html">GGPoker Operator Details &amp; Promo Code Info</a></p>
 </main>
 <footer class="site-footer">
 <div class="container">
@@ -371,7 +451,7 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 <img loading="lazy" decoding="async" src="../images/ontariopoker-logo.svg" alt="OntarioPoker" style="height:26px;width:auto;">
 </a>
 <p>Your regulated Ontario poker resource online. Reviews, promotions, and guides for all six licensed poker rooms. Published by NWG Limited.</p>
-<p style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-faint);">ontariopoker.com &middot; c/o WeWork, 240 Richmond St W, Toronto, ON M5V 1V6 &middot; <a href="mailto:help@ontariopoker.com" style="color:inherit;">help@ontariopoker.com</a></p>
+<p style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-faint);">ontariopoker.com &middot; c/o WeWork, 240 Richmond St W, Toronto, ON M5V 1V6 &middot; <a href="mailto:help@ontariopoker.com" style="color:inherit;">help&#64;ontariopoker.com</a></p>
 </div>
 <div class="footer-columns">
 <div class="footer-col">
@@ -461,7 +541,7 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 <p><strong>Disclaimer:</strong> Online poker in Ontario is regulated by the Alcohol and Gaming Commission of Ontario (AGCO) and operated through iGaming Ontario. You must be 19+ and physically located in Ontario to play. If you or someone you know has a gambling problem, call ConnexOntario at 1-866-531-2600.</p>
 </div>
 <div style="text-align:center;padding:var(--space-3) 0;border-top:1px solid var(--color-border-light);margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-muted);">
-<span>Ontario's regulated online gaming market is operated by <a href="https://igamingontario.ca/en" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">iGaming Ontario</a>, Ontario's stand-alone Crown agency that conducts and manages the regulated market. 19+ only. physically located in Ontario to wager.</span>
+<span>Ontario's regulated online gaming market is operated by <a href="https://igamingontario.ca/en" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">iGaming Ontario</a>, Ontario's stand-alone Crown agency that conducts and manages the regulated market. 19+ only. Physically located in Ontario to wager.</span>
 </div>
 <div class="footer-bottom">
 <span>&copy; 2026 NWG Limited &middot; ontariopoker.com. All rights reserved.</span>

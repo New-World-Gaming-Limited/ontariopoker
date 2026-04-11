@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,600,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<title>Bwin Ontario Guide 2026 | OntarioPoker</title>
-<meta name="description" content="Complete Bwin Ontario guide: review, operator details status, bonus terms, and features. Regulated by iGaming Ontario.">
+<title>Bwin Ontario 2026 — Sports + Poker | OntarioPoker</title>
+<meta name="description" content="Bwin Ontario rated 3.6/5. Integrated sportsbook and poker, BetMGM network shared tables, and mobile browser play.">
 <link rel="canonical" href="https://ontariopoker.com/bwin/">
 <link rel="alternate" hreflang="en-CA" href="https://ontariopoker.com/bwin/">
 <link rel="alternate" hreflang="x-default" href="https://ontariopoker.com/bwin/">
@@ -41,147 +41,64 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 .section{padding:var(--space-6) 0}
 .section--alt{background:var(--section-alt-bg)}
 @media(max-width:899px){.nav-desktop{display:none}.mobile-menu-btn{display:flex}}
-@media(min-width:900px){.mobile-menu-btn{display:none}}/* ── Hero Card Grid & Cards ──────────────────────────────────────── */
-
-.hero-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-  gap: var(--space-4);
-  margin-top: var(--space-6);
-}
-
-.hero-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-left: 4px solid var(--card-accent, var(--color-primary));
-  border-radius: var(--radius-md);
-  padding: var(--space-5);
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 200ms ease, transform 200ms ease;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.hero-card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
-.hero-card-rank {
-  position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-full);
-  background: var(--color-surface-2);
-  border: 2px solid var(--card-accent, var(--color-primary));
-  color: var(--color-text);
-  font-weight: 700;
-  font-size: var(--text-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-}
-
-.hero-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
-  padding-right: var(--space-10);
-}
-
-.hero-card-header h3 {
-  font-size: var(--text-lg);
-  font-weight: 700;
-  margin: 0;
-  line-height: 1.2;
-}
-
-.hero-card-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-full);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  white-space: nowrap;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.hero-card-bonus {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: var(--space-3);
-}
-
-.hero-card-code {
-  margin-bottom: var(--space-3);
-}
-
-.hero-card-features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 var(--space-4) 0;
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  flex-grow: 1;
-}
-
-.hero-card-features li {
-  padding: var(--space-1) 0;
-  padding-left: var(--space-4);
-  position: relative;
-}
-
-.hero-card-features li::before {
-  content: "\2713";
-  position: absolute;
-  left: 0;
-  color: var(--color-success, var(--card-accent, #1A6B3C));
-  font-weight: 700;
-  font-size: var(--text-xs);
-}
-
-.hero-card .btn {
-  margin-bottom: var(--space-2);
-}
-
-.hero-card-review-link {
-  display: block;
-  text-align: center;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-text-muted);
-  text-decoration: none;
-  transition: color 150ms ease;
-}
-
-.hero-card-review-link:hover {
-  color: var(--color-text);
-  text-decoration: underline;
-}
-
-/* Responsive: stack to single column on narrow screens */
-@media (max-width: 640px) {
-  .hero-cards-grid {
-    grid-template-columns: 1fr;
-  }
-}
+@media(min-width:900px){.mobile-menu-btn{display:none}}
+.hero-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:var(--space-4);margin-top:var(--space-6)}
+.hero-card{background:var(--color-surface);border:1px solid var(--color-border);border-left:4px solid var(--card-accent,var(--color-primary));border-radius:var(--radius-md);padding:var(--space-5);box-shadow:var(--shadow-sm);transition:box-shadow 200ms ease,transform 200ms ease;display:flex;flex-direction:column;position:relative}
+.hero-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+@media(max-width:640px){.hero-cards-grid{grid-template-columns:1fr}}
+/* Page-specific layout */
+.content-with-sidebar{display:grid;grid-template-columns:1fr 300px;gap:var(--space-8);align-items:start}
+@media(max-width:899px){.content-with-sidebar{grid-template-columns:1fr}}
+.sidebar{position:sticky;top:80px}
+.sidebar-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5);margin-bottom:var(--space-4)}
+.sidebar-card h3{font-size:var(--text-sm);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-text-muted);margin-bottom:var(--space-3)}
+.sidebar-card a{display:block;padding:var(--space-2) 0;color:var(--color-text);text-decoration:none;font-size:var(--text-sm);border-bottom:1px solid var(--color-border-light)}
+.sidebar-card a:last-child{border-bottom:none}
+.sidebar-card a:hover{color:var(--color-primary)}
+.quick-facts{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5);margin-bottom:var(--space-6)}
+.quick-facts-title{font-size:var(--text-sm);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-text-muted);margin-bottom:var(--space-4)}
+.quick-facts-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)}
+.qf-item{display:flex;flex-direction:column;gap:2px}
+.qf-label{font-size:var(--text-xs);color:var(--color-text-faint);font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+.qf-value{font-size:var(--text-sm);font-weight:600;color:var(--color-text)}
+.rating-stars{color:#f59e0b;font-size:var(--text-sm)}
+.prose h2{font-size:var(--text-lg);font-weight:700;margin:var(--space-8) 0 var(--space-3);letter-spacing:-0.01em}
+.prose h3{font-size:var(--text-base);font-weight:700;margin:var(--space-5) 0 var(--space-2)}
+.prose p{margin-bottom:var(--space-4);color:var(--color-text)}
+.prose ul{margin:0 0 var(--space-4) var(--space-6);color:var(--color-text)}
+.prose ul li{margin-bottom:var(--space-1)}
+.prose ol{margin:0 0 var(--space-4) var(--space-6);color:var(--color-text)}
+.prose ol li{margin-bottom:var(--space-2)}
+.prose a{color:var(--color-primary);text-decoration:underline}
+.author-byline{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) 0;border-top:1px solid var(--color-border-light);border-bottom:1px solid var(--color-border-light);margin-bottom:var(--space-6);font-size:var(--text-sm);color:var(--color-text-muted)}
+.author-avatar{width:36px;height:36px;border-radius:50%;background:var(--color-primary-surface);border:2px solid var(--color-primary);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--text-xs);color:var(--color-primary);flex-shrink:0}
+.faq-item{border-bottom:1px solid var(--color-border-light);padding:var(--space-4) 0}
+.faq-q{font-weight:700;margin-bottom:var(--space-2)}
+.faq-a{color:var(--color-text-muted);font-size:var(--text-sm)}
+.cta-box{background:var(--color-primary-surface);border:1px solid var(--color-primary);border-radius:var(--radius-lg);padding:var(--space-5);text-align:center;margin:var(--space-6) 0}
+.cta-box p{margin-bottom:var(--space-3);font-weight:600}
+.btn-primary{display:inline-block;background:var(--color-primary);color:#fff;padding:var(--space-3) var(--space-6);border-radius:var(--radius-full);font-weight:700;text-decoration:none;font-size:var(--text-sm)}
+.btn-primary:hover{background:var(--color-primary-hover)}
+.agco-notice{background:var(--color-surface-alt);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);font-size:var(--text-xs);color:var(--color-text-muted);margin:var(--space-4) 0}
+.network-table{width:100%;border-collapse:collapse;margin:var(--space-4) 0;font-size:var(--text-sm)}
+.network-table th{background:var(--color-surface-alt);padding:var(--space-2) var(--space-3);text-align:left;font-weight:700;border:1px solid var(--color-border)}
+.network-table td{padding:var(--space-2) var(--space-3);border:1px solid var(--color-border)}
+.network-table tr:nth-child(even) td{background:var(--color-surface-alt)}
+.comparison-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin:var(--space-4) 0}
+@media(max-width:640px){.comparison-grid{grid-template-columns:1fr}}
+.comparison-box{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4)}
+.comparison-box h4{font-weight:700;margin-bottom:var(--space-2);font-size:var(--text-sm)}
+.comparison-box ul{list-style:none;padding:0;margin:0;font-size:var(--text-sm);color:var(--color-text-muted)}
+.comparison-box ul li{padding:var(--space-1) 0;padding-left:var(--space-4);position:relative}
+.comparison-box ul li::before{content:"\2713";position:absolute;left:0;color:var(--color-success);font-weight:700}
 </style>
 <script>(function(){var k='local',s={};try{s=window[k+'Storage']||s}catch(e){}window._ls=s;try{var t=s.getItem?s.getItem('op-theme'):s['op-theme'];if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})()</script>
 <link rel="preload" href="../style.min.css" as="style">
 <link href="../style.min.css" rel="stylesheet">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ontariopoker.com/"}, {"@type": "ListItem", "position": 2, "name": "Bwin Ontario"}]}</script>
-<meta property="og:title" content="Bwin Ontario Guide 2026 | OntarioPoker">
-<meta property="og:description" content="Complete Bwin Ontario guide: review, operator details status, bonus terms, and features. Regulated by iGaming Ontario.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ontariopoker.com/"},{"@type":"ListItem","position":2,"name":"Bwin Ontario","item":"https://ontariopoker.com/bwin/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Bwin Ontario legally regulated?","acceptedAnswer":{"@type":"Answer","text":"Yes. Bwin Ontario is operated by ElectraWorks Maple Limited under an operator agreement with iGaming Ontario and is regulated by the AGCO. You must be 19+ and physically located in Ontario to play."}},{"@type":"Question","name":"Does Bwin Ontario share poker tables with BetMGM Poker and PartyPoker?","acceptedAnswer":{"@type":"Answer","text":"Yes. Bwin Ontario shares a player pool for cash games and tournaments with BetMGM Poker Ontario and PartyPoker Ontario. All three are operated under the ElectraWorks Maple Limited network. Players from any of the three brands compete at the same tables."}},{"@type":"Question","name":"Can I use one account for both sportsbook and poker at Bwin Ontario?","acceptedAnswer":{"@type":"Answer","text":"Yes. Bwin Ontario operates sportsbook and poker under a single account. You can deposit once and move funds between the sportsbook and poker client without needing separate accounts for each product."}},{"@type":"Question","name":"Does Bwin Ontario have a dedicated poker app?","acceptedAnswer":{"@type":"Answer","text":"Bwin Ontario supports poker through both a dedicated mobile app and mobile browser play. The browser-based option requires no download and works across iOS and Android devices."}},{"@type":"Question","name":"Is Bwin Ontario a good choice for poker-only players?","acceptedAnswer":{"@type":"Answer","text":"It depends. For pure poker players, GGPoker or PokerStars offer more tournament depth and dedicated features. Bwin's advantage is the combined sportsbook and poker account, which suits players who bet on sports as well. For poker alone, BetMGM Poker Ontario - part of the same network - may offer a better-focused experience."}}]}</script>
+<meta property="og:title" content="Bwin Ontario 2026 — Sports + Poker | OntarioPoker">
+<meta property="og:description" content="Bwin Ontario rated 3.6/5. Integrated sportsbook and poker, BetMGM network shared tables, and mobile browser play.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ontariopoker.com/bwin/">
 <meta property="og:site_name" content="OntarioPoker">
@@ -260,8 +177,8 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
           <a href="../is-online-poker-legal-in-ontario.html">Legal Guide</a>
           <a href="../ontario-poker-shared-liquidity.html">Shared Liquidity</a>
           <a href="../ontario-poker-tournament-schedule.html">Tournament Schedule</a>
-<a href="../ontario-poker-tournaments-this-week.html">Tournaments This Week</a>
-<a href="../live-poker-ontario.html">Live Poker Ontario</a>
+          <a href="../ontario-poker-tournaments-this-week.html">Tournaments This Week</a>
+          <a href="../live-poker-ontario.html">Live Poker Ontario</a>
           <a href="../ontario-poker-traffic-index.html">Traffic Index</a>
           <a href="../news.html">News</a>
         </div>
@@ -314,8 +231,8 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
     <a href="../is-online-poker-legal-in-ontario.html">Legal Guide</a>
     <a href="../ontario-poker-shared-liquidity.html">Shared Liquidity</a>
     <a href="../ontario-poker-tournament-schedule.html">Tournament Schedule</a>
-<a href="../ontario-poker-tournaments-this-week.html">Tournaments This Week</a>
-<a href="../live-poker-ontario.html">Live Poker Ontario</a>
+    <a href="../ontario-poker-tournaments-this-week.html">Tournaments This Week</a>
+    <a href="../live-poker-ontario.html">Live Poker Ontario</a>
     <a href="../ontario-poker-traffic-index.html">Traffic Index</a>
     <a href="../news.html">News</a>
   </div>
@@ -325,39 +242,223 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 <section class="page-hero" data-brand="Bwin Ontario">
   <div class="container">
     <div class="breadcrumb"><a href="../">Home</a> <span>/</span> <span>Bwin Ontario</span></div>
-    <h1>Bwin Ontario: Ontario Poker Guide</h1>
-    <p class="page-hero-subtitle">Players seeking a regulated secondary option, completeness of Ontario coverage</p>
+    <h1>Bwin Ontario</h1>
+    <p class="page-hero-subtitle">Rated 3.6/5 &middot; Sports + poker in one account &middot; Shared BetMGM network</p>
   </div>
 </section>
 
 <section class="section">
-  <div class="container container--default">
-    <div class="prose">
-      <p>Bwin Ontario is operated by ElectraWorks Maple Limited and is a fully regulated Ontario poker room. It scores 3.6/5.0 in our review. Best for: players seeking a regulated secondary option, completeness of ontario coverage.</p>
+  <div class="container">
+    <div class="content-with-sidebar">
 
-      <h2>Key Features</h2>
-      <ul><li>Ontario licensed and regulated</li><li>Secure and trusted platform</li><li>Operated by ElectraWorks Maple Limited as agent for Gaming Ontario</li><li>Part of the Entain Group family</li></ul>
+      <!-- Main content -->
+      <div class="main-content">
 
-      <h2>Operator Offer Information</h2>
-      <p><span class="badge badge--muted"><span data-nosnippet>Visit operator site for current offers</span></span></p>
-      <p>No registration code is needed. <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Under AGCO rules, specific bonus amounts cannot be advertised outside the operator's own site. Visit the operator directly for current offer details.</span></p>
+        <!-- Author byline -->
+        <div class="author-byline">
+          <div class="author-avatar">AD</div>
+          <div>
+            <span>By <a href="../alex-drummond.html">Alex Drummond</a>, Poker Room Analyst</span>
+            &middot; <span>Updated January 2026</span>
+            &middot; <span>Fact-checked by OntarioPoker editorial team</span>
+          </div>
+        </div>
 
-      <h2>Explore Bwin Ontario</h2>
-      <div style="display:grid;gap:var(--space-3);grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));">
-        <a href="review" class="card" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid var(--color-primary);">
-          <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">Full Review</h3>
-          <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">Detailed scoring, pros, cons, and feature breakdown.</p>
-        </a>
-        <a href="promo-code" class="card" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid var(--color-primary);">
-          <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">Offer Registration Details</h3>
-          <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">Verified bonus terms and code status.</p>
-        </a>
-      </div>
-    </div>
-  </div>
+        <!-- Quick Facts box -->
+        <div class="quick-facts">
+          <div class="quick-facts-title">Quick Facts</div>
+          <div class="quick-facts-grid">
+            <div class="qf-item">
+              <span class="qf-label">Our Rating</span>
+              <span class="qf-value"><span class="rating-stars">&#9733;&#9733;&#9733;&#9734;</span> 3.6 / 5.0</span>
+            </div>
+            <div class="qf-item">
+              <span class="qf-label">Best For</span>
+              <span class="qf-value">Sports + Poker</span>
+            </div>
+            <div class="qf-item">
+              <span class="qf-label">Legal Entity</span>
+              <span class="qf-value">ElectraWorks Maple Limited</span>
+            </div>
+            <div class="qf-item">
+              <span class="qf-label">Licence</span>
+              <span class="qf-value">iGaming Ontario / AGCO</span>
+            </div>
+            <div class="qf-item">
+              <span class="qf-label">Ontario Launch</span>
+              <span class="qf-value">April 2022</span>
+            </div>
+            <div class="qf-item">
+              <span class="qf-label">Network</span>
+              <span class="qf-value">Shared with BetMGM + PartyPoker</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="prose">
+
+          <h2>Overview</h2>
+          <p>Bwin Ontario is operated by ElectraWorks Maple Limited as agent of iGaming Ontario. The room holds a valid operator agreement with iGaming Ontario and is regulated by the Alcohol and Gaming Commission of Ontario. To play, you must be 19 or older and physically located in Ontario.</p>
+          <p>Bwin is part of the Entain Group, the same parent company behind PartyPoker and BetMGM. In Ontario, Bwin launched in April 2022 as part of the initial wave of regulated operators. The platform is distinctive within Ontario's poker market because it combines a regulated sportsbook with a full poker room under a single account. Players who bet on sports and play poker can manage both activities from the same login, with shared funds and a single verification process.</p>
+          <p>The room scores 3.6/5.0 in our full review. This reflects its position as a solid, regulated option rather than a market-leading one. For poker-only players, GGPoker and PokerStars offer more tournament depth and dedicated features. For players who want sports betting alongside their poker, Bwin Ontario is the most naturally integrated option in the regulated market.</p>
+
+          <h2>Software and Platform</h2>
+          <p>Bwin Ontario runs on the Entain Group platform, which is shared across the PartyPoker and BetMGM brands with brand-specific customisation. Desktop software is available for Windows and Mac. The mobile experience covers both a dedicated app for iOS and Android and a fully functional mobile browser client. The browser option requires no download, which suits players who prefer not to install apps or who switch devices frequently.</p>
+          <h3>Single-Account Access</h3>
+          <p>One account covers both sportsbook and poker. This means a single deposit funds both products. You move money between sportsbook and poker wallet from within the same interface. Identity verification is done once. This is a practical advantage for players who routinely use both products - it removes the admin of managing two separate accounts, two sets of withdrawal requests, and two verification processes.</p>
+          <h3>Mobile Browser Play</h3>
+          <p>Bwin Ontario's mobile browser client is a notable practical feature. It runs in any modern mobile browser without requiring app installation. The experience covers cash games, tournaments, and sportsbook in a single browser session. Players who use shared devices, who regularly change phones, or who want to avoid app permissions find browser-based play preferable. Performance is comparable to the native app for standard-speed games.</p>
+          <h3>Cash Game Client</h3>
+          <p>The poker table interface follows standard conventions with bet sizing controls, a hand history viewer, and multi-table support. Table themes and card deck options are configurable. The client handles up to several simultaneous tables without significant performance issues on modern hardware.</p>
+
+          <h2>Sports Betting and Poker Integration</h2>
+          <p>The key differentiator for Bwin Ontario within the regulated poker market is the sportsbook integration. Ontario has several regulated sportsbooks and several regulated poker rooms, but few brands offer both under a single AGCO-regulated account. Bwin is one that does.</p>
+          <div class="comparison-grid">
+            <div class="comparison-box">
+              <h4>Poker Features</h4>
+              <ul>
+                <li>Shared pool with BetMGM + PartyPoker</li>
+                <li>Cash games at multiple stakes</li>
+                <li>Tournament schedule with daily events</li>
+                <li>Fast-fold format available</li>
+                <li>SPINS jackpot sit-and-gos</li>
+              </ul>
+            </div>
+            <div class="comparison-box">
+              <h4>Sportsbook Features</h4>
+              <ul>
+                <li>Major North American sports covered</li>
+                <li>Live in-play betting</li>
+                <li>Same-game parlays available</li>
+                <li>Integrated with poker account</li>
+                <li>Ontario-regulated and AGCO-compliant</li>
+              </ul>
+            </div>
+          </div>
+          <p>Players who move between poker and sports betting - for example, playing a poker session while following a live game - will find the single-account model more efficient than using separate platforms. Funds do not need to be transferred between operators. Cashouts cover both products in a single transaction.</p>
+
+          <h2>The Shared Network Explained</h2>
+          <p>Bwin Ontario's poker player pool is shared with BetMGM Poker Ontario and PartyPoker Ontario. All three brands are part of the Entain Group's Ontario regulated operation and share table traffic for cash games and tournaments under ElectraWorks Maple Limited (for Bwin and PartyPoker) and a related arrangement for BetMGM Poker.</p>
+          <table class="network-table">
+            <thead>
+              <tr>
+                <th>Brand</th>
+                <th>Entity</th>
+                <th>Unique Selling Point</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Bwin Ontario</td>
+                <td>ElectraWorks Maple Limited</td>
+                <td>Sports + poker combined</td>
+              </tr>
+              <tr>
+                <td>PartyPoker Ontario</td>
+                <td>ElectraWorks Maple Limited</td>
+                <td>Cashback rewards, SPINS</td>
+              </tr>
+              <tr>
+                <td>BetMGM Poker Ontario</td>
+                <td>BetMGM Canada Inc.</td>
+                <td>Grind Rewards, brand recognition</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>When comparing Bwin and BetMGM Poker side by side, the poker product is functionally similar since both access the same tables. The difference comes down to brand-level features and the sportsbook integration. See <a href="../betmgm-vs-partypoker-ontario.html">BetMGM vs PartyPoker Ontario</a> for a detailed breakdown of the network's two most prominent poker brands.</p>
+
+          <h2>Tournaments</h2>
+          <p>The tournament schedule at Bwin Ontario draws from the shared Entain network. Daily events run at set times covering standard No Limit Hold'em formats. SPINS are available on demand at several buy-in levels. The schedule is narrower than GGPoker or PokerStars Ontario, which is a relevant factor for players who prioritise tournament volume above all else.</p>
+          <p>For players primarily interested in tournaments, the <a href="../ontario-poker-tournament-schedule.html">Ontario tournament schedule</a> shows a side-by-side view of events across all six regulated rooms. Bwin's events draw from the network pool, so table fill rates at tournaments are collectively supported by BetMGM Poker and PartyPoker registrants as well.</p>
+
+          <h2>Cash Games</h2>
+          <p>Bwin Ontario's cash game tables include No Limit Hold'em at micro, low, and mid stakes. Pot Limit Omaha is available at select levels. The shared network arrangement means the effective player pool is larger than Bwin's individual traffic figures suggest. Fast-fold tables run for players who prefer that format. During peak hours, standard ring tables fill at the popular stakes; off-peak, fast-fold is the more reliable format for avoiding long seat waits.</p>
+          <p>Players evaluating whether Bwin Ontario can sustain the cash game volume they need should account for the network effect. Check the Ontario traffic index for current estimates of the combined Bwin/PartyPoker/BetMGM pool size relative to GGPoker and PokerStars.</p>
+
+          <h2>Getting Started</h2>
+          <p>Registration is completed through the Bwin Ontario platform. You must confirm you are 19 or older and physically located in Ontario. A single account covers both sportsbook and poker, so you complete registration once.</p>
+          <ol>
+            <li>Visit Bwin Ontario and click "Join Now" or "Register."</li>
+            <li>Enter your name, email, date of birth, and Ontario address.</li>
+            <li>Choose a username and password.</li>
+            <li>Accept terms and confirm your Ontario location.</li>
+            <li>Download the app or proceed via mobile browser - no installation required for browser play.</li>
+            <li>Upload a government-issued ID for identity verification.</li>
+            <li>Make a deposit using a supported Ontario payment method.</li>
+          </ol>
+          <div class="agco-notice">
+            Under AGCO rules, specific bonus or welcome offer amounts cannot be advertised outside the operator's own site. Visit Bwin Ontario directly for current offer details. T&amp;Cs apply. 19+. Play responsibly.
+          </div>
+          <div class="cta-box">
+            <p>Ontario's regulated sports betting and poker in one account.</p>
+            <a href="https://click.ggpartners.com/?serial=886&amp;creative_id=69&amp;anid=" class="btn-primary" target="_blank" rel="noopener noreferrer">Visit Bwin Ontario</a>
+          </div>
+
+          <h2>Responsible Gambling</h2>
+          <p>Bwin Ontario is required by AGCO to provide responsible gambling tools including deposit limits, session limits, loss limits, and self-exclusion options. These are accessible through your account settings. Self-exclusion through Bwin Ontario does not automatically extend to other Ontario operators - use the provincial self-exclusion service for a broader restriction. The sportsbook and poker products share the same account controls, so a limit applied to the account covers both products.</p>
+          <p>For support with gambling concerns, contact ConnexOntario at 1-866-531-2600 or visit the <a href="../responsible-gambling.html">responsible gambling page</a> for a full list of Ontario support resources.</p>
+
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <div class="faq-q">Is Bwin Ontario legally regulated?</div>
+            <div class="faq-a">Yes. Bwin Ontario is operated by ElectraWorks Maple Limited under an operator agreement with iGaming Ontario and is regulated by the AGCO. You must be 19+ and physically located in Ontario to play.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Does Bwin Ontario share poker tables with BetMGM Poker and PartyPoker?</div>
+            <div class="faq-a">Yes. All three brands share a player pool for cash games and tournaments. Players registered at any of the three brands compete at the same tables.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Can I use one account for both sportsbook and poker?</div>
+            <div class="faq-a">Yes. A single Bwin Ontario account covers both the sportsbook and poker. One deposit, one verification, one cashout request covers both products.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Does Bwin Ontario have a dedicated poker app?</div>
+            <div class="faq-a">Yes. Bwin Ontario has native iOS and Android apps. Mobile browser play is also supported without any download, and covers both poker and sportsbook in a single browser session.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Is Bwin Ontario a good choice for poker-only players?</div>
+            <div class="faq-a">For pure poker play, GGPoker and PokerStars offer deeper tournament schedules and more dedicated features. Bwin's advantage is the combined sportsbook and poker account. Players who want both products in one place will find Bwin a practical option; players who only play poker may prefer the rooms ranked higher for that specific use case.</div>
+          </div>
+
+        </div><!-- .prose -->
+      </div><!-- .main-content -->
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <h3>Bwin Ontario</h3>
+          <a href="./review.html">Full Review</a>
+          <a href="./promo-code.html">Offer Registration Details</a>
+          <a href="../compare.html">Compare All Rooms</a>
+        </div>
+        <div class="sidebar-card">
+          <h3>Compare Bwin</h3>
+          <a href="../betmgm-vs-partypoker-ontario.html">BetMGM vs PartyPoker Ontario</a>
+        </div>
+        <div class="sidebar-card">
+          <h3>Same Network</h3>
+          <a href="../betmgm-poker/index.html">BetMGM Poker Ontario</a>
+          <a href="../partypoker/index.html">PartyPoker Ontario</a>
+          <a href="../ontario-poker-shared-liquidity.html">How Shared Liquidity Works</a>
+        </div>
+        <div class="sidebar-card">
+          <h3>Other Rooms</h3>
+          <a href="../ggpoker/index.html">GGPoker Ontario</a>
+          <a href="../888poker/index.html">888poker Ontario</a>
+          <a href="../pokerstars/index.html">PokerStars Ontario</a>
+        </div>
+        <div class="sidebar-card">
+          <h3>Useful Tools</h3>
+          <a href="../ontario-poker-traffic-index.html">Traffic Index</a>
+          <a href="../ontario-poker-apps.html">Poker Apps Guide</a>
+          <a href="../which-room-quiz.html">Room Finder Quiz</a>
+        </div>
+      </aside>
+
+    </div><!-- .content-with-sidebar -->
+  </div><!-- .container -->
 </section>
 
-<p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-top:var(--space-4);">See also: <a href="./promo-code.html">Bwin Operator Details &amp; Promo Code Info</a></p>
 </main>
 <footer class="site-footer">
 <div class="container">

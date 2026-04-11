@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,600,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<title>PartyPoker Ontario Guide 2026 | OntarioPoker</title>
-<meta name="description" content="Complete PartyPoker Ontario guide: review, operator details status, bonus terms, and features. Regulated by iGaming Ontario.">
+<title>PartyPoker Ontario 2026 — Network Poker | OntarioPoker</title>
+<meta name="description" content="PartyPoker Ontario rated 3.9/5. Shared BetMGM network tables, SPINS jackpot format, Fast Forward, and cashback rewards.">
 <link rel="canonical" href="https://ontariopoker.com/partypoker/">
 <link rel="alternate" hreflang="en-CA" href="https://ontariopoker.com/partypoker/">
 <link rel="alternate" hreflang="x-default" href="https://ontariopoker.com/partypoker/">
@@ -41,147 +41,57 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 .section{padding:var(--space-6) 0}
 .section--alt{background:var(--section-alt-bg)}
 @media(max-width:899px){.nav-desktop{display:none}.mobile-menu-btn{display:flex}}
-@media(min-width:900px){.mobile-menu-btn{display:none}}/* ── Hero Card Grid & Cards ──────────────────────────────────────── */
-
-.hero-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-  gap: var(--space-4);
-  margin-top: var(--space-6);
-}
-
-.hero-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-left: 4px solid var(--card-accent, var(--color-primary));
-  border-radius: var(--radius-md);
-  padding: var(--space-5);
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 200ms ease, transform 200ms ease;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.hero-card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
-.hero-card-rank {
-  position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-full);
-  background: var(--color-surface-2);
-  border: 2px solid var(--card-accent, var(--color-primary));
-  color: var(--color-text);
-  font-weight: 700;
-  font-size: var(--text-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-}
-
-.hero-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
-  padding-right: var(--space-10);
-}
-
-.hero-card-header h3 {
-  font-size: var(--text-lg);
-  font-weight: 700;
-  margin: 0;
-  line-height: 1.2;
-}
-
-.hero-card-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-full);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  white-space: nowrap;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.hero-card-bonus {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: var(--space-3);
-}
-
-.hero-card-code {
-  margin-bottom: var(--space-3);
-}
-
-.hero-card-features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 var(--space-4) 0;
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  flex-grow: 1;
-}
-
-.hero-card-features li {
-  padding: var(--space-1) 0;
-  padding-left: var(--space-4);
-  position: relative;
-}
-
-.hero-card-features li::before {
-  content: "\2713";
-  position: absolute;
-  left: 0;
-  color: var(--color-success, var(--card-accent, #1A6B3C));
-  font-weight: 700;
-  font-size: var(--text-xs);
-}
-
-.hero-card .btn {
-  margin-bottom: var(--space-2);
-}
-
-.hero-card-review-link {
-  display: block;
-  text-align: center;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-text-muted);
-  text-decoration: none;
-  transition: color 150ms ease;
-}
-
-.hero-card-review-link:hover {
-  color: var(--color-text);
-  text-decoration: underline;
-}
-
-/* Responsive: stack to single column on narrow screens */
-@media (max-width: 640px) {
-  .hero-cards-grid {
-    grid-template-columns: 1fr;
-  }
-}
+@media(min-width:900px){.mobile-menu-btn{display:none}}
+.hero-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:var(--space-4);margin-top:var(--space-6)}
+.hero-card{background:var(--color-surface);border:1px solid var(--color-border);border-left:4px solid var(--card-accent,var(--color-primary));border-radius:var(--radius-md);padding:var(--space-5);box-shadow:var(--shadow-sm);transition:box-shadow 200ms ease,transform 200ms ease;display:flex;flex-direction:column;position:relative}
+.hero-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+@media(max-width:640px){.hero-cards-grid{grid-template-columns:1fr}}
+/* Page-specific layout */
+.content-with-sidebar{display:grid;grid-template-columns:1fr 300px;gap:var(--space-8);align-items:start}
+@media(max-width:899px){.content-with-sidebar{grid-template-columns:1fr}}
+.sidebar{position:sticky;top:80px}
+.sidebar-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5);margin-bottom:var(--space-4)}
+.sidebar-card h3{font-size:var(--text-sm);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-text-muted);margin-bottom:var(--space-3)}
+.sidebar-card a{display:block;padding:var(--space-2) 0;color:var(--color-text);text-decoration:none;font-size:var(--text-sm);border-bottom:1px solid var(--color-border-light)}
+.sidebar-card a:last-child{border-bottom:none}
+.sidebar-card a:hover{color:var(--color-primary)}
+.quick-facts{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5);margin-bottom:var(--space-6)}
+.quick-facts-title{font-size:var(--text-sm);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-text-muted);margin-bottom:var(--space-4)}
+.quick-facts-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)}
+.qf-item{display:flex;flex-direction:column;gap:2px}
+.qf-label{font-size:var(--text-xs);color:var(--color-text-faint);font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+.qf-value{font-size:var(--text-sm);font-weight:600;color:var(--color-text)}
+.rating-stars{color:#f59e0b;font-size:var(--text-sm)}
+.prose h2{font-size:var(--text-lg);font-weight:700;margin:var(--space-8) 0 var(--space-3);letter-spacing:-0.01em}
+.prose h3{font-size:var(--text-base);font-weight:700;margin:var(--space-5) 0 var(--space-2)}
+.prose p{margin-bottom:var(--space-4);color:var(--color-text)}
+.prose ul{margin:0 0 var(--space-4) var(--space-6);color:var(--color-text)}
+.prose ul li{margin-bottom:var(--space-1)}
+.prose ol{margin:0 0 var(--space-4) var(--space-6);color:var(--color-text)}
+.prose ol li{margin-bottom:var(--space-2)}
+.prose a{color:var(--color-primary);text-decoration:underline}
+.author-byline{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) 0;border-top:1px solid var(--color-border-light);border-bottom:1px solid var(--color-border-light);margin-bottom:var(--space-6);font-size:var(--text-sm);color:var(--color-text-muted)}
+.author-avatar{width:36px;height:36px;border-radius:50%;background:var(--color-primary-surface);border:2px solid var(--color-primary);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--text-xs);color:var(--color-primary);flex-shrink:0}
+.faq-item{border-bottom:1px solid var(--color-border-light);padding:var(--space-4) 0}
+.faq-q{font-weight:700;margin-bottom:var(--space-2)}
+.faq-a{color:var(--color-text-muted);font-size:var(--text-sm)}
+.cta-box{background:var(--color-primary-surface);border:1px solid var(--color-primary);border-radius:var(--radius-lg);padding:var(--space-5);text-align:center;margin:var(--space-6) 0}
+.cta-box p{margin-bottom:var(--space-3);font-weight:600}
+.btn-primary{display:inline-block;background:var(--color-primary);color:#fff;padding:var(--space-3) var(--space-6);border-radius:var(--radius-full);font-weight:700;text-decoration:none;font-size:var(--text-sm)}
+.btn-primary:hover{background:var(--color-primary-hover)}
+.agco-notice{background:var(--color-surface-alt);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);font-size:var(--text-xs);color:var(--color-text-muted);margin:var(--space-4) 0}
+.network-table{width:100%;border-collapse:collapse;margin:var(--space-4) 0;font-size:var(--text-sm)}
+.network-table th{background:var(--color-surface-alt);padding:var(--space-2) var(--space-3);text-align:left;font-weight:700;border:1px solid var(--color-border)}
+.network-table td{padding:var(--space-2) var(--space-3);border:1px solid var(--color-border)}
+.network-table tr:nth-child(even) td{background:var(--color-surface-alt)}
 </style>
 <script>(function(){var k='local',s={};try{s=window[k+'Storage']||s}catch(e){}window._ls=s;try{var t=s.getItem?s.getItem('op-theme'):s['op-theme'];if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})()</script>
 <link rel="preload" href="../style.min.css" as="style">
 <link href="../style.min.css" rel="stylesheet">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ontariopoker.com/"}, {"@type": "ListItem", "position": 2, "name": "PartyPoker Ontario"}]}</script>
-<meta property="og:title" content="PartyPoker Ontario Guide 2026 | OntarioPoker">
-<meta property="og:description" content="Complete PartyPoker Ontario guide: review, operator details status, bonus terms, and features. Regulated by iGaming Ontario.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ontariopoker.com/"},{"@type":"ListItem","position":2,"name":"PartyPoker Ontario","item":"https://ontariopoker.com/partypoker/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is PartyPoker Ontario legally regulated?","acceptedAnswer":{"@type":"Answer","text":"Yes. PartyPoker Ontario is operated by ElectraWorks Maple Limited under an operator agreement with iGaming Ontario. It is regulated by the AGCO. You must be 19+ and physically located in Ontario to play."}},{"@type":"Question","name":"Does PartyPoker Ontario share tables with BetMGM Poker and Bwin?","acceptedAnswer":{"@type":"Answer","text":"Yes. PartyPoker Ontario, BetMGM Poker Ontario, and Bwin Ontario all operate under ElectraWorks Maple Limited and share a single player pool for cash games and tournaments. Registering at any of the three gives access to the same tables."}},{"@type":"Question","name":"What is the Fast Forward format at PartyPoker Ontario?","acceptedAnswer":{"@type":"Answer","text":"Fast Forward is PartyPoker's fast-fold cash game. When you fold, you move to a new table immediately, removing wait time between hands. It is available at multiple stakes levels."}},{"@type":"Question","name":"What are SPINS at PartyPoker Ontario?","acceptedAnswer":{"@type":"Answer","text":"SPINS are three-player jackpot sit-and-gos with a randomised prize pool multiplier determined before each game. The format is fast - most games finish within a few minutes. They are available across a range of buy-in levels."}},{"@type":"Question","name":"How does the cashback rewards program work?","acceptedAnswer":{"@type":"Answer","text":"PartyPoker Ontario offers cashback rewards on rake paid in cash games. The rate and structure are set by the operator and visible in the promotions section of the platform. Visit the PartyPoker Ontario site for current cashback details, as amounts cannot be advertised here under AGCO rules."}}]}</script>
+<meta property="og:title" content="PartyPoker Ontario 2026 — Network Poker | OntarioPoker">
+<meta property="og:description" content="PartyPoker Ontario rated 3.9/5. Shared BetMGM network tables, SPINS jackpot format, Fast Forward, and cashback rewards.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ontariopoker.com/partypoker/">
 <meta property="og:site_name" content="OntarioPoker">
@@ -260,8 +170,8 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
           <a href="../is-online-poker-legal-in-ontario.html">Legal Guide</a>
           <a href="../ontario-poker-shared-liquidity.html">Shared Liquidity</a>
           <a href="../ontario-poker-tournament-schedule.html">Tournament Schedule</a>
-<a href="../ontario-poker-tournaments-this-week.html">Tournaments This Week</a>
-<a href="../live-poker-ontario.html">Live Poker Ontario</a>
+          <a href="../ontario-poker-tournaments-this-week.html">Tournaments This Week</a>
+          <a href="../live-poker-ontario.html">Live Poker Ontario</a>
           <a href="../ontario-poker-traffic-index.html">Traffic Index</a>
           <a href="../news.html">News</a>
         </div>
@@ -314,8 +224,8 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
     <a href="../is-online-poker-legal-in-ontario.html">Legal Guide</a>
     <a href="../ontario-poker-shared-liquidity.html">Shared Liquidity</a>
     <a href="../ontario-poker-tournament-schedule.html">Tournament Schedule</a>
-<a href="../ontario-poker-tournaments-this-week.html">Tournaments This Week</a>
-<a href="../live-poker-ontario.html">Live Poker Ontario</a>
+    <a href="../ontario-poker-tournaments-this-week.html">Tournaments This Week</a>
+    <a href="../live-poker-ontario.html">Live Poker Ontario</a>
     <a href="../ontario-poker-traffic-index.html">Traffic Index</a>
     <a href="../news.html">News</a>
   </div>
@@ -325,39 +235,193 @@ a,button,[role="button"],input{transition:color 200ms cubic-bezier(.16,1,.3,1),b
 <section class="page-hero" data-brand="PartyPoker Ontario">
   <div class="container">
     <div class="breadcrumb"><a href="../">Home</a> <span>/</span> <span>PartyPoker Ontario</span></div>
-    <h1>PartyPoker Ontario: Ontario Poker Guide</h1>
-    <p class="page-hero-subtitle">Cashback seekers, fast-fold players, comparison shoppers looking for alternatives</p>
+    <h1>PartyPoker Ontario</h1>
+    <p class="page-hero-subtitle">Rated 3.9/5 &middot; Shared BetMGM network &middot; SPINS and Fast Forward</p>
   </div>
 </section>
 
 <section class="section">
-  <div class="container container--default">
-    <div class="prose">
-      <p>PartyPoker Ontario is operated by ElectraWorks Maple Limited and is a fully regulated Ontario poker room. It scores 3.9/5.0 in our review. Best for: cashback seekers, fast-fold players, comparison shoppers looking for alternatives.</p>
+  <div class="container">
+    <div class="content-with-sidebar">
 
-      <h2>Key Features</h2>
-      <ul><li>Cashback rewards program available</li><li>Fast Forward fast-fold poker</li><li>SPINS jackpot sit-and-gos</li><li>Daily Legends tournament schedule</li><li>Regulated under same entity as Bwin</li></ul>
+      <!-- Main content -->
+      <div class="main-content">
 
-      <h2>Operator Offer Information</h2>
-      <p><span class="badge badge--muted"><span data-nosnippet>Visit operator site for current offers</span></span></p>
-      <p>No registration code is needed. <span style="font-size:var(--text-sm);color:var(--color-text-muted);">Under AGCO rules, specific bonus amounts cannot be advertised outside the operator's own site. Visit the operator directly for current offer details.</span></p>
+        <!-- Author byline -->
+        <div class="author-byline">
+          <div class="author-avatar">AD</div>
+          <div>
+            <span>By <a href="../alex-drummond.html">Alex Drummond</a>, Poker Room Analyst</span>
+            &middot; <span>Updated January 2026</span>
+            &middot; <span>Fact-checked by OntarioPoker editorial team</span>
+          </div>
+        </div>
 
-      <h2>Explore PartyPoker Ontario</h2>
-      <div style="display:grid;gap:var(--space-3);grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));">
-        <a href="review" class="card" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid var(--color-primary);">
-          <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">Full Review</h3>
-          <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">Detailed scoring, pros, cons, and feature breakdown.</p>
-        </a>
-        <a href="promo-code" class="card" style="text-decoration:none;color:inherit;padding:var(--space-4) var(--space-5);border-left:4px solid var(--color-primary);">
-          <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-1);">Offer Registration Details</h3>
-          <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin:0;">Verified bonus terms and code status.</p>
-        </a>
-      </div>
-    </div>
-  </div>
+        <!-- Quick Facts box -->
+        <div class="quick-facts">
+          <div class="quick-facts-title">Quick Facts</div>
+          <div class="quick-facts-grid">
+            <div class="qf-item">
+              <span class="qf-label">Our Rating</span>
+              <span class="qf-value"><span class="rating-stars">&#9733;&#9733;&#9733;&#9734;</span> 3.9 / 5.0</span>
+            </div>
+            <div class="qf-item">
+              <span class="qf-label">Best For</span>
+              <span class="qf-value">Network Poker</span>
+            </div>
+            <div class="qf-item">
+              <span class="qf-label">Legal Entity</span>
+              <span class="qf-value">ElectraWorks Maple Limited</span>
+            </div>
+            <div class="qf-item">
+              <span class="qf-label">Licence</span>
+              <span class="qf-value">iGaming Ontario / AGCO</span>
+            </div>
+            <div class="qf-item">
+              <span class="qf-label">Ontario Launch</span>
+              <span class="qf-value">April 2022</span>
+            </div>
+            <div class="qf-item">
+              <span class="qf-label">Network</span>
+              <span class="qf-value">Shared with BetMGM + Bwin</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="prose">
+
+          <h2>Overview</h2>
+          <p>PartyPoker Ontario is operated by ElectraWorks Maple Limited as agent of iGaming Ontario. The room holds a valid operator agreement with iGaming Ontario and is subject to oversight by the Alcohol and Gaming Commission of Ontario. To play, you must be 19 or older and physically located in Ontario.</p>
+          <p>The PartyPoker brand has been running online poker since 2001 and was among the original major rooms in the industry. The Ontario-regulated product launched in April 2022 as part of the wave of operators that entered when iGaming Ontario opened. PartyPoker Ontario is part of the Entain Group family and shares its Ontario player pool with BetMGM Poker Ontario and Bwin Ontario - all three are operated under the same ElectraWorks Maple Limited entity.</p>
+          <p>The room scores 3.9/5.0 in our full review. Traffic sits below GGPoker and PokerStars, but the network arrangement means the combined PartyPoker/BetMGM/Bwin pool is larger than any of the three brands individually. Key formats include Fast Forward fast-fold cash games, SPINS jackpot sit-and-gos, and a cashback rewards program.</p>
+
+          <h2>Software and Platform Features</h2>
+          <p>PartyPoker Ontario uses the Entain Group's proprietary poker platform, adapted for the Ontario regulated market. Desktop software is available for Windows and Mac. Mobile play is available through the iOS and Android apps. The interface is clean and functional, with tournament lobbies, hand history, and support tools accessible from the main client.</p>
+          <h3>Fast Forward</h3>
+          <p>Fast Forward is PartyPoker's fast-fold cash game format. When you fold, you are immediately transferred to a fresh table with different opponents. This removes the waiting time that standard ring game players experience between hands. Fast Forward tables run at several stake levels for No Limit Hold'em. The format suits players looking to put in volume in limited time, or players who find waiting on opponents tedious.</p>
+          <h3>SPINS</h3>
+          <p>SPINS are three-player jackpot sit-and-gos. Before each game starts, a random multiplier is applied to the prize pool. Standard multipliers produce modest returns, while rare higher multipliers produce large payouts relative to the buy-in. Games complete quickly - typically under ten minutes. SPINS are available at various buy-in levels and are one of PartyPoker's most-played formats globally.</p>
+          <h3>Daily Legends Tournaments</h3>
+          <p>The Daily Legends schedule runs guaranteed tournaments each day across different buy-in levels. Each Legends event has a defined structure and guarantee published in advance. The schedule covers No Limit Hold'em and includes some mixed-game variants depending on the day. These events form the anchor of PartyPoker Ontario's daily tournament programme.</p>
+
+          <h2>The Shared Network Explained</h2>
+          <p>This is the most important thing to understand about PartyPoker Ontario: it shares a player pool with BetMGM Poker Ontario and Bwin Ontario. All three rooms are operated by ElectraWorks Maple Limited under iGaming Ontario's framework. When you sit at a cash table or register for a tournament on PartyPoker Ontario, you are competing against players who registered through any of the three brands.</p>
+          <p>This arrangement has a practical upside. Traffic on any single brand may appear modest, but the combined pool across three brands produces more consistent table fill rates than the individual numbers suggest. Players comparing lobby counts between PartyPoker and GGPoker should be aware that PartyPoker's figures represent only one third of its actual available player pool.</p>
+          <table class="network-table">
+            <thead>
+              <tr>
+                <th>Brand</th>
+                <th>Entity</th>
+                <th>Shared Pool</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PartyPoker Ontario</td>
+                <td>ElectraWorks Maple Limited</td>
+                <td>Yes - PartyPoker/BetMGM/Bwin</td>
+              </tr>
+              <tr>
+                <td>BetMGM Poker Ontario</td>
+                <td>BetMGM Canada Inc.</td>
+                <td>Yes - PartyPoker/BetMGM/Bwin</td>
+              </tr>
+              <tr>
+                <td>Bwin Ontario</td>
+                <td>ElectraWorks Maple Limited</td>
+                <td>Yes - PartyPoker/BetMGM/Bwin</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Note that BetMGM Poker Ontario is technically a separate brand with a different legal entity (BetMGM Canada Inc.) but accesses the same shared liquidity arrangement. For a detailed account comparison between the two most prominent brands in this network, see <a href="../betmgm-vs-partypoker-ontario.html">BetMGM vs PartyPoker Ontario</a>.</p>
+
+          <h2>Cash Games</h2>
+          <p>PartyPoker Ontario's cash game tables cover No Limit Hold'em at micro, low, and mid stakes. Pot Limit Omaha is available at select stakes. Standard ring tables and Fast Forward tables both populate the cash lobby. During peak hours, multiple tables run simultaneously at the popular stake levels. Off-peak, Fast Forward is the most reliable format for avoiding long wait times, since it requires fewer active players to run.</p>
+          <p>The shared player pool with BetMGM Poker and Bwin means that cash game traffic is collectively higher than what any single brand's lobby count would suggest. If you are evaluating tables and notice PartyPoker's numbers appear lower than expected, this is the reason. You are seeing one brand's count, not the network's total.</p>
+
+          <h2>Tournaments</h2>
+          <p>The tournament schedule at PartyPoker Ontario is narrower than PokerStars Ontario's offering but covers the major formats. Daily Legends events run at set times each day with defined buy-ins and guarantees. The schedule includes early, afternoon, and evening start times. SPINS run continuously on demand. Satellites for larger events appear periodically depending on the series calendar.</p>
+          <p>For players who primarily want tournaments rather than cash games, the comparison with GGPoker and PokerStars is relevant. See <a href="../ggpoker-vs-partypoker-ontario.html">GGPoker vs PartyPoker</a> for a structured breakdown of tournament depth across the two rooms.</p>
+
+          <h2>Cashback Rewards</h2>
+          <p>PartyPoker Ontario operates a cashback program for regular players. Cashback is calculated on rake paid in cash games and accrued over rolling periods. The current rate and tier structure are set by the operator and visible within the platform's promotions section. Under AGCO regulations, specific promotional amounts cannot be advertised on third-party sites - visit PartyPoker Ontario directly for current cashback details.</p>
+          <p>Cashback is one of the cleaner ways to receive ongoing value from a poker room, since the return is straightforward rather than subject to playthrough conditions. Players who put in consistent cash game volume will find the cashback structure more meaningful than infrequent tournament players.</p>
+
+          <h2>Getting Started</h2>
+          <p>Registration is completed on the PartyPoker Ontario platform. You must confirm you are 19 or older and physically located in Ontario at the time of play. Have a government-issued ID ready for the verification step, which is required before withdrawals are processed.</p>
+          <ol>
+            <li>Visit PartyPoker Ontario and click "Register."</li>
+            <li>Enter your name, email, date of birth, and Ontario address.</li>
+            <li>Choose a username.</li>
+            <li>Accept the terms and confirm your Ontario location.</li>
+            <li>Download the app or desktop client, or continue via the mobile browser.</li>
+            <li>Complete identity verification when prompted - upload a government-issued ID.</li>
+            <li>Make a deposit using a supported Ontario payment method.</li>
+          </ol>
+          <div class="agco-notice">
+            Under AGCO rules, specific bonus or welcome offer amounts cannot be advertised outside the operator's own site. Visit PartyPoker Ontario directly for current offer details. T&amp;Cs apply. 19+. Play responsibly.
+          </div>
+          <div class="cta-box">
+            <p>Access the shared BetMGM/PartyPoker/Bwin player pool in Ontario.</p>
+            <a href="https://click.ggpartners.com/?serial=886&amp;creative_id=69&amp;anid=" class="btn-primary" target="_blank" rel="noopener noreferrer">Visit PartyPoker Ontario</a>
+          </div>
+
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <div class="faq-q">Is PartyPoker Ontario legally regulated?</div>
+            <div class="faq-a">Yes. It is operated by ElectraWorks Maple Limited under an operator agreement with iGaming Ontario and regulated by the AGCO. You must be 19+ and physically located in Ontario to play.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Does PartyPoker Ontario share tables with BetMGM Poker and Bwin?</div>
+            <div class="faq-a">Yes. All three rooms share a single player pool for cash games and tournaments. Registering at any one of them gives access to the same tables and opponents.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">What is the Fast Forward format?</div>
+            <div class="faq-a">Fast Forward is PartyPoker's fast-fold cash game. When you fold, you move to a new table immediately with different opponents. It is available at multiple stakes levels and suits players looking to increase hands-per-hour.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">What are SPINS?</div>
+            <div class="faq-a">SPINS are three-player jackpot sit-and-gos with a randomised prize pool multiplier determined before each game begins. They are fast-playing and available at several buy-in levels.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">How does the cashback program work?</div>
+            <div class="faq-a">Cashback is earned on rake paid in cash games. The rate and tier structure are published on the PartyPoker Ontario platform. Specific amounts cannot be advertised here under AGCO rules - visit the site directly for current details.</div>
+          </div>
+
+        </div><!-- .prose -->
+      </div><!-- .main-content -->
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <h3>PartyPoker Ontario</h3>
+          <a href="./review.html">Full Review</a>
+          <a href="./promo-code.html">Offer Registration Details</a>
+          <a href="../compare.html">Compare All Rooms</a>
+        </div>
+        <div class="sidebar-card">
+          <h3>Compare PartyPoker</h3>
+          <a href="../betmgm-vs-partypoker-ontario.html">BetMGM vs PartyPoker</a>
+          <a href="../ggpoker-vs-partypoker-ontario.html">GGPoker vs PartyPoker</a>
+        </div>
+        <div class="sidebar-card">
+          <h3>Same Network</h3>
+          <a href="../betmgm-poker/index.html">BetMGM Poker Ontario</a>
+          <a href="../bwin/index.html">Bwin Ontario</a>
+          <a href="../ontario-poker-shared-liquidity.html">How Shared Liquidity Works</a>
+        </div>
+        <div class="sidebar-card">
+          <h3>Other Rooms</h3>
+          <a href="../ggpoker/index.html">GGPoker Ontario</a>
+          <a href="../888poker/index.html">888poker Ontario</a>
+          <a href="../pokerstars/index.html">PokerStars Ontario</a>
+        </div>
+      </aside>
+
+    </div><!-- .content-with-sidebar -->
+  </div><!-- .container -->
 </section>
 
-<p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-top:var(--space-4);">See also: <a href="./promo-code.html">PartyPoker Operator Details &amp; Promo Code Info</a></p>
 </main>
 <footer class="site-footer">
 <div class="container">
